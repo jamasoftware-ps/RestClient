@@ -1,11 +1,11 @@
-package com.jamasoftware.services.restclient.JamaDomain.fields;
+package com.jamasoftware.services.restclient.jamadomain.fields;
 
-import com.jamasoftware.services.restclient.JamaDomain.values.FieldValue;
-import com.jamasoftware.services.restclient.JamaDomain.values.IntegerFieldValue;
+import com.jamasoftware.services.restclient.jamadomain.values.JamaFieldValue;
+import com.jamasoftware.services.restclient.jamadomain.values.IntegerFieldValue;
 
-public class IntegerField extends Field {
+public class IntegerField extends JamaField {
     @Override
-    public FieldValue getValue() {
+    public JamaFieldValue getValue() {
         IntegerFieldValue integerFieldValue = new IntegerFieldValue();
         populateFieldValue(integerFieldValue);
         return integerFieldValue;

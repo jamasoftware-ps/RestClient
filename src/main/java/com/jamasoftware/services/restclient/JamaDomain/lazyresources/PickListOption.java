@@ -1,6 +1,6 @@
-package com.jamasoftware.services.restclient.JamaDomain.lazyresources;
+package com.jamasoftware.services.restclient.jamadomain.lazyresources;
 
-import com.jamasoftware.services.restclient.JamaDomain.JamaDomainObject;
+import com.jamasoftware.services.restclient.jamadomain.JamaDomainObject;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 public class PickListOption extends LazyResource {

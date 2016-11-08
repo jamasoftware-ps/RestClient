@@ -1,6 +1,6 @@
-package com.jamasoftware.services.restclient.JamaDomain.picklists;
+package com.jamasoftware.services.restclient.jamadomain.picklists;
 
-import com.jamasoftware.services.restclient.JamaDomain.JamaDomainObject;
+import com.jamasoftware.services.restclient.jamadomain.JamaDomainObject;
 
 public class PickList implements JamaDomainObject {
 }

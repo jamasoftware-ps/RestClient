@@ -1,11 +1,11 @@
-package com.jamasoftware.services.restclient.JamaDomain.fields;
+package com.jamasoftware.services.restclient.jamadomain.fields;
 
-import com.jamasoftware.services.restclient.JamaDomain.values.FieldValue;
-import com.jamasoftware.services.restclient.JamaDomain.values.TextBoxFieldValue;
+import com.jamasoftware.services.restclient.jamadomain.values.JamaFieldValue;
+import com.jamasoftware.services.restclient.jamadomain.values.TextBoxFieldValue;
 
-public class TextBoxField extends Field {
+public class TextBoxField extends JamaField {
     @Override
-    public FieldValue getValue() {
+    public JamaFieldValue getValue() {
         TextBoxFieldValue textBoxFieldValue = new TextBoxFieldValue();
         populateFieldValue(textBoxFieldValue);
         return textBoxFieldValue;

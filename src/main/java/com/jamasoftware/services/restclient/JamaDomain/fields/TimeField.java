@@ -1,9 +1,8 @@
-package com.jamasoftware.services.restclient.JamaDomain.fields;
+package com.jamasoftware.services.restclient.jamadomain.fields;
 
-import com.jamasoftware.services.restclient.JamaDomain.values.FieldValue;
-import com.jamasoftware.services.restclient.JamaDomain.values.TimeFieldValue;
+import com.jamasoftware.services.restclient.jamadomain.values.TimeFieldValue;
 
-public class TimeField extends Field {
+public class TimeField extends JamaField {
     @Override
     public TimeFieldValue getValue() {
         TimeFieldValue timeFieldValue = new TimeFieldValue();

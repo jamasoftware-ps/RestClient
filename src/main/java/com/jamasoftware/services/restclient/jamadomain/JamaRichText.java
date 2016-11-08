@@ -1,6 +1,6 @@
-package com.jamasoftware.services.restclient.JamaDomain;
+package com.jamasoftware.services.restclient.jamadomain;
 
-public class RichText {
+public class JamaRichText {
     private String value;
 
     public String getValue() {

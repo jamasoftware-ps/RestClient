@@ -1,4 +1,4 @@
-package com.jamasoftware.services.restclient.JamaDomain.values;
+package com.jamasoftware.services.restclient.jamadomain.values;
 
 import com.jamasoftware.services.restclient.exception.RestClientException;
 import com.jamasoftware.services.restclient.util.DateUtil;
@@ -6,7 +6,7 @@ import com.jamasoftware.services.restclient.util.DateUtil;
 import java.text.ParseException;
 import java.util.Date;
 
-public class DateFieldValue extends FieldValue {
+public class DateFieldValue extends JamaFieldValue {
     private Date value;
 
     @Override

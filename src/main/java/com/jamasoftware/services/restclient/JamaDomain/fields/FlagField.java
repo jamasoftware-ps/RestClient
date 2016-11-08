@@ -1,11 +1,11 @@
-package com.jamasoftware.services.restclient.JamaDomain.fields;
+package com.jamasoftware.services.restclient.jamadomain.fields;
 
-import com.jamasoftware.services.restclient.JamaDomain.values.FieldValue;
-import com.jamasoftware.services.restclient.JamaDomain.values.FlagFieldValue;
+import com.jamasoftware.services.restclient.jamadomain.values.JamaFieldValue;
+import com.jamasoftware.services.restclient.jamadomain.values.FlagFieldValue;
 
-public class FlagField extends Field {
+public class FlagField extends JamaField {
     @Override
-    public FieldValue getValue() {
+    public JamaFieldValue getValue() {
         FlagFieldValue flagFieldValue = new FlagFieldValue();
         populateFieldValue(flagFieldValue);
         return flagFieldValue;

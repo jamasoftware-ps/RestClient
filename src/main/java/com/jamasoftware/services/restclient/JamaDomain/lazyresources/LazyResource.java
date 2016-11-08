@@ -1,9 +1,8 @@
-package com.jamasoftware.services.restclient.JamaDomain.lazyresources;
+package com.jamasoftware.services.restclient.jamadomain.lazyresources;
 
-import com.jamasoftware.services.restclient.JamaDomain.JamaDomainObject;
-import com.jamasoftware.services.restclient.JamaDomain.JamaInstance;
+import com.jamasoftware.services.restclient.jamadomain.JamaDomainObject;
+import com.jamasoftware.services.restclient.jamadomain.JamaInstance;
 import com.jamasoftware.services.restclient.exception.RestClientException;
-import com.jamasoftware.services.restclient.exception.UnexpectedJamaResponseException;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 public abstract class LazyResource implements JamaDomainObject {

@@ -1,4 +1,4 @@
-package com.jamasoftware.services.restclient.JamaDomain;
+package com.jamasoftware.services.restclient.jamadomain;
 
 public interface SerializableJamaDomainObject extends JamaDomainObject {
 }

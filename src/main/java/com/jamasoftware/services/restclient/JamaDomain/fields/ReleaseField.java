@@ -1,11 +1,11 @@
-package com.jamasoftware.services.restclient.JamaDomain.fields;
+package com.jamasoftware.services.restclient.jamadomain.fields;
 
-import com.jamasoftware.services.restclient.JamaDomain.values.FieldValue;
-import com.jamasoftware.services.restclient.JamaDomain.values.ReleaseFieldValue;
+import com.jamasoftware.services.restclient.jamadomain.values.JamaFieldValue;
+import com.jamasoftware.services.restclient.jamadomain.values.ReleaseFieldValue;
 
-public class ReleaseField extends Field {
+public class ReleaseField extends JamaField {
     @Override
-    public FieldValue getValue() {
+    public JamaFieldValue getValue() {
         ReleaseFieldValue releaseFieldValue = new ReleaseFieldValue();
         populateFieldValue(releaseFieldValue);
         return releaseFieldValue;

@@ -1,8 +1,8 @@
-package com.jamasoftware.services.restclient.JamaDomain.values;
+package com.jamasoftware.services.restclient.jamadomain.values;
 
 import com.jamasoftware.services.restclient.exception.RestClientException;
 
-public class FlagFieldValue extends FieldValue {
+public class FlagFieldValue extends JamaFieldValue {
     private Boolean value;
 
     public Boolean getValue() {

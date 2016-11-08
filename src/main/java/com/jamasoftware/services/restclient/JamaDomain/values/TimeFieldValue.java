@@ -1,9 +1,9 @@
-package com.jamasoftware.services.restclient.JamaDomain.values;
+package com.jamasoftware.services.restclient.jamadomain.values;
 
 import com.jamasoftware.services.restclient.exception.RestClientException;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
-public class TimeFieldValue extends FieldValue {
+public class TimeFieldValue extends JamaFieldValue {
     @Override
     // todo: something better
     public Object getValue() {

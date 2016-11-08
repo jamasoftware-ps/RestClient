@@ -1,8 +1,8 @@
-package com.jamasoftware.services.restclient.JamaDomain.values;
+package com.jamasoftware.services.restclient.jamadomain.values;
 
 import com.jamasoftware.services.restclient.exception.RestClientException;
 
-public class URLFieldValue extends FieldValue {
+public class URLFieldValue extends JamaFieldValue {
     private String value;
 
     @Override

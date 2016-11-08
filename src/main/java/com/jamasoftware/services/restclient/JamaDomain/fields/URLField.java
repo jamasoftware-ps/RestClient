@@ -1,11 +1,11 @@
-package com.jamasoftware.services.restclient.JamaDomain.fields;
+package com.jamasoftware.services.restclient.jamadomain.fields;
 
-import com.jamasoftware.services.restclient.JamaDomain.values.FieldValue;
-import com.jamasoftware.services.restclient.JamaDomain.values.URLFieldValue;
+import com.jamasoftware.services.restclient.jamadomain.values.JamaFieldValue;
+import com.jamasoftware.services.restclient.jamadomain.values.URLFieldValue;
 
-public class URLField extends Field {
+public class URLField extends JamaField {
     @Override
-    public FieldValue getValue() {
+    public JamaFieldValue getValue() {
         URLFieldValue urlFieldValue = new URLFieldValue();
         populateFieldValue(urlFieldValue);
         return urlFieldValue;

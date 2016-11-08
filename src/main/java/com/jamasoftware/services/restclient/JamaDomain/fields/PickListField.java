@@ -1,10 +1,10 @@
-package com.jamasoftware.services.restclient.JamaDomain.fields;
+package com.jamasoftware.services.restclient.jamadomain.fields;
 
-import com.jamasoftware.services.restclient.JamaDomain.picklists.PickList;
-import com.jamasoftware.services.restclient.JamaDomain.values.FieldValue;
-import com.jamasoftware.services.restclient.JamaDomain.values.PickListFieldValue;
+import com.jamasoftware.services.restclient.jamadomain.picklists.PickList;
+import com.jamasoftware.services.restclient.jamadomain.values.JamaFieldValue;
+import com.jamasoftware.services.restclient.jamadomain.values.PickListFieldValue;
 
-public class PickListField extends Field {
+public class PickListField extends JamaField {
     private int picklistId;
     private PickList pickList;
 
@@ -25,7 +25,7 @@ public class PickListField extends Field {
     }
 
     @Override
-    public FieldValue getValue() {
+    public JamaFieldValue getValue() {
         PickListFieldValue pickListFieldValue = new PickListFieldValue();
         populateFieldValue(pickListFieldValue);
         return pickListFieldValue;

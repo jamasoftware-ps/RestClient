@@ -1,8 +1,8 @@
-package com.jamasoftware.services.restclient.JamaDomain.fields;
+package com.jamasoftware.services.restclient.jamadomain.fields;
 
-import com.jamasoftware.services.restclient.JamaDomain.values.TestCaseStatusFieldValue;
+import com.jamasoftware.services.restclient.jamadomain.values.TestCaseStatusFieldValue;
 
-public class TestCaseStatusField extends Field {
+public class TestCaseStatusField extends JamaField {
     @Override
     public TestCaseStatusFieldValue getValue() {
         TestCaseStatusFieldValue testCaseStatusFieldValue = new TestCaseStatusFieldValue();

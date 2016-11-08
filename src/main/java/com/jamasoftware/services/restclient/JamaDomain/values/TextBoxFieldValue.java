@@ -1,8 +1,8 @@
-package com.jamasoftware.services.restclient.JamaDomain.values;
+package com.jamasoftware.services.restclient.jamadomain.values;
 
 import com.jamasoftware.services.restclient.exception.RestClientException;
 
-public class TextBoxFieldValue extends FieldValue {
+public class TextBoxFieldValue extends JamaFieldValue {
     private String value;
 
     @Override

@@ -1,9 +1,9 @@
-package com.jamasoftware.services.restclient.JamaDomain.values;
+package com.jamasoftware.services.restclient.jamadomain.values;
 
-import com.jamasoftware.services.restclient.JamaDomain.lazyresources.PickListOption;
+import com.jamasoftware.services.restclient.jamadomain.lazyresources.PickListOption;
 import com.jamasoftware.services.restclient.exception.RestClientException;
 
-public class PickListFieldValue extends FieldValue {
+public class PickListFieldValue extends JamaFieldValue {
     private PickListOption value;
 
     @Override

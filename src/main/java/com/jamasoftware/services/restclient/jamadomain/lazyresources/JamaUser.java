@@ -1,9 +1,9 @@
-package com.jamasoftware.services.restclient.JamaDomain.lazyresources;
+package com.jamasoftware.services.restclient.jamadomain.lazyresources;
 
-import com.jamasoftware.services.restclient.JamaDomain.JamaDomainObject;
+import com.jamasoftware.services.restclient.jamadomain.JamaDomainObject;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
-public class User extends LazyResource {
+public class JamaUser extends LazyResource {
     @Override
     protected String getResourceUrl() {
         throw new NotImplementedException();

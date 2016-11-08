@@ -1,32 +1,30 @@
-package com.jamasoftware.services.restclient.JamaDomain.lazyresources;
+package com.jamasoftware.services.restclient.jamadomain.lazyresources;
 
-import com.jamasoftware.services.restclient.JamaDomain.JamaDomainObject;
-import com.jamasoftware.services.restclient.JamaDomain.JamaInstance;
-import com.jamasoftware.services.restclient.JamaDomain.Location;
-import com.jamasoftware.services.restclient.JamaDomain.values.FieldValue;
-import com.jamasoftware.services.restclient.JamaDomain.values.RichTextFieldValue;
-import com.jamasoftware.services.restclient.JamaDomain.values.TextFieldValue;
-import com.jamasoftware.services.restclient.exception.RestClientException;
+import com.jamasoftware.services.restclient.jamadomain.JamaDomainObject;
+import com.jamasoftware.services.restclient.jamadomain.JamaLocation;
+import com.jamasoftware.services.restclient.jamadomain.values.JamaFieldValue;
+import com.jamasoftware.services.restclient.jamadomain.values.RichTextFieldValue;
+import com.jamasoftware.services.restclient.jamadomain.values.TextFieldValue;
 import com.jamasoftware.services.restclient.exception.UnexpectedJamaResponseException;
 
 import java.util.Date;
 import java.util.List;
 
-public class Item extends LazyResource {
+public class JamaItem extends LazyResource {
     private TextFieldValue name;
     private RichTextFieldValue description;
     private String globalId;
     private String documentKey;
-    private Project project;
-    private ItemType itemType;
-    private ItemType childItemType;
+    private JamaProject project;
+    private JamaItemType itemType;
+    private JamaItemType childItemType;
     private Date createdDate;
     private Date modifiedDate;
     private Date lastActivityDate;
-    private User createdBy;
-    private User modifiedBy;
-    private Location location;
-    private List<FieldValue> fieldValues;
+    private JamaUser createdBy;
+    private JamaUser modifiedBy;
+    private JamaLocation location;
+    private List<JamaFieldValue> fieldValues;
 
     @Override
     protected String getResourceUrl() {
@@ -35,10 +33,10 @@ public class Item extends LazyResource {
 
     @Override
     protected void copyContentFrom(JamaDomainObject jamaDomainObject) {
-        if (!(jamaDomainObject instanceof Item)) {
-            throw new UnexpectedJamaResponseException("Expecting an Item from the Jama server. Instead, got: " + jamaDomainObject);
+        if (!(jamaDomainObject instanceof JamaItem)) {
+            throw new UnexpectedJamaResponseException("Expecting an JamaItem from the Jama server. Instead, got: " + jamaDomainObject);
         }
-        Item item = (Item) jamaDomainObject;
+        JamaItem item = (JamaItem) jamaDomainObject;
 
         name = item.name;
         description = item.description;
@@ -83,66 +81,66 @@ public class Item extends LazyResource {
         this.globalId = globalId;
     }
 
-    public Project getProject() {
+    public JamaProject getProject() {
         fetch();
         return project;
     }
 
-    public void setProject(Project project) {
+    public void setProject(JamaProject project) {
         this.project = project;
     }
 
-    public ItemType getItemType() {
+    public JamaItemType getItemType() {
         fetch();
         return itemType;
     }
 
-    public void setItemType(ItemType itemType) {
+    public void setItemType(JamaItemType itemType) {
         this.itemType = itemType;
     }
 
-    public ItemType getChildItemType() {
+    public JamaItemType getChildItemType() {
         fetch();
         return childItemType;
     }
 
-    public void setChildItemType(ItemType childItemType) {
+    public void setChildItemType(JamaItemType childItemType) {
         this.childItemType = childItemType;
     }
 
-    public User getCreatedBy() {
+    public JamaUser getCreatedBy() {
         fetch();
         return createdBy;
     }
 
-    public void setCreatedBy(User createdBy) {
+    public void setCreatedBy(JamaUser createdBy) {
         this.createdBy = createdBy;
     }
 
-    public User getModifiedBy() {
+    public JamaUser getModifiedBy() {
         fetch();
         return modifiedBy;
     }
 
-    public void setModifiedBy(User modifiedBy) {
+    public void setModifiedBy(JamaUser modifiedBy) {
         this.modifiedBy = modifiedBy;
     }
 
-    public Location getLocation() {
+    public JamaLocation getLocation() {
         fetch();
         return location;
     }
 
-    public void setLocation(Location location) {
+    public void setLocation(JamaLocation location) {
         this.location = location;
     }
 
-    public List<FieldValue> getFieldValues() {
+    public List<JamaFieldValue> getFieldValues() {
         fetch();
         return fieldValues;
     }
 
-    public void setFieldValues(List<FieldValue> fieldValues) {
+    public void setFieldValues(List<JamaFieldValue> fieldValues) {
         this.fieldValues = fieldValues;
     }
 

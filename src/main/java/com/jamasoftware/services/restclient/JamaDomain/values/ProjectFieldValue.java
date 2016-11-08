@@ -1,10 +1,10 @@
-package com.jamasoftware.services.restclient.JamaDomain.values;
+package com.jamasoftware.services.restclient.jamadomain.values;
 
-import com.jamasoftware.services.restclient.JamaDomain.lazyresources.Project;
+import com.jamasoftware.services.restclient.jamadomain.lazyresources.JamaProject;
 import com.jamasoftware.services.restclient.exception.RestClientException;
 
-public class ProjectFieldValue extends FieldValue {
-    private Project value;
+public class ProjectFieldValue extends JamaFieldValue {
+    private JamaProject value;
 
     @Override
     public Object getValue() {
@@ -18,7 +18,7 @@ public class ProjectFieldValue extends FieldValue {
             return;
         }
         int projectId = Integer.valueOf(value);
-        this.value = new Project();
+        this.value = new JamaProject();
         this.value.associate(projectId, getJamaInstance());
     }
 }

@@ -1,13 +1,13 @@
-package com.jamasoftware.services.restclient.JamaDomain.values;
+package com.jamasoftware.services.restclient.jamadomain.values;
 
-import com.jamasoftware.services.restclient.JamaDomain.lazyresources.User;
+import com.jamasoftware.services.restclient.jamadomain.lazyresources.JamaUser;
 import com.jamasoftware.services.restclient.exception.RestClientException;
 
-public class UserFieldValue extends FieldValue {
-    private User value;
+public class UserFieldValue extends JamaFieldValue {
+    private JamaUser value;
 
     @Override
-    public User getValue() {
+    public JamaUser getValue() {
         return value;
     }
 
@@ -18,7 +18,7 @@ public class UserFieldValue extends FieldValue {
             return;
         }
         int userId = Integer.valueOf(value);
-        this.value = new User();
+        this.value = new JamaUser();
         this.value.associate(userId, getJamaInstance());
     }
 }

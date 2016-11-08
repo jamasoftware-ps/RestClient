@@ -1,8 +1,8 @@
-package com.jamasoftware.services.restclient.JamaDomain.values;
+package com.jamasoftware.services.restclient.jamadomain.values;
 
 import com.jamasoftware.services.restclient.exception.RestClientException;
 
-public class TestCaseStatusFieldValue extends FieldValue {
+public class TestCaseStatusFieldValue extends JamaFieldValue {
     private String value;
 
     public String getValue() {

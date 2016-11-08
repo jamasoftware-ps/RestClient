@@ -1,9 +1,9 @@
-package com.jamasoftware.services.restclient.JamaDomain.values;
+package com.jamasoftware.services.restclient.jamadomain.values;
 
-import com.jamasoftware.services.restclient.JamaDomain.JamaInstance;
+import com.jamasoftware.services.restclient.jamadomain.JamaInstance;
 import com.jamasoftware.services.restclient.exception.RestClientException;
 
-public abstract class FieldValue {
+public abstract class JamaFieldValue {
     private JamaInstance jamaInstance;
     private String name;
     private String label;
@@ -34,5 +34,10 @@ public abstract class FieldValue {
 
     public void setJamaInstance(JamaInstance jamaInstance) {
         this.jamaInstance = jamaInstance;
+    }
+
+    @Override
+    public String toString() {
+        return getValue().toString();
     }
 }

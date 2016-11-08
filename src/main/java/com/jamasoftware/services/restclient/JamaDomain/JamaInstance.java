@@ -1,9 +1,9 @@
-package com.jamasoftware.services.restclient.JamaDomain;
+package com.jamasoftware.services.restclient.jamadomain;
 
 import com.jamasoftware.services.restclient.JamaConfig;
-import com.jamasoftware.services.restclient.JamaDomain.lazyresources.Item;
-import com.jamasoftware.services.restclient.JamaDomain.lazyresources.ItemType;
-import com.jamasoftware.services.restclient.JamaDomain.lazyresources.Project;
+import com.jamasoftware.services.restclient.jamadomain.lazyresources.JamaItem;
+import com.jamasoftware.services.restclient.jamadomain.lazyresources.JamaItemType;
+import com.jamasoftware.services.restclient.jamadomain.lazyresources.JamaProject;
 import com.jamasoftware.services.restclient.exception.RestClientException;
 import com.jamasoftware.services.restclient.jamaclient.JamaClient;
 
@@ -16,7 +16,7 @@ public class JamaInstance implements JamaDomainObject {
     private JamaConfig jamaConfig;
 
     // todo encapsulate this
-    private HashMap<Integer, ItemType> itemTypeMap = new HashMap<>();
+    private HashMap<Integer, JamaItemType> itemTypeMap = new HashMap<>();
 
     public JamaInstance(JamaConfig jamaConfig) {
         this.jamaConfig = jamaConfig;
@@ -41,18 +41,18 @@ public class JamaInstance implements JamaDomainObject {
         }
     }
 
-    public Project getProject(int id) {
-        Project project = new Project();
+    public JamaProject getProject(int id) {
+        JamaProject project = new JamaProject();
         project.associate(id, this);
         return project;
     }
 
-    public List<Project> getProjects() {
-        List<Project> projects = new ArrayList<>();
+    public List<JamaProject> getProjects() {
+        List<JamaProject> projects = new ArrayList<>();
         try {
             List<JamaDomainObject> jamaDomainObjects = jamaClient.getAll(jamaConfig.getBaseUrl() + "projects", this);
             for(JamaDomainObject jamaDomainObject : jamaDomainObjects) {
-                Project project = (Project) jamaDomainObject;
+                JamaProject project = (JamaProject) jamaDomainObject;
                 projects.add(project);
             }
         } catch (RestClientException e) {
@@ -61,16 +61,16 @@ public class JamaInstance implements JamaDomainObject {
         return projects;
     }
 
-    private void addItemType(ItemType itemType) {
+    private void addItemType(JamaItemType itemType) {
         itemTypeMap.put(itemType.getId(), itemType);
     }
 
-    public List<ItemType> getItemTypes() {
-        List<ItemType> itemTypes = new ArrayList<>();
+    public List<JamaItemType> getItemTypes() {
+        List<JamaItemType> itemTypes = new ArrayList<>();
         try {
             List<JamaDomainObject> jamaDomainObjects = jamaClient.getAll(jamaConfig.getBaseUrl() + "itemtypes", this);
             for(JamaDomainObject jamaDomainObject : jamaDomainObjects) {
-                ItemType itemType = (ItemType)jamaDomainObject;
+                JamaItemType itemType = (JamaItemType)jamaDomainObject;
                 itemTypes.add(itemType);
                 itemTypeMap.put(itemType.getId(), itemType);
             }
@@ -80,16 +80,16 @@ public class JamaInstance implements JamaDomainObject {
         return itemTypes;
     }
 
-    public ItemType getItemType(int id) {
-        ItemType itemType = new ItemType();
+    public JamaItemType getItemType(int id) {
+        JamaItemType itemType = new JamaItemType();
         itemType.associate(id, this);
         return itemType;
     }
 
-    public ItemType getItemType(String name) throws RestClientException {
+    public JamaItemType getItemType(String name) throws RestClientException {
         getItemTypes();
-        ItemType found = null;
-        for(ItemType itemType : itemTypeMap.values()) {
+        JamaItemType found = null;
+        for(JamaItemType itemType : itemTypeMap.values()) {
             if(name.equals(itemType.getDisplay())) {
                 if(found != null) {
                     throw new RestClientException("Multiple ItemTypes with the display: " + name);
@@ -100,10 +100,14 @@ public class JamaInstance implements JamaDomainObject {
         return found;
     }
 
-    public Item getItem(int id) {
-        Item item = new Item();
+    public JamaItem getItem(int id) {
+        JamaItem item = new JamaItem();
         item.associate(id, this);
         return item;
+    }
+
+    public void ping() throws RestClientException {
+        jamaClient.ping();
     }
 
 }

@@ -2,7 +2,7 @@ package com.jamasoftware.services.restclient;
 
 import com.jamasoftware.services.restclient.httpconnection.ApacheHttpClient;
 import com.jamasoftware.services.restclient.httpconnection.HttpClient;
-import com.jamasoftware.services.restclient.json.Json;
+import com.jamasoftware.services.restclient.json.JsonSerializerDeserializer;
 import com.jamasoftware.services.restclient.json.SimpleJson;
 
 import java.io.FileInputStream;
@@ -13,7 +13,7 @@ public class JamaConfig {
     private String baseUrl;
     private String username;
     private String password;
-    private Json json;
+    private JsonSerializerDeserializer json;
     private HttpClient httpClient;
 
     public JamaConfig() {
@@ -65,11 +65,11 @@ public class JamaConfig {
         this.password = password;
     }
 
-    public Json getJson() {
+    public JsonSerializerDeserializer getJson() {
         return json;
     }
 
-    public void setJson(Json json) {
+    public void setJson(JsonSerializerDeserializer json) {
         this.json = json;
     }
 

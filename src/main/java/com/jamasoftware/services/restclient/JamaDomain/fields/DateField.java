@@ -1,11 +1,11 @@
-package com.jamasoftware.services.restclient.JamaDomain.fields;
+package com.jamasoftware.services.restclient.jamadomain.fields;
 
-import com.jamasoftware.services.restclient.JamaDomain.values.DateFieldValue;
-import com.jamasoftware.services.restclient.JamaDomain.values.FieldValue;
+import com.jamasoftware.services.restclient.jamadomain.values.DateFieldValue;
+import com.jamasoftware.services.restclient.jamadomain.values.JamaFieldValue;
 
-public class DateField extends Field {
+public class DateField extends JamaField {
     @Override
-    public FieldValue getValue() {
+    public JamaFieldValue getValue() {
         DateFieldValue dateFieldValue = new DateFieldValue();
         populateFieldValue(dateFieldValue);
         return dateFieldValue;

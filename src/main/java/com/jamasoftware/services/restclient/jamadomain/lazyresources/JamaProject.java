@@ -1,23 +1,21 @@
-package com.jamasoftware.services.restclient.JamaDomain.lazyresources;
+package com.jamasoftware.services.restclient.jamadomain.lazyresources;
 
-import com.jamasoftware.services.restclient.JamaDomain.JamaDomainObject;
-import com.jamasoftware.services.restclient.JamaDomain.values.FieldValue;
+import com.jamasoftware.services.restclient.jamadomain.JamaDomainObject;
 import com.jamasoftware.services.restclient.exception.UnexpectedJamaResponseException;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class Project extends LazyResource {
+public class JamaProject extends LazyResource {
     private String projectKey;
     private String name;
     private String description;
     private boolean isFolder;
     private Date createdDate;
     private Date modifiedDate;
-    private User createdBy;
-    private User modifiedBy;
+    private JamaUser createdBy;
+    private JamaUser modifiedBy;
 
     @Override
     protected String getResourceUrl() {
@@ -26,10 +24,10 @@ public class Project extends LazyResource {
 
     @Override
     protected void copyContentFrom(JamaDomainObject jamaDomainObject) {
-        if (!(jamaDomainObject instanceof Project)) {
-            throw new UnexpectedJamaResponseException("Expecting a Project from the Jama server. Instead, got: " + jamaDomainObject);
+        if (!(jamaDomainObject instanceof JamaProject)) {
+            throw new UnexpectedJamaResponseException("Expecting a JamaProject from the Jama server. Instead, got: " + jamaDomainObject);
         }
-        Project project = (Project) jamaDomainObject;
+        JamaProject project = (JamaProject) jamaDomainObject;
 
         projectKey = project.projectKey;
         name = project.name;
@@ -77,7 +75,7 @@ public class Project extends LazyResource {
         isFolder = folder;
     }
 
-    public User getCreatedBy() {
+    public JamaUser getCreatedBy() {
         fetch();
         return createdBy;
     }
@@ -100,24 +98,24 @@ public class Project extends LazyResource {
         this.modifiedDate = modifiedDate;
     }
 
-    public void setCreatedBy(User createdBy) {
+    public void setCreatedBy(JamaUser createdBy) {
         this.createdBy = createdBy;
     }
 
-    public User getModifiedBy() {
+    public JamaUser getModifiedBy() {
         fetch();
         return modifiedBy;
     }
 
-    public void setModifiedBy(User modifiedBy) {
+    public void setModifiedBy(JamaUser modifiedBy) {
         this.modifiedBy = modifiedBy;
     }
 
-    public List<Item> getItems() {
+    public List<JamaItem> getItems() {
         List<JamaDomainObject> objects = getJamaInstance().getAll("items?project=" + getId());
-        List<Item> items = new ArrayList<>();
+        List<JamaItem> items = new ArrayList<>();
         for(JamaDomainObject object : objects) {
-            items.add((Item)object);
+            items.add((JamaItem)object);
         }
         return items;
     }

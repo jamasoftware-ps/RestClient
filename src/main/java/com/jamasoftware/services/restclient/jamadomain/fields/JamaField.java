@@ -1,10 +1,10 @@
-package com.jamasoftware.services.restclient.JamaDomain.fields;
+package com.jamasoftware.services.restclient.jamadomain.fields;
 
-import com.jamasoftware.services.restclient.JamaDomain.JamaInstance;
-import com.jamasoftware.services.restclient.JamaDomain.SerializableJamaDomainObject;
-import com.jamasoftware.services.restclient.JamaDomain.values.FieldValue;
+import com.jamasoftware.services.restclient.jamadomain.JamaInstance;
+import com.jamasoftware.services.restclient.jamadomain.SerializableJamaDomainObject;
+import com.jamasoftware.services.restclient.jamadomain.values.JamaFieldValue;
 
-public abstract class Field implements SerializableJamaDomainObject {
+public abstract class JamaField implements SerializableJamaDomainObject {
     private JamaInstance jamaInstance;
 
     private int id;
@@ -15,7 +15,7 @@ public abstract class Field implements SerializableJamaDomainObject {
     private boolean triggerSuspect;
     private boolean synchronize;
 
-    public abstract FieldValue getValue();
+    public abstract JamaFieldValue getValue();
 
 
     public JamaInstance getJamaInstance() {
@@ -86,7 +86,7 @@ public abstract class Field implements SerializableJamaDomainObject {
         this.synchronize = synchronize;
     }
 
-    protected void populateFieldValue(FieldValue fieldValue) {
+    protected void populateFieldValue(JamaFieldValue fieldValue) {
         fieldValue.setJamaInstance(jamaInstance);
         fieldValue.setName(name);
         fieldValue.setLabel(label);

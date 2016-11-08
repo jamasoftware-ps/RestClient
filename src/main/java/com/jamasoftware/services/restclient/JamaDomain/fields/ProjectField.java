@@ -1,7 +1,7 @@
-package com.jamasoftware.services.restclient.JamaDomain.fields;
-import com.jamasoftware.services.restclient.JamaDomain.values.ProjectFieldValue;
+package com.jamasoftware.services.restclient.jamadomain.fields;
+import com.jamasoftware.services.restclient.jamadomain.values.ProjectFieldValue;
 
-public class ProjectField extends Field {
+public class ProjectField extends JamaField {
     @Override
     public ProjectFieldValue getValue() {
         ProjectFieldValue projectFieldValue = new ProjectFieldValue();

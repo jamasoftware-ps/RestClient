@@ -1,10 +1,8 @@
-package com.jamasoftware.services.restclient.JamaDomain.lazyresources;
+package com.jamasoftware.services.restclient.jamadomain.lazyresources;
 
-import com.jamasoftware.services.restclient.JamaDomain.JamaDomainObject;
-import com.jamasoftware.services.restclient.JamaDomain.JamaInstance;
-import com.jamasoftware.services.restclient.JamaDomain.SerializableJamaDomainObject;
-import com.jamasoftware.services.restclient.JamaDomain.fields.Field;
-import com.jamasoftware.services.restclient.exception.RestClientException;
+import com.jamasoftware.services.restclient.jamadomain.JamaDomainObject;
+import com.jamasoftware.services.restclient.jamadomain.JamaInstance;
+import com.jamasoftware.services.restclient.jamadomain.fields.JamaField;
 import com.jamasoftware.services.restclient.exception.UnexpectedJamaResponseException;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
@@ -12,12 +10,12 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ItemType extends LazyResource {
+public class JamaItemType extends LazyResource {
     private String typeKey;
     private String display;
     private String displayPlural;
     private String imageURL;
-    private List<Field> fields = new ArrayList<>();
+    private List<JamaField> fields = new ArrayList<>();
     private File image;
 
     @Override
@@ -27,10 +25,10 @@ public class ItemType extends LazyResource {
 
     @Override
     protected void copyContentFrom(JamaDomainObject jamaDomainObject) {
-        if (!(jamaDomainObject instanceof ItemType)) {
-            throw new UnexpectedJamaResponseException("Expecting an Item Type from the Jama server. Instead, got: " + jamaDomainObject);
+        if (!(jamaDomainObject instanceof JamaItemType)) {
+            throw new UnexpectedJamaResponseException("Expecting an JamaItem Type from the Jama server. Instead, got: " + jamaDomainObject);
         }
-        ItemType itemType = (ItemType) jamaDomainObject;
+        JamaItemType itemType = (JamaItemType) jamaDomainObject;
 
         typeKey = itemType.typeKey;
         display = itemType.display;
@@ -42,7 +40,7 @@ public class ItemType extends LazyResource {
     @Override
     public void associate(int id, JamaInstance jamaInstance) {
         super.associate(id, jamaInstance);
-        for(Field field : fields) {
+        for(JamaField field : fields) {
             field.setJamaInstance(jamaInstance);
         }
     }
@@ -93,12 +91,12 @@ public class ItemType extends LazyResource {
         this.imageURL = imageURL;
     }
 
-    public List<Field> getFields() {
+    public List<JamaField> getFields() {
         fetch();
         return fields;
     }
 
-    public void setFields(List<Field> fields) {
+    public void setFields(List<JamaField> fields) {
         this.fields = fields;
     }
 }

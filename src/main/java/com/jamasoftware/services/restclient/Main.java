@@ -1,8 +1,8 @@
 package com.jamasoftware.services.restclient;
 
-import com.jamasoftware.services.restclient.JamaDomain.lazyresources.Item;
-import com.jamasoftware.services.restclient.JamaDomain.JamaInstance;
-import com.jamasoftware.services.restclient.JamaDomain.lazyresources.Project;
+import com.jamasoftware.services.restclient.jamadomain.lazyresources.JamaItem;
+import com.jamasoftware.services.restclient.jamadomain.JamaInstance;
+import com.jamasoftware.services.restclient.jamadomain.lazyresources.JamaProject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,10 +12,14 @@ public class Main {
 
         try {
             JamaInstance jamaInstance = new JamaInstance(new JamaConfig(true));
-            List<Project> projects = jamaInstance.getProjects();
-            List<Item> items = new ArrayList<>();
-            for(Project project : projects) {
+            jamaInstance.ping();
+            List<JamaProject> projects = jamaInstance.getProjects();
+            List<JamaItem> items = new ArrayList<>();
+            for(JamaProject project : projects) {
                 items.addAll(project.getItems());
+            }
+            for(JamaItem item : items) {
+                System.out.println(item.getName());
             }
             System.out.println("done");
 

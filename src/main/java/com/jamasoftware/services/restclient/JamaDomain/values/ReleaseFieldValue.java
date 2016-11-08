@@ -1,9 +1,9 @@
-package com.jamasoftware.services.restclient.JamaDomain.values;
+package com.jamasoftware.services.restclient.jamadomain.values;
 
-import com.jamasoftware.services.restclient.JamaDomain.lazyresources.Release;
+import com.jamasoftware.services.restclient.jamadomain.lazyresources.Release;
 import com.jamasoftware.services.restclient.exception.RestClientException;
 
-public class ReleaseFieldValue extends FieldValue {
+public class ReleaseFieldValue extends JamaFieldValue {
     private Release value;
 
     @Override

@@ -1,14 +1,14 @@
 package com.jamasoftware.services.restclient.json;
 
-import com.jamasoftware.services.restclient.JamaDomain.JamaInstance;
-import com.jamasoftware.services.restclient.JamaDomain.Location;
-import com.jamasoftware.services.restclient.JamaDomain.lazyresources.*;
-import com.jamasoftware.services.restclient.JamaDomain.JamaDomainObject;
-import com.jamasoftware.services.restclient.JamaDomain.fields.*;
-import com.jamasoftware.services.restclient.JamaDomain.values.FieldValue;
-import com.jamasoftware.services.restclient.JamaDomain.values.RichTextFieldValue;
-import com.jamasoftware.services.restclient.JamaDomain.values.TextFieldValue;
-import com.jamasoftware.services.restclient.jamaclient.Page;
+import com.jamasoftware.services.restclient.jamadomain.JamaInstance;
+import com.jamasoftware.services.restclient.jamadomain.JamaLocation;
+import com.jamasoftware.services.restclient.jamadomain.lazyresources.*;
+import com.jamasoftware.services.restclient.jamadomain.JamaDomainObject;
+import com.jamasoftware.services.restclient.jamadomain.fields.*;
+import com.jamasoftware.services.restclient.jamadomain.values.JamaFieldValue;
+import com.jamasoftware.services.restclient.jamadomain.values.RichTextFieldValue;
+import com.jamasoftware.services.restclient.jamadomain.values.TextFieldValue;
+import com.jamasoftware.services.restclient.jamaclient.JamaPage;
 import com.jamasoftware.services.restclient.exception.JsonException;
 import com.jamasoftware.services.restclient.exception.RestClientException;
 import org.json.simple.JSONArray;
@@ -19,7 +19,7 @@ import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SimpleJson implements Json {
+public class SimpleJson implements JsonSerializerDeserializer {
     private JSONParser jsonParser = new JSONParser();
     private SimpleJsonUtil util = new SimpleJsonUtil();
 
@@ -38,7 +38,7 @@ public class SimpleJson implements Json {
         }
     }
 
-    public String serialize(Item item) throws JsonException {
+    public String serialize(JamaItem item) throws JsonException {
         throw new NotImplementedException();
     }
 
@@ -50,17 +50,17 @@ public class SimpleJson implements Json {
         throw new NotImplementedException();
     }
 
-    public String serialize(ItemType itemType) throws JsonException {
+    public String serialize(JamaItemType itemType) throws JsonException {
         throw new NotImplementedException();
     }
 
-    public Project deserializeProject(String json, JamaInstance jamaInstance) throws JsonException {
+    public JamaProject deserializeProject(String json, JamaInstance jamaInstance) throws JsonException {
         JSONObject projectJson = util.parseObject(json, jsonParser);
         return deserializeProject(projectJson, jamaInstance);
     }
 
-    private Project deserializeProject(JSONObject projectJson, JamaInstance jamaInstance) throws JsonException {
-        Project project = new Project();
+    private JamaProject deserializeProject(JSONObject projectJson, JamaInstance jamaInstance) throws JsonException {
+        JamaProject project = new JamaProject();
         project.associate(util.requireInt(projectJson, "id"), jamaInstance);
 
         project.setFolder(util.requireBoolean(projectJson, "isFolder"));
@@ -68,13 +68,13 @@ public class SimpleJson implements Json {
         project.setModifiedDate(util.requestDate(projectJson, "modifiedDate"));
         project.setProjectKey(util.requestString(projectJson, "projectKey"));
 
-        User createdBy = new User();
+        JamaUser createdBy = new JamaUser();
         createdBy.associate(util.requireInt(projectJson, "createdBy"), jamaInstance);
         project.setCreatedBy(createdBy);
 
         Integer modifiedById = util.requestInt(projectJson, "modifiedBy");
         if(modifiedById != null) {
-            User modifiedBy = new User();
+            JamaUser modifiedBy = new JamaUser();
             modifiedBy.associate(modifiedById, jamaInstance);
             project.setModifiedBy(modifiedBy);
         }
@@ -86,42 +86,42 @@ public class SimpleJson implements Json {
         return project;
     }
 
-    public Item deserializeItem(String json, JamaInstance jamaInstance) throws JsonException {
+    public JamaItem deserializeItem(String json, JamaInstance jamaInstance) throws JsonException {
         JSONObject itemJson = util.parseObject(json, jsonParser);
         return deserializeItem(itemJson, jamaInstance);
     }
 
-    private Item deserializeItem(JSONObject itemJson, JamaInstance jamaInstance) throws JsonException {
-        Item item = new Item();
+    private JamaItem deserializeItem(JSONObject itemJson, JamaInstance jamaInstance) throws JsonException {
+        JamaItem item = new JamaItem();
 
         item.setGlobalId(util.requireString(itemJson, "globalId"));
         item.setDocumentKey(util.requireString(itemJson, "documentKey"));
 
-        Project project = new Project();
+        JamaProject project = new JamaProject();
         project.associate(util.requireInt(itemJson, "project"), jamaInstance);
         item.setProject(project);
 
-        ItemType itemType = new ItemType();
+        JamaItemType itemType = new JamaItemType();
         itemType.associate(util.requireInt(itemJson, "itemType"), jamaInstance);
         item.setItemType(itemType);
 
         Integer childItemTypeId = util.requestInt(itemJson, "childItemType");
         if(childItemTypeId != null) {
-            ItemType childItemType = new ItemType();
+            JamaItemType childItemType = new JamaItemType();
             childItemType.associate(childItemTypeId, jamaInstance);
             item.setChildItemType(childItemType);
         }
 
         Integer createdById = util.requestInt(itemJson, "createdBy");
         if(createdById != null) {
-            User createdBy = new User();
+            JamaUser createdBy = new JamaUser();
             createdBy.associate(createdById, jamaInstance);
             item.setCreatedBy(createdBy);
         }
 
         Integer modifiedById = util.requestInt(itemJson, "modifiedBy");
         if(modifiedById != null) {
-            User modifiedBy = new User();
+            JamaUser modifiedBy = new JamaUser();
             modifiedBy.associate(modifiedById, jamaInstance);
             item.setCreatedBy(modifiedBy);
         }
@@ -130,9 +130,9 @@ public class SimpleJson implements Json {
 
         JSONObject fields = util.requireObject(itemJson, "fields");
 
-        List<FieldValue> fieldValues = new ArrayList<>();
-        for(Field field : itemType.getFields()) {
-            FieldValue fieldValue = field.getValue();
+        List<JamaFieldValue> fieldValues = new ArrayList<>();
+        for(JamaField field : itemType.getFields()) {
+            JamaFieldValue fieldValue = field.getValue();
             try {
                 fieldValue.setValue(util.getFieldValue(fields, fieldValue.getName(), item.getItemType().getId()));
             } catch (RestClientException e) {
@@ -152,17 +152,17 @@ public class SimpleJson implements Json {
         return item;
     }
 
-    private Location deserializeLocation(JSONObject item) {
+    private JamaLocation deserializeLocation(JSONObject item) {
         return null;
     }
 
-    public ItemType deserializeItemType(String json, JamaInstance jamaInstance) throws JsonException {
+    public JamaItemType deserializeItemType(String json, JamaInstance jamaInstance) throws JsonException {
         JSONObject itemTypeJson = util.parseObject(json, jsonParser);
         return deserializeItemType(itemTypeJson, jamaInstance);
     }
 
-    public ItemType deserializeItemType(JSONObject itemTypeJson, JamaInstance jamaInstance) throws JsonException {
-        ItemType itemType = new ItemType();
+    public JamaItemType deserializeItemType(JSONObject itemTypeJson, JamaInstance jamaInstance) throws JsonException {
+        JamaItemType itemType = new JamaItemType();
         String category = util.requestString(itemTypeJson, "category");
         if(category != null && category.equals("CORE")) {
             return null;
@@ -174,9 +174,9 @@ public class SimpleJson implements Json {
         itemType.setTypeKey(util.requireString(itemTypeJson, "typeKey"));
         JSONArray fieldsJson = util.requireArray(itemTypeJson, "fields");
 
-        List<Field> fields = new ArrayList<>();
+        List<JamaField> fields = new ArrayList<>();
         for(Object object : fieldsJson) {
-            Field field = deserializeField((JSONObject)object);
+            JamaField field = deserializeField((JSONObject)object);
             if(field != null) {
                 field.setJamaInstance(jamaInstance);
                 fields.add(field);
@@ -187,7 +187,7 @@ public class SimpleJson implements Json {
         return itemType;
     }
 
-    public Page getPage(String json, JamaInstance jamaInstance) throws JsonException {
+    public JamaPage getPage(String json, JamaInstance jamaInstance) throws JsonException {
         JSONObject response = util.parseObject(json, jsonParser);
         JSONObject meta = util.requireObject(response, "meta");
         JSONObject pageInfo = util.requestObject(meta, "pageInfo");
@@ -198,7 +198,7 @@ public class SimpleJson implements Json {
         int startIndex = util.requireInt(pageInfo, "startIndex");
         int resultCount = util.requireInt(pageInfo, "resultCount");
         int totalResults = util.requireInt(pageInfo, "totalResults");
-        Page page = new Page(startIndex, resultCount, totalResults);
+        JamaPage page = new JamaPage(startIndex, resultCount, totalResults);
 
         JSONArray data = util.requireArray(response, "data");
         for(Object object : data) {
@@ -227,9 +227,9 @@ public class SimpleJson implements Json {
         }
     }
 
-    private Field deserializeField(JSONObject fieldJson) throws JsonException {
+    private JamaField deserializeField(JSONObject fieldJson) throws JsonException {
         String type = util.requireString(fieldJson, "fieldType");
-        Field field = null;
+        JamaField field = null;
         switch (type) {
             case "DATE":
                 field = new DateField();
@@ -287,9 +287,11 @@ public class SimpleJson implements Json {
             case "DOCUMENT_TYPE_ITEM_LOOKUP":
             case "DOCUMENT_TYPE_CATEGORY_ITEM_LOOKUP":
                 return null;
+            case "ROLLUP":
+                field = new RollupField();
         }
         if(field == null) {
-            throw new JsonException("Field type not recognized: " + type);
+            throw new JsonException("JamaField type not recognized: " + type);
         }
         field.setId(util.requireInt(fieldJson, "id"));
         field.setName(util.requireString(fieldJson, "name"));

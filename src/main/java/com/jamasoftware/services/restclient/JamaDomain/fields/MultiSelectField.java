@@ -1,10 +1,10 @@
-package com.jamasoftware.services.restclient.JamaDomain.fields;
+package com.jamasoftware.services.restclient.jamadomain.fields;
 
-import com.jamasoftware.services.restclient.JamaDomain.picklists.PickList;
-import com.jamasoftware.services.restclient.JamaDomain.values.FieldValue;
-import com.jamasoftware.services.restclient.JamaDomain.values.MultiSelectFieldValue;
+import com.jamasoftware.services.restclient.jamadomain.picklists.PickList;
+import com.jamasoftware.services.restclient.jamadomain.values.JamaFieldValue;
+import com.jamasoftware.services.restclient.jamadomain.values.MultiSelectFieldValue;
 
-public class MultiSelectField extends Field {
+public class MultiSelectField extends JamaField {
     private PickList pickList;
     private int picklistId;
 
@@ -25,7 +25,7 @@ public class MultiSelectField extends Field {
     }
 
     @Override
-    public FieldValue getValue() {
+    public JamaFieldValue getValue() {
         MultiSelectFieldValue multiSelectFieldValue = new MultiSelectFieldValue();
         populateFieldValue(multiSelectFieldValue);
         return multiSelectFieldValue;

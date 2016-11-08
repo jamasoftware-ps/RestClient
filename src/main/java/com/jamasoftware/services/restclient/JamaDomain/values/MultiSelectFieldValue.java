@@ -1,12 +1,12 @@
-package com.jamasoftware.services.restclient.JamaDomain.values;
+package com.jamasoftware.services.restclient.jamadomain.values;
 
-import com.jamasoftware.services.restclient.JamaDomain.lazyresources.PickListOption;
+import com.jamasoftware.services.restclient.jamadomain.lazyresources.PickListOption;
 import com.jamasoftware.services.restclient.exception.RestClientException;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MultiSelectFieldValue extends FieldValue {
+public class MultiSelectFieldValue extends JamaFieldValue {
     private List<PickListOption> value = new ArrayList<>();
 
     @Override

@@ -2,9 +2,10 @@ package com.jamasoftware.services.restclient.jamadomain.values;
 
 import com.jamasoftware.services.restclient.exception.RestClientException;
 
-public class IntegerFieldValue extends JamaFieldValue {
+public class RollupFieldValue extends JamaFieldValue{
     private Integer value;
 
+    @Override
     public Integer getValue() {
         return value;
     }
@@ -15,7 +16,7 @@ public class IntegerFieldValue extends JamaFieldValue {
             this.value = null;
             return;
         }
-        this.value = Integer.valueOf(value);
+        this.value = Integer.valueOf(value.substring(0, value.indexOf('%')));
     }
 
     public void setValue(Integer value) {
