@@ -1,5 +1,6 @@
 package com.jamasoftware.services.restclient.json;
 
+import com.jamasoftware.services.restclient.JamaParent;
 import com.jamasoftware.services.restclient.jamadomain.JamaInstance;
 import com.jamasoftware.services.restclient.jamadomain.JamaLocation;
 import com.jamasoftware.services.restclient.jamadomain.lazyresources.*;
@@ -16,6 +17,7 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,16 +27,26 @@ public class SimpleJson implements JsonSerializerDeserializer {
 
     public JamaDomainObject deserialize(String json, JamaInstance jamaInstance) throws JsonException {
         JSONObject jsonObject = util.parseObject(json, jsonParser);
-        String type = util.requireString(jsonObject, "type");
+        return typeCheckResource(jsonObject, jamaInstance);
+    }
+
+    private JamaDomainObject typeCheckResource(JSONObject resourceJson, JamaInstance jamaInstance) throws JsonException {
+        String type = util.requireString(resourceJson, "type");
         switch(type) {
             case "itemtypes":
-                return deserializeItemType(jsonObject, jamaInstance);
+                return deserializeItemType(resourceJson, jamaInstance);
             case "items":
-                return deserializeItem(jsonObject, jamaInstance);
+                return deserializeItem(resourceJson, jamaInstance);
             case "projects":
-                return deserializeProject(jsonObject, jamaInstance);
+                return deserializeProject(resourceJson, jamaInstance);
+            case "users":
+                return deserializeUser(resourceJson, jamaInstance);
+            case "picklistoptions":
+                return deserializeOption(resourceJson, jamaInstance);
+            case "releases":
+                return deserializeRelease(resourceJson, jamaInstance);
             default:
-                throw new JsonException("type not found for object: " + jsonObject.toJSONString());
+                throw new JsonException("type not found for object: " + resourceJson.toJSONString());
         }
     }
 
@@ -52,6 +64,56 @@ public class SimpleJson implements JsonSerializerDeserializer {
 
     public String serialize(JamaItemType itemType) throws JsonException {
         throw new NotImplementedException();
+    }
+
+    public Release deserializeRelease(JSONObject releaseJson, JamaInstance jamaInstance) throws JsonException {
+        Release release = new Release();
+        release.associate(util.requireInt(releaseJson, "id"), jamaInstance);
+        release.setName(util.requestString(releaseJson, "name"));
+        release.setDescription(util.requestString(releaseJson, "description"));
+        Integer projectId = util.requireInt(releaseJson, "project");
+        if(projectId != null) {
+            JamaProject project = new JamaProject();
+            project.associate(projectId, jamaInstance);
+            release.setProject(project);
+        }
+        release.setReleaseDate(util.requestDate(releaseJson, "releaseDate"));
+        release.setActive(util.requireBoolean(releaseJson, "active"));
+        release.setArchived(util.requireBoolean(releaseJson, "archived"));
+        release.setItemCount(util.requestInt(releaseJson, "itemCount"));
+        return release;
+    }
+
+    public PickListOption deserializeOption(JSONObject optionJson, JamaInstance jamaInstance) throws JsonException {
+        PickListOption option = new PickListOption();
+        option.associate(util.requireInt(optionJson, "id"), jamaInstance);
+        option.setName(util.requestString(optionJson, "name"));
+        option.setDescription(util.requestString(optionJson, "description"));
+        option.setActive(util.requireBoolean(optionJson, "active"));
+        option.setColor(util.requestString(optionJson, "color"));
+        option.setDefaultValue(util.requireBoolean(optionJson, "default"));
+        return option;
+    }
+
+    public JamaUser deserializeUser(String json, JamaInstance jamaInstance) throws JsonException {
+        JSONObject userJson = util.parseObject(json, jsonParser);
+        return deserializeUser(userJson, jamaInstance);
+    }
+
+    public JamaUser deserializeUser(JSONObject userJson, JamaInstance jamaInstance) throws JsonException {
+        JamaUser user = new JamaUser();
+        user.associate(util.requireInt(userJson, "id"), jamaInstance);
+
+        user.setUsername(util.requireString(userJson, "username"));
+        user.setFirstName(util.requestString(userJson, "firstName"));
+        user.setLastName(util.requestString(userJson, "lastName"));
+        user.setEmail(util.requestString(userJson, "email"));
+        user.setPhone(util.requestString(userJson, "phone"));
+        user.setTitle(util.requestString(userJson, "title"));
+        user.setLocation(util.requestString(userJson, "location"));
+        user.setLicenseType(util.requestString(userJson, "licenseType"));
+        user.setActive(util.requireBoolean(userJson, "active"));
+        return user;
     }
 
     public JamaProject deserializeProject(String json, JamaInstance jamaInstance) throws JsonException {
@@ -112,6 +174,10 @@ public class SimpleJson implements JsonSerializerDeserializer {
             item.setChildItemType(childItemType);
         }
 
+        item.setCreatedDate(util.requestDate(itemJson, "createdDate"));
+        item.setCreatedDate(util.requestDate(itemJson, "modifiedDate"));
+        item.setCreatedDate(util.requestDate(itemJson, "lastActivityDate"));
+
         Integer createdById = util.requestInt(itemJson, "createdBy");
         if(createdById != null) {
             JamaUser createdBy = new JamaUser();
@@ -126,7 +192,7 @@ public class SimpleJson implements JsonSerializerDeserializer {
             item.setCreatedBy(modifiedBy);
         }
 
-        item.setLocation(deserializeLocation(itemJson));
+        item.setLocation(deserializeLocation(itemJson, jamaInstance));
 
         JSONObject fields = util.requireObject(itemJson, "fields");
 
@@ -152,8 +218,28 @@ public class SimpleJson implements JsonSerializerDeserializer {
         return item;
     }
 
-    private JamaLocation deserializeLocation(JSONObject item) {
-        return null;
+    private JamaLocation deserializeLocation(JSONObject itemJson, JamaInstance jamaInstance) throws JsonException {
+        JamaLocation jamaLocation = new JamaLocation();
+        JSONObject location = util.requireObject(itemJson, "location");
+        jamaLocation.setSortOrder(util.requestInt(location, "sortOrder"));
+        jamaLocation.setGlobalSortOrder(util.requestInt(location, "globalSortOrder"));
+        jamaLocation.setSequence(util.requestString(location, "sequence"));
+        JSONObject parent = util.requireObject(location, "parent");
+        JamaParent jamaParent;
+        Integer parentId = util.requestInt(parent, "item");
+        if(parentId != null) {
+            JamaItem parentItem = new JamaItem();
+            parentItem.associate(parentId, jamaInstance);
+            jamaParent = parentItem;
+        } else {
+            parentId = util.requireInt(parent, "project");
+            JamaProject parentProject = new JamaProject();
+            parentProject.associate(parentId, jamaInstance);
+            jamaParent = parentProject;
+        }
+        jamaLocation.setParent(jamaParent);
+
+        return jamaLocation;
     }
 
     public JamaItemType deserializeItemType(String json, JamaInstance jamaInstance) throws JsonException {
@@ -204,27 +290,19 @@ public class SimpleJson implements JsonSerializerDeserializer {
         for(Object object : data) {
             JSONObject resource = (JSONObject)object;
             JamaDomainObject domainObject = typeCheckResource(resource, jamaInstance);
-            if(domainObject != null) {
-                page.addResource(domainObject);
+            if(domainObject instanceof LazyResource) {
+                try {
+                    Field field = LazyResource.class.getDeclaredField("fetched");
+                    field.setAccessible(true);
+                    field.set(domainObject, true);
+                } catch(NoSuchFieldException | IllegalAccessException e) {
+                    throw new JsonException(e.getClass().toString());
+                }
             }
+            page.addResource(domainObject);
         }
 
         return page;
-    }
-
-    private JamaDomainObject typeCheckResource(JSONObject resourceJson, JamaInstance jamaInstance) throws JsonException {
-        String type = util.requireString(resourceJson, "type");
-        switch(type) {
-            case "itemtypes":
-                return deserializeItemType(resourceJson.toJSONString(), jamaInstance);
-            case "items":
-                return deserializeItem(resourceJson.toJSONString(), jamaInstance);
-            case "projects":
-                return deserializeProject(resourceJson.toJSONString(), jamaInstance);
-            default:
-                System.out.println(resourceJson.toJSONString());
-                return null;
-        }
     }
 
     private JamaField deserializeField(JSONObject fieldJson) throws JsonException {
@@ -289,6 +367,10 @@ public class SimpleJson implements JsonSerializerDeserializer {
                 return null;
             case "ROLLUP":
                 field = new RollupField();
+                break;
+            case "CALCULATED":
+                field = new CalculatedField();
+                break;
         }
         if(field == null) {
             throw new JsonException("JamaField type not recognized: " + type);

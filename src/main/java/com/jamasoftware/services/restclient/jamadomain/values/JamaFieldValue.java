@@ -38,6 +38,9 @@ public abstract class JamaFieldValue {
 
     @Override
     public String toString() {
+        if(getValue() == null) {
+            return "";
+        }
         return getValue().toString();
     }
 }

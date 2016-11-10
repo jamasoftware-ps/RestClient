@@ -18,8 +18,8 @@ public class PickListFieldValue extends JamaFieldValue {
             return;
         }
         int optionId = Integer.valueOf(value);
-        PickListOption pickListOption = new PickListOption();
-        pickListOption.associate(optionId, getJamaInstance());
+        this.value = new PickListOption();
+        this.value.associate(optionId, getJamaInstance());
     }
 
     public void setValue(PickListOption value) {

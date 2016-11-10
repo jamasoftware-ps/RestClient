@@ -8,6 +8,7 @@ import java.util.Date;
 public class DateUtil {
     private static DateFormat dateFormatFull;
     private static DateFormat dateFormatTerse;
+    private static DateFormat monthDayYearFormat;
     public static Date parseDate(String date) throws ParseException {
         if(date == null || date.length() == 0) return null;
         if(dateFormatFull == null) {
@@ -25,5 +26,12 @@ public class DateUtil {
             dateFormatTerse = new SimpleDateFormat("yyyy-MM-dd");
         }
         return dateFormatTerse.parse(date);
+    }
+
+    public static String monthDayYear(Date date) {
+        if(monthDayYearFormat == null) {
+            monthDayYearFormat = new SimpleDateFormat("MM/dd/yyyy");
+        }
+        return monthDayYearFormat.format(date);
     }
 }

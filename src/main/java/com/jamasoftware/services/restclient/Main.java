@@ -12,13 +12,16 @@ public class Main {
 
         try {
             JamaInstance jamaInstance = new JamaInstance(new JamaConfig(true));
+//            JamaItem jamaItem = jamaInstance.getItem(2169992);
+//            System.out.println(jamaItem.getName());
+
             jamaInstance.ping();
             List<JamaProject> projects = jamaInstance.getProjects();
             List<JamaItem> items = new ArrayList<>();
             for(JamaProject project : projects) {
                 items.addAll(project.getItems());
             }
-            for(JamaItem item : items) {
+            for (JamaItem item : items) {
                 System.out.println(item.getName());
             }
             System.out.println("done");
@@ -26,6 +29,5 @@ public class Main {
         } catch(Exception e) {
             e.printStackTrace();
         }
-
     }
 }

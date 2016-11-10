@@ -10,6 +10,7 @@ import com.jamasoftware.services.restclient.jamaclient.JamaClient;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class JamaInstance implements JamaDomainObject {
     private JamaClient jamaClient;

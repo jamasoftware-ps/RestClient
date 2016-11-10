@@ -26,6 +26,10 @@ public class JamaConfig {
     }
 
     public JamaConfig(boolean loadFromPropertiesFile) {
+        this();
+        if(!loadFromPropertiesFile) {
+            return;
+        }
         InputStream input = null;
         try {
             Properties properties = new Properties();
@@ -34,8 +38,6 @@ public class JamaConfig {
             baseUrl = properties.getProperty("baseUrl");
             username = properties.getProperty("username");
             password = properties.getProperty("password");
-            json = new SimpleJson();
-            httpClient = new ApacheHttpClient();
         } catch(Exception e) {
             e.printStackTrace();
         }

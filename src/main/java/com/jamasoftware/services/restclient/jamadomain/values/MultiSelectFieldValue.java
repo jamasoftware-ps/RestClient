@@ -27,6 +27,7 @@ public class MultiSelectFieldValue extends JamaFieldValue {
             int optionId = Integer.valueOf(optionIdString);
             PickListOption pickListOption = new PickListOption();
             pickListOption.associate(optionId, getJamaInstance());
+            this.value.add(pickListOption);
         }
 //        //todo needs to be a list of.  probably just string cat the numbers even though it's bad
 //        throw new NotImplementedException();

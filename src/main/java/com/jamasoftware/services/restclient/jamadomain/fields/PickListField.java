@@ -1,7 +1,6 @@
 package com.jamasoftware.services.restclient.jamadomain.fields;
 
 import com.jamasoftware.services.restclient.jamadomain.picklists.PickList;
-import com.jamasoftware.services.restclient.jamadomain.values.JamaFieldValue;
 import com.jamasoftware.services.restclient.jamadomain.values.PickListFieldValue;
 
 public class PickListField extends JamaField {
@@ -25,7 +24,7 @@ public class PickListField extends JamaField {
     }
 
     @Override
-    public JamaFieldValue getValue() {
+    public PickListFieldValue getValue() {
         PickListFieldValue pickListFieldValue = new PickListFieldValue();
         populateFieldValue(pickListFieldValue);
         return pickListFieldValue;

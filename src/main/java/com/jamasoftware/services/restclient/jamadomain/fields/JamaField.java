@@ -39,7 +39,6 @@ public abstract class JamaField implements SerializableJamaDomainObject {
     }
 
     public void setName(String name) {
-        // todo need to strip $1234132
         if(name.contains("$")) {
             name = name.substring(0, name.indexOf("$"));
         }
@@ -90,5 +89,10 @@ public abstract class JamaField implements SerializableJamaDomainObject {
         fieldValue.setJamaInstance(jamaInstance);
         fieldValue.setName(name);
         fieldValue.setLabel(label);
+    }
+
+    @Override
+    public String toString() {
+        return getName();
     }
 }

@@ -1,9 +1,9 @@
 package com.jamasoftware.services.restclient.jamadomain.lazyresources;
 
+import com.jamasoftware.services.restclient.exception.UnexpectedJamaResponseException;
 import com.jamasoftware.services.restclient.jamadomain.JamaDomainObject;
 import com.jamasoftware.services.restclient.jamadomain.JamaInstance;
 import com.jamasoftware.services.restclient.exception.RestClientException;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 public abstract class LazyResource implements JamaDomainObject {
     private JamaInstance jamaInstance;
@@ -30,11 +30,6 @@ public abstract class LazyResource implements JamaDomainObject {
         this.jamaInstance = jamaInstance;
     }
 
-    public void create(JamaInstance jamaInstance) {
-        // todo: post item and populate id
-        throw new NotImplementedException();
-    }
-
     public Integer getId() {
         return id;
     }
@@ -45,5 +40,11 @@ public abstract class LazyResource implements JamaDomainObject {
 
     public boolean isAssociated() {
         return id != null && jamaInstance != null;
+    }
+
+    public void checkType(Class clazz, JamaDomainObject jamaDomainObject) {
+        if(!clazz.isInstance(jamaDomainObject)) {
+            throw new UnexpectedJamaResponseException("Expecting a " + clazz.getName() + " from the Jama server. Instead, got: " + jamaDomainObject.getClass().getName());
+        }
     }
 }

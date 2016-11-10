@@ -1,13 +1,15 @@
 package com.jamasoftware.services.restclient.jamadomain.lazyresources;
 
+import com.jamasoftware.services.restclient.JamaParent;
 import com.jamasoftware.services.restclient.jamadomain.JamaDomainObject;
 import com.jamasoftware.services.restclient.exception.UnexpectedJamaResponseException;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class JamaProject extends LazyResource {
+public class JamaProject extends LazyResource implements JamaParent {
     private String projectKey;
     private String name;
     private String description;
@@ -18,17 +20,25 @@ public class JamaProject extends LazyResource {
     private JamaUser modifiedBy;
 
     @Override
+    public boolean addChild(JamaItem jamaItem) {
+        throw new NotImplementedException();
+    }
+
+    @Override
+    public List<JamaItem> getChildren() {
+        throw new NotImplementedException();
+    }
+
+    @Override
     protected String getResourceUrl() {
         return "projects/" + getId();
     }
 
     @Override
     protected void copyContentFrom(JamaDomainObject jamaDomainObject) {
-        if (!(jamaDomainObject instanceof JamaProject)) {
-            throw new UnexpectedJamaResponseException("Expecting a JamaProject from the Jama server. Instead, got: " + jamaDomainObject);
-        }
-        JamaProject project = (JamaProject) jamaDomainObject;
+        checkType(this.getClass(), jamaDomainObject);
 
+        JamaProject project = (JamaProject) jamaDomainObject;
         projectKey = project.projectKey;
         name = project.name;
         description = project.description;
@@ -118,5 +128,10 @@ public class JamaProject extends LazyResource {
             items.add((JamaItem)object);
         }
         return items;
+    }
+
+    @Override
+    public String toString() {
+        return getName();
     }
 }

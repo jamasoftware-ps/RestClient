@@ -1,16 +1,18 @@
 package com.jamasoftware.services.restclient.jamadomain.lazyresources;
 
+import com.jamasoftware.services.restclient.JamaParent;
 import com.jamasoftware.services.restclient.jamadomain.JamaDomainObject;
 import com.jamasoftware.services.restclient.jamadomain.JamaLocation;
 import com.jamasoftware.services.restclient.jamadomain.values.JamaFieldValue;
 import com.jamasoftware.services.restclient.jamadomain.values.RichTextFieldValue;
 import com.jamasoftware.services.restclient.jamadomain.values.TextFieldValue;
 import com.jamasoftware.services.restclient.exception.UnexpectedJamaResponseException;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.util.Date;
 import java.util.List;
 
-public class JamaItem extends LazyResource {
+public class JamaItem extends LazyResource implements JamaParent {
     private TextFieldValue name;
     private RichTextFieldValue description;
     private String globalId;
@@ -27,17 +29,25 @@ public class JamaItem extends LazyResource {
     private List<JamaFieldValue> fieldValues;
 
     @Override
+    public boolean addChild(JamaItem jamaItem) {
+        throw new NotImplementedException();
+    }
+
+    @Override
+    public List<JamaItem> getChildren() {
+        throw new NotImplementedException();
+    }
+
+    @Override
     protected String getResourceUrl() {
         return "items/" + getId();
     }
 
     @Override
     protected void copyContentFrom(JamaDomainObject jamaDomainObject) {
-        if (!(jamaDomainObject instanceof JamaItem)) {
-            throw new UnexpectedJamaResponseException("Expecting an JamaItem from the Jama server. Instead, got: " + jamaDomainObject);
-        }
-        JamaItem item = (JamaItem) jamaDomainObject;
+        checkType(this.getClass(), jamaDomainObject);
 
+        JamaItem item = (JamaItem) jamaDomainObject;
         name = item.name;
         description = item.description;
         globalId = item.globalId;
@@ -178,5 +188,10 @@ public class JamaItem extends LazyResource {
 
     public void setLastActivityDate(Date lastActivityDate) {
         this.lastActivityDate = lastActivityDate;
+    }
+
+    @Override
+    public String toString() {
+        return getName().toString();
     }
 }

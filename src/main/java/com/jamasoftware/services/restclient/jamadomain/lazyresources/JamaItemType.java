@@ -25,11 +25,9 @@ public class JamaItemType extends LazyResource {
 
     @Override
     protected void copyContentFrom(JamaDomainObject jamaDomainObject) {
-        if (!(jamaDomainObject instanceof JamaItemType)) {
-            throw new UnexpectedJamaResponseException("Expecting an JamaItem Type from the Jama server. Instead, got: " + jamaDomainObject);
-        }
-        JamaItemType itemType = (JamaItemType) jamaDomainObject;
+        checkType(this.getClass(), jamaDomainObject);
 
+        JamaItemType itemType = (JamaItemType) jamaDomainObject;
         typeKey = itemType.typeKey;
         display = itemType.display;
         displayPlural = itemType.displayPlural;
@@ -98,5 +96,10 @@ public class JamaItemType extends LazyResource {
 
     public void setFields(List<JamaField> fields) {
         this.fields = fields;
+    }
+
+    @Override
+    public String toString() {
+        return getDisplay();
     }
 }
