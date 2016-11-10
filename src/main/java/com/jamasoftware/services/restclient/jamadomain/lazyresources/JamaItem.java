@@ -44,7 +44,7 @@ public class JamaItem extends LazyResource implements JamaParent {
     }
 
     @Override
-    protected void copyContentFrom(JamaDomainObject jamaDomainObject) {
+    public void copyContentFrom(JamaDomainObject jamaDomainObject) {
         checkType(this.getClass(), jamaDomainObject);
 
         JamaItem item = (JamaItem) jamaDomainObject;

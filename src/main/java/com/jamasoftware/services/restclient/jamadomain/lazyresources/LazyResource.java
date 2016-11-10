@@ -23,7 +23,7 @@ public abstract class LazyResource implements JamaDomainObject {
 
     protected abstract String getResourceUrl();
 
-    protected abstract void copyContentFrom(JamaDomainObject jamaDomainObject);
+    public abstract void copyContentFrom(JamaDomainObject jamaDomainObject);
 
     public void associate(int id, JamaInstance jamaInstance) {
         this.id = id;

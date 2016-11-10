@@ -16,7 +16,7 @@ public class PickListOption extends LazyResource {
     }
 
     @Override
-    protected void copyContentFrom(JamaDomainObject jamaDomainObject) {
+    public void copyContentFrom(JamaDomainObject jamaDomainObject) {
         checkType(getClass(), jamaDomainObject);
 
         PickListOption option = (PickListOption)jamaDomainObject;

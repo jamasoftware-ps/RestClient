@@ -16,14 +16,19 @@ public class Main {
 //            System.out.println(jamaItem.getName());
 
             jamaInstance.ping();
+            JamaProject jamaProject = null;
             List<JamaProject> projects = jamaInstance.getProjects();
             List<JamaItem> items = new ArrayList<>();
             for(JamaProject project : projects) {
-                items.addAll(project.getItems());
+                if(project.getName().equals("zzzzz")) {
+                    jamaProject = project;
+                    items.addAll(project.getItems());
+                }
             }
             for (JamaItem item : items) {
                 System.out.println(item.getName());
             }
+
             System.out.println("done");
 
         } catch(Exception e) {

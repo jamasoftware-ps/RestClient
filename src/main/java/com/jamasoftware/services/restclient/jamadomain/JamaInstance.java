@@ -6,6 +6,7 @@ import com.jamasoftware.services.restclient.jamadomain.lazyresources.JamaItemTyp
 import com.jamasoftware.services.restclient.jamadomain.lazyresources.JamaProject;
 import com.jamasoftware.services.restclient.exception.RestClientException;
 import com.jamasoftware.services.restclient.jamaclient.JamaClient;
+import com.jamasoftware.services.restclient.jamadomain.lazyresources.LazyResource;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -18,6 +19,8 @@ public class JamaInstance implements JamaDomainObject {
 
     // todo encapsulate this
     private HashMap<Integer, JamaItemType> itemTypeMap = new HashMap<>();
+    private Map<String, JamaDomainObject> resourcePool = new HashMap<>();
+
 
     public JamaInstance(JamaConfig jamaConfig) {
         this.jamaConfig = jamaConfig;
@@ -29,35 +32,59 @@ public class JamaInstance implements JamaDomainObject {
                 jamaConfig.getPassword());
     }
 
-    public JamaDomainObject getResource(String resource) throws RestClientException {
-        return jamaClient.getResource(resource, this);
+    public JamaDomainObject checkPool(Class clazz, int id) {
+        return resourcePool.get(clazz.getName() + id);
     }
 
-    public List<JamaDomainObject> getAll(String resource) {
-        try {
-            return jamaClient.getAll(jamaConfig.getBaseUrl() + resource, this);
-        } catch (RestClientException e) {
-            e.printStackTrace();
-            return null;
+    public void addToPool(Class clazz, int id, JamaDomainObject jamaDomainObject) {
+        resourcePool.put(clazz.getName() + id, jamaDomainObject);
+    }
+
+    private JamaDomainObject checkPool(JamaDomainObject fresh) {
+        if(fresh instanceof LazyResource) {
+            String key = fresh.getClass().getName() + ((LazyResource) fresh).getId();
+            LazyResource existingResource = (LazyResource) resourcePool.get(key);
+            if(existingResource != null) {
+                existingResource.copyContentFrom(fresh);
+                return existingResource;
+            }
+            resourcePool.put(key, fresh);
         }
+        return fresh;
+    }
+
+    public JamaDomainObject getResource(String resource) throws RestClientException {
+        JamaDomainObject retrieved = jamaClient.getResource(resource, this);
+        return checkPool(retrieved);
+    }
+
+    public List<JamaDomainObject> getAll(String resource) throws RestClientException {
+        List<JamaDomainObject> objects = jamaClient.getAll(jamaConfig.getBaseUrl() + resource, this);
+        for(int i = 0; i < objects.size(); ++i) {
+            objects.set(i, checkPool(objects.get(i)));
+        }
+        return objects;
     }
 
     public JamaProject getProject(int id) {
-        JamaProject project = new JamaProject();
-        project.associate(id, this);
+        String key = JamaProject.class.getName() + id;
+        JamaProject project = (JamaProject)resourcePool.get(key);
+        if(project != null) {
+            project.fetch();
+        } else {
+            project = new JamaProject();
+            project.associate(id, this);
+            resourcePool.put(key, project);
+        }
         return project;
     }
 
-    public List<JamaProject> getProjects() {
+    public List<JamaProject> getProjects() throws RestClientException {
         List<JamaProject> projects = new ArrayList<>();
-        try {
-            List<JamaDomainObject> jamaDomainObjects = jamaClient.getAll(jamaConfig.getBaseUrl() + "projects", this);
-            for(JamaDomainObject jamaDomainObject : jamaDomainObjects) {
-                JamaProject project = (JamaProject) jamaDomainObject;
-                projects.add(project);
-            }
-        } catch (RestClientException e) {
-            e.printStackTrace();
+        List<JamaDomainObject> jamaDomainObjects = getAll("projects");
+        for(JamaDomainObject jamaDomainObject : jamaDomainObjects) {
+            JamaProject project = (JamaProject) jamaDomainObject;
+            projects.add(project);
         }
         return projects;
     }
@@ -66,17 +93,13 @@ public class JamaInstance implements JamaDomainObject {
         itemTypeMap.put(itemType.getId(), itemType);
     }
 
-    public List<JamaItemType> getItemTypes() {
+    public List<JamaItemType> getItemTypes() throws RestClientException {
         List<JamaItemType> itemTypes = new ArrayList<>();
-        try {
-            List<JamaDomainObject> jamaDomainObjects = jamaClient.getAll(jamaConfig.getBaseUrl() + "itemtypes", this);
-            for(JamaDomainObject jamaDomainObject : jamaDomainObjects) {
-                JamaItemType itemType = (JamaItemType)jamaDomainObject;
-                itemTypes.add(itemType);
-                itemTypeMap.put(itemType.getId(), itemType);
-            }
-        } catch (RestClientException e) {
-            e.printStackTrace();
+        List<JamaDomainObject> jamaDomainObjects = getAll("itemtypes");
+        for(JamaDomainObject jamaDomainObject : jamaDomainObjects) {
+            JamaItemType itemType = (JamaItemType) jamaDomainObject;
+            itemTypes.add(itemType);
+            itemTypeMap.put(itemType.getId(), itemType);
         }
         return itemTypes;
     }

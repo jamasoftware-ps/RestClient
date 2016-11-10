@@ -67,13 +67,14 @@ public class SimpleJson implements JsonSerializerDeserializer {
     }
 
     public Release deserializeRelease(JSONObject releaseJson, JamaInstance jamaInstance) throws JsonException {
-        Release release = new Release();
-        release.associate(util.requireInt(releaseJson, "id"), jamaInstance);
+        int releaseId = util.requireInt(releaseJson, "id");
+        Release release = (Release)checkPool(Release.class, releaseId, jamaInstance);
+        release.associate(releaseId, jamaInstance);
         release.setName(util.requestString(releaseJson, "name"));
         release.setDescription(util.requestString(releaseJson, "description"));
         Integer projectId = util.requireInt(releaseJson, "project");
         if(projectId != null) {
-            JamaProject project = new JamaProject();
+            JamaProject project = checkProjectPool(projectId, jamaInstance);
             project.associate(projectId, jamaInstance);
             release.setProject(project);
         }
@@ -85,8 +86,9 @@ public class SimpleJson implements JsonSerializerDeserializer {
     }
 
     public PickListOption deserializeOption(JSONObject optionJson, JamaInstance jamaInstance) throws JsonException {
-        PickListOption option = new PickListOption();
-        option.associate(util.requireInt(optionJson, "id"), jamaInstance);
+        int optionId = util.requireInt(optionJson, "id");
+        PickListOption option = (PickListOption)checkPool(PickListOption.class, optionId, jamaInstance);
+        option.associate(optionId, jamaInstance);
         option.setName(util.requestString(optionJson, "name"));
         option.setDescription(util.requestString(optionJson, "description"));
         option.setActive(util.requireBoolean(optionJson, "active"));
@@ -101,8 +103,9 @@ public class SimpleJson implements JsonSerializerDeserializer {
     }
 
     public JamaUser deserializeUser(JSONObject userJson, JamaInstance jamaInstance) throws JsonException {
-        JamaUser user = new JamaUser();
-        user.associate(util.requireInt(userJson, "id"), jamaInstance);
+        int userId = util.requireInt(userJson, "id");
+        JamaUser user = checkUserPool(userId, jamaInstance);
+        user.associate(userId, jamaInstance);
 
         user.setUsername(util.requireString(userJson, "username"));
         user.setFirstName(util.requestString(userJson, "firstName"));
@@ -122,7 +125,8 @@ public class SimpleJson implements JsonSerializerDeserializer {
     }
 
     private JamaProject deserializeProject(JSONObject projectJson, JamaInstance jamaInstance) throws JsonException {
-        JamaProject project = new JamaProject();
+        int projectId = util.requireInt(projectJson, "id");
+        JamaProject project = checkProjectPool(projectId, jamaInstance);
         project.associate(util.requireInt(projectJson, "id"), jamaInstance);
 
         project.setFolder(util.requireBoolean(projectJson, "isFolder"));
@@ -130,13 +134,14 @@ public class SimpleJson implements JsonSerializerDeserializer {
         project.setModifiedDate(util.requestDate(projectJson, "modifiedDate"));
         project.setProjectKey(util.requestString(projectJson, "projectKey"));
 
-        JamaUser createdBy = new JamaUser();
+        int createdById = util.requireInt(projectJson, "createdBy");
+        JamaUser createdBy = checkUserPool(createdById, jamaInstance);
         createdBy.associate(util.requireInt(projectJson, "createdBy"), jamaInstance);
         project.setCreatedBy(createdBy);
 
         Integer modifiedById = util.requestInt(projectJson, "modifiedBy");
         if(modifiedById != null) {
-            JamaUser modifiedBy = new JamaUser();
+            JamaUser modifiedBy = checkUserPool(modifiedById, jamaInstance);
             modifiedBy.associate(modifiedById, jamaInstance);
             project.setModifiedBy(modifiedBy);
         }
@@ -153,23 +158,56 @@ public class SimpleJson implements JsonSerializerDeserializer {
         return deserializeItem(itemJson, jamaInstance);
     }
 
+    private JamaDomainObject checkPool(Class clazz, int id, JamaInstance jamaInstance) throws JsonException {
+        JamaDomainObject jamaDomainObject = jamaInstance.checkPool(clazz, id);
+        if(jamaDomainObject != null) {
+            return jamaDomainObject;
+        }
+        try {
+            jamaDomainObject = (JamaDomainObject)clazz.newInstance();
+        } catch (IllegalAccessException | InstantiationException e) {
+            throw new JsonException(e);
+        }
+        jamaInstance.addToPool(clazz, id, jamaDomainObject);
+        return jamaDomainObject;
+    }
+
+    private JamaProject checkProjectPool(int id, JamaInstance jamaInstance) throws JsonException {
+        return (JamaProject)checkPool(JamaProject.class, id, jamaInstance);
+    }
+
+    private JamaUser checkUserPool(int id, JamaInstance jamaInstance) throws JsonException {
+        return (JamaUser) checkPool(JamaUser.class, id, jamaInstance);
+    }
+
+    private JamaItem checkItemPool(int id, JamaInstance jamaInstance) throws JsonException {
+        return (JamaItem) checkPool(JamaItem.class, id, jamaInstance);
+    }
+
+    private JamaItemType checkItemTypePool(int id, JamaInstance jamaInstance) throws JsonException {
+        return (JamaItemType) checkPool(JamaItemType.class, id, jamaInstance);
+    }
+
     private JamaItem deserializeItem(JSONObject itemJson, JamaInstance jamaInstance) throws JsonException {
-        JamaItem item = new JamaItem();
+        int itemId = util.requireInt(itemJson, "id");
+        JamaItem item = checkItemPool(itemId, jamaInstance);
 
         item.setGlobalId(util.requireString(itemJson, "globalId"));
         item.setDocumentKey(util.requireString(itemJson, "documentKey"));
 
-        JamaProject project = new JamaProject();
-        project.associate(util.requireInt(itemJson, "project"), jamaInstance);
+        int projectId = util.requireInt(itemJson, "project");
+        JamaProject project = checkProjectPool(projectId, jamaInstance);
+        project.associate(projectId, jamaInstance);
         item.setProject(project);
 
-        JamaItemType itemType = new JamaItemType();
-        itemType.associate(util.requireInt(itemJson, "itemType"), jamaInstance);
+        int itemTypeId = util.requireInt(itemJson, "itemType");
+        JamaItemType itemType = checkItemTypePool(itemTypeId, jamaInstance);
+        itemType.associate(itemTypeId, jamaInstance);
         item.setItemType(itemType);
 
         Integer childItemTypeId = util.requestInt(itemJson, "childItemType");
         if(childItemTypeId != null) {
-            JamaItemType childItemType = new JamaItemType();
+            JamaItemType childItemType = checkItemTypePool(childItemTypeId, jamaInstance);
             childItemType.associate(childItemTypeId, jamaInstance);
             item.setChildItemType(childItemType);
         }
@@ -180,14 +218,14 @@ public class SimpleJson implements JsonSerializerDeserializer {
 
         Integer createdById = util.requestInt(itemJson, "createdBy");
         if(createdById != null) {
-            JamaUser createdBy = new JamaUser();
+            JamaUser createdBy = checkUserPool(createdById, jamaInstance);
             createdBy.associate(createdById, jamaInstance);
             item.setCreatedBy(createdBy);
         }
 
         Integer modifiedById = util.requestInt(itemJson, "modifiedBy");
         if(modifiedById != null) {
-            JamaUser modifiedBy = new JamaUser();
+            JamaUser modifiedBy = checkUserPool(modifiedById, jamaInstance);
             modifiedBy.associate(modifiedById, jamaInstance);
             item.setCreatedBy(modifiedBy);
         }
@@ -228,12 +266,12 @@ public class SimpleJson implements JsonSerializerDeserializer {
         JamaParent jamaParent;
         Integer parentId = util.requestInt(parent, "item");
         if(parentId != null) {
-            JamaItem parentItem = new JamaItem();
+            JamaItem parentItem = checkItemPool(parentId, jamaInstance);
             parentItem.associate(parentId, jamaInstance);
             jamaParent = parentItem;
         } else {
             parentId = util.requireInt(parent, "project");
-            JamaProject parentProject = new JamaProject();
+            JamaProject parentProject = checkProjectPool(parentId, jamaInstance);
             parentProject.associate(parentId, jamaInstance);
             jamaParent = parentProject;
         }
@@ -248,12 +286,13 @@ public class SimpleJson implements JsonSerializerDeserializer {
     }
 
     public JamaItemType deserializeItemType(JSONObject itemTypeJson, JamaInstance jamaInstance) throws JsonException {
-        JamaItemType itemType = new JamaItemType();
+        int itemTypeId = util.requireInt(itemTypeJson, "id");
+        JamaItemType itemType = checkItemTypePool(itemTypeId, jamaInstance);
         String category = util.requestString(itemTypeJson, "category");
         if(category != null && category.equals("CORE")) {
             return null;
         }
-        itemType.associate(util.requireInt(itemTypeJson, "id"), jamaInstance);
+        itemType.associate(itemTypeId, jamaInstance);
         itemType.setDisplay(util.requireString(itemTypeJson, "display"));
         itemType.setDisplayPlural(util.requireString(itemTypeJson, "displayPlural"));
         itemType.setImageURL(util.requireString(itemTypeJson, "image"));

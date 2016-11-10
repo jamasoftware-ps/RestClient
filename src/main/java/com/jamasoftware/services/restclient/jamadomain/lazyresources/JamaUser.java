@@ -19,7 +19,7 @@ public class JamaUser extends LazyResource {
     }
 
     @Override
-    protected void copyContentFrom(JamaDomainObject jamaDomainObject) {
+    public void copyContentFrom(JamaDomainObject jamaDomainObject) {
         checkType(this.getClass(), jamaDomainObject);
 
         JamaUser user = (JamaUser) jamaDomainObject;

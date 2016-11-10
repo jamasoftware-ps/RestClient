@@ -1,6 +1,7 @@
 package com.jamasoftware.services.restclient.jamadomain.lazyresources;
 
 import com.jamasoftware.services.restclient.JamaParent;
+import com.jamasoftware.services.restclient.exception.RestClientException;
 import com.jamasoftware.services.restclient.jamadomain.JamaDomainObject;
 import com.jamasoftware.services.restclient.exception.UnexpectedJamaResponseException;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
@@ -35,7 +36,7 @@ public class JamaProject extends LazyResource implements JamaParent {
     }
 
     @Override
-    protected void copyContentFrom(JamaDomainObject jamaDomainObject) {
+    public void copyContentFrom(JamaDomainObject jamaDomainObject) {
         checkType(this.getClass(), jamaDomainObject);
 
         JamaProject project = (JamaProject) jamaDomainObject;
@@ -121,7 +122,7 @@ public class JamaProject extends LazyResource implements JamaParent {
         this.modifiedBy = modifiedBy;
     }
 
-    public List<JamaItem> getItems() {
+    public List<JamaItem> getItems() throws RestClientException {
         List<JamaDomainObject> objects = getJamaInstance().getAll("items?project=" + getId());
         List<JamaItem> items = new ArrayList<>();
         for(JamaDomainObject object : objects) {
