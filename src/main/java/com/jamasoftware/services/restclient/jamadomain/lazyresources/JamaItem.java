@@ -1,6 +1,7 @@
 package com.jamasoftware.services.restclient.jamadomain.lazyresources;
 
 import com.jamasoftware.services.restclient.JamaParent;
+import com.jamasoftware.services.restclient.exception.RestClientException;
 import com.jamasoftware.services.restclient.jamadomain.JamaDomainObject;
 import com.jamasoftware.services.restclient.jamadomain.JamaLocation;
 import com.jamasoftware.services.restclient.jamadomain.values.JamaFieldValue;
@@ -9,6 +10,7 @@ import com.jamasoftware.services.restclient.jamadomain.values.TextFieldValue;
 import com.jamasoftware.services.restclient.exception.UnexpectedJamaResponseException;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -190,8 +192,19 @@ public class JamaItem extends LazyResource implements JamaParent {
         this.lastActivityDate = lastActivityDate;
     }
 
+    public List<JamaRelationship> getDownstream() throws RestClientException {
+        List<JamaDomainObject> objects = getJamaInstance().getAll("items/" + getId() + "/downstreamrelationships");
+        List<JamaRelationship> relationships = new ArrayList<>();
+        for(JamaDomainObject o : objects) {
+            relationships.add((JamaRelationship)o);
+        }
+        return relationships;
+
+    }
+
     @Override
     public String toString() {
-        return getName().toString();
+        return name == null ? "Name not yet retrieved" : name.toString();
+//        return getName().toString();
     }
 }

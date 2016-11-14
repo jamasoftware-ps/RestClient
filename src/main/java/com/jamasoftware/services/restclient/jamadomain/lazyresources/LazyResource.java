@@ -8,13 +8,16 @@ import com.jamasoftware.services.restclient.exception.RestClientException;
 public abstract class LazyResource implements JamaDomainObject {
     private JamaInstance jamaInstance;
     private Integer id;
-    private boolean fetched = false;
+    private boolean shouldFetch = true;
+    private Long lastFetch = null;
 
     public void fetch() {
+        checkFetched();
         try {
-            if (!fetched && id != null) {
+            if (shouldFetch && id != null) {
+                shouldFetch = false;
+                lastFetch = System.currentTimeMillis();
                 copyContentFrom(jamaInstance.getResource(getResourceUrl()));
-                fetched = true;
             }
         } catch (RestClientException e) {
             e.printStackTrace();
@@ -45,6 +48,15 @@ public abstract class LazyResource implements JamaDomainObject {
     public void checkType(Class clazz, JamaDomainObject jamaDomainObject) {
         if(!clazz.isInstance(jamaDomainObject)) {
             throw new UnexpectedJamaResponseException("Expecting a " + clazz.getName() + " from the Jama server. Instead, got: " + jamaDomainObject.getClass().getName());
+        }
+    }
+
+    private void checkFetched() {
+        if(jamaInstance == null || lastFetch == null) {
+            return;
+        }
+        if(!shouldFetch && System.currentTimeMillis() - lastFetch > jamaInstance.getResourceTimeOut() * 1000) {
+            shouldFetch = true;
         }
     }
 }

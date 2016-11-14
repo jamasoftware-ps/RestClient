@@ -16,6 +16,7 @@ import java.util.Map;
 public class JamaInstance implements JamaDomainObject {
     private JamaClient jamaClient;
     private JamaConfig jamaConfig;
+    private Integer resourceTimeOut;
 
     // todo encapsulate this
     private HashMap<Integer, JamaItemType> itemTypeMap = new HashMap<>();
@@ -24,6 +25,7 @@ public class JamaInstance implements JamaDomainObject {
 
     public JamaInstance(JamaConfig jamaConfig) {
         this.jamaConfig = jamaConfig;
+        this.resourceTimeOut = jamaConfig.getResourceTimeOut();
         this.jamaClient = new JamaClient(
                 jamaConfig.getHttpClient(),
                 jamaConfig.getJson(),
@@ -134,4 +136,11 @@ public class JamaInstance implements JamaDomainObject {
         jamaClient.ping();
     }
 
+    public Integer getResourceTimeOut() {
+        return resourceTimeOut;
+    }
+
+    public void setResourceTimeOut(Integer resourceTimeOut) {
+        this.resourceTimeOut = resourceTimeOut;
+    }
 }

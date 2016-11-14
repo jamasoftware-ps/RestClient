@@ -31,7 +31,12 @@ public class SimpleJson implements JsonSerializerDeserializer {
     }
 
     private JamaDomainObject typeCheckResource(JSONObject resourceJson, JamaInstance jamaInstance) throws JsonException {
-        String type = util.requireString(resourceJson, "type");
+        String type = util.requestString(resourceJson, "type");
+        if(type == null) {
+            if(resourceJson.get("suspect") != null) {
+                return deserializeRelationship(resourceJson, jamaInstance);
+            }
+        }
         switch(type) {
             case "itemtypes":
                 return deserializeItemType(resourceJson, jamaInstance);
@@ -45,6 +50,8 @@ public class SimpleJson implements JsonSerializerDeserializer {
                 return deserializeOption(resourceJson, jamaInstance);
             case "releases":
                 return deserializeRelease(resourceJson, jamaInstance);
+            case "relationshiptypes":
+                return deserializeRelationshipType(resourceJson, jamaInstance);
             default:
                 throw new JsonException("type not found for object: " + resourceJson.toJSONString());
         }
@@ -54,16 +61,43 @@ public class SimpleJson implements JsonSerializerDeserializer {
         throw new NotImplementedException();
     }
 
-    public String serialize(Relationship relationship) throws JsonException {
+    public String serialize(JamaRelationship relationship) throws JsonException {
         throw new NotImplementedException();
     }
 
-    public Relationship deserializeRelationship(String json) throws JsonException {
+    public JamaRelationship deserializeRelationship(String json) throws JsonException {
         throw new NotImplementedException();
     }
 
     public String serialize(JamaItemType itemType) throws JsonException {
         throw new NotImplementedException();
+    }
+
+    public JamaRelationship deserializeRelationship(JSONObject relJson, JamaInstance jamaInstance) throws JsonException {
+        int relationshipId = util.requireInt(relJson, "id");
+        JamaRelationship relationship = (JamaRelationship)checkPool(JamaRelationship.class, relationshipId, jamaInstance);
+        int toItemId = util.requireInt(relJson, "toItem");
+        JamaItem toItem = checkItemPool(toItemId, jamaInstance);
+        relationship.setToItem(toItem);
+        int fromItemId = util.requireInt(relJson, "fromItem");
+        JamaItem fromItem = checkItemPool(fromItemId, jamaInstance);
+        relationship.setFromItem(fromItem);
+
+        Integer relationshipTypeId = util.requestInt(relJson, "relationshipType");
+        if(relationshipTypeId != null) {
+            JamaRelationshipType relType = (JamaRelationshipType)checkPool(JamaRelationshipType.class, relationshipTypeId, jamaInstance);
+            relationship.setRelationshipType(relType);
+        }
+        return relationship;
+    }
+
+    public JamaRelationshipType deserializeRelationshipType(JSONObject relTypeJson, JamaInstance jamaInstance) throws JsonException {
+        int relationshipTypeId = util.requireInt(relTypeJson, "id");
+        JamaRelationshipType relType = (JamaRelationshipType)checkPool(JamaRelationshipType.class, relationshipTypeId, jamaInstance);
+        relType.associate(relationshipTypeId, jamaInstance);
+        relType.setName(util.requestString(relTypeJson, "name"));
+        relType.setDefault(util.requireBoolean(relTypeJson, "isDefault"));
+        return relType;
     }
 
     public Release deserializeRelease(JSONObject releaseJson, JamaInstance jamaInstance) throws JsonException {
@@ -72,12 +106,12 @@ public class SimpleJson implements JsonSerializerDeserializer {
         release.associate(releaseId, jamaInstance);
         release.setName(util.requestString(releaseJson, "name"));
         release.setDescription(util.requestString(releaseJson, "description"));
+
         Integer projectId = util.requireInt(releaseJson, "project");
-        if(projectId != null) {
-            JamaProject project = checkProjectPool(projectId, jamaInstance);
-            project.associate(projectId, jamaInstance);
-            release.setProject(project);
-        }
+        JamaProject project = checkProjectPool(projectId, jamaInstance);
+        project.associate(projectId, jamaInstance);
+        release.setProject(project);
+
         release.setReleaseDate(util.requestDate(releaseJson, "releaseDate"));
         release.setActive(util.requireBoolean(releaseJson, "active"));
         release.setArchived(util.requireBoolean(releaseJson, "archived"));
@@ -169,6 +203,9 @@ public class SimpleJson implements JsonSerializerDeserializer {
             throw new JsonException(e);
         }
         jamaInstance.addToPool(clazz, id, jamaDomainObject);
+        if(jamaDomainObject instanceof LazyResource) {
+            ((LazyResource)jamaDomainObject).associate(id, jamaInstance);
+        }
         return jamaDomainObject;
     }
 
@@ -238,7 +275,7 @@ public class SimpleJson implements JsonSerializerDeserializer {
         for(JamaField field : itemType.getFields()) {
             JamaFieldValue fieldValue = field.getValue();
             try {
-                fieldValue.setValue(util.getFieldValue(fields, fieldValue.getName(), item.getItemType().getId()));
+                fieldValue.setValue(util.getFieldValue(fields, fieldValue.getName(), itemTypeId));
             } catch (RestClientException e) {
                 throw new JsonException(e);
             }
@@ -331,9 +368,12 @@ public class SimpleJson implements JsonSerializerDeserializer {
             JamaDomainObject domainObject = typeCheckResource(resource, jamaInstance);
             if(domainObject instanceof LazyResource) {
                 try {
-                    Field field = LazyResource.class.getDeclaredField("fetched");
+                    Field field = LazyResource.class.getDeclaredField("shouldFetch");
                     field.setAccessible(true);
-                    field.set(domainObject, true);
+                    field.set(domainObject, false);
+                    field = LazyResource.class.getDeclaredField("lastFetch");
+                    field.setAccessible(true);
+                    field.set(domainObject, System.currentTimeMillis());
                 } catch(NoSuchFieldException | IllegalAccessException e) {
                     throw new JsonException(e.getClass().toString());
                 }

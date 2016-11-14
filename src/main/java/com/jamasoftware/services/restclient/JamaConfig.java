@@ -15,6 +15,7 @@ public class JamaConfig {
     private String password;
     private JsonSerializerDeserializer json;
     private HttpClient httpClient;
+    private Integer resourceTimeOut;
 
     public JamaConfig() {
         json = new SimpleJson();
@@ -38,8 +39,11 @@ public class JamaConfig {
             baseUrl = properties.getProperty("baseUrl");
             username = properties.getProperty("username");
             password = properties.getProperty("password");
+            String timeOutString = properties.getProperty("resourceTimeOut");
+            resourceTimeOut = Integer.valueOf(timeOutString);
         } catch(Exception e) {
             e.printStackTrace();
+            System.exit(1);
         }
     }
 
@@ -81,5 +85,13 @@ public class JamaConfig {
 
     public void setHttpClient(HttpClient httpClient) {
         this.httpClient = httpClient;
+    }
+
+    public Integer getResourceTimeOut() {
+        return resourceTimeOut;
+    }
+
+    public void setResourceTimeOut(Integer resourceTimeOut) {
+        this.resourceTimeOut = resourceTimeOut;
     }
 }

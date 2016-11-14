@@ -112,6 +112,7 @@ public class ApacheHttpClient implements HttpClient {
     }
 
     public Response get(String url, String username, String password) throws RestClientException {
+        System.out.println("GET: " + url);
         HttpGet getRequest = new HttpGet(url);
         UsernamePasswordCredentials credentials = new UsernamePasswordCredentials(username, password);
         Response response = execute(getRequest, credentials);

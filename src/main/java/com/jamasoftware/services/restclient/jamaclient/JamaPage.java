@@ -39,7 +39,9 @@ public class JamaPage {
     }
 
     public void addResource(JamaDomainObject jamaDomainObject) {
-        results.add(jamaDomainObject);
+        if(jamaDomainObject != null) {
+            results.add(jamaDomainObject);
+        }
     }
 
     public List<JamaDomainObject> getResults() {
