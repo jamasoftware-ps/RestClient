@@ -14,9 +14,9 @@ public class Main {
 
         try {
             JamaInstance jamaInstance = new JamaInstance(new JamaConfig(true));
-            JamaProject jamaProject = new JamaProject();
-            jamaProject.associate(20540, jamaInstance);
-            List<JamaItemType> types = jamaInstance.getItemTypes();
+//            JamaProject jamaProject = new JamaProject();
+//            jamaProject.associate(20540, jamaInstance);
+//            List<JamaItemType> types = jamaInstance.getItemTypes();
 //            JamaItem jamaItem = jamaInstance.getItem(2169992);
 //            System.out.println(jamaItem.getName());
 //            jamaInstance.ping();
@@ -29,13 +29,15 @@ public class Main {
 //                    items.addAll(project.getItems());
 //                }
 //            }
-            List<JamaItem> items = jamaProject.getItems();
-
-            for (JamaItem item : items) {
-                System.out.println(item.getName());
-            }
-
-            List<JamaRelationship> relationships = items.get(1).getDownstream();
+//            List<JamaItem> items = jamaProject.getItems();
+//
+//            for (JamaItem item : items) {
+//                System.out.println(item.getName());
+//            }
+//
+//            List<JamaRelationship> relationships = items.get(1).getDownstream();
+            JamaItem item = jamaInstance.getItem(1972370);
+            item.getName();
 
             System.out.println("done");
 

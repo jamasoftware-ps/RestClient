@@ -3,11 +3,13 @@ package com.jamasoftware.services.restclient.json;
 import com.jamasoftware.services.restclient.JamaParent;
 import com.jamasoftware.services.restclient.jamadomain.JamaInstance;
 import com.jamasoftware.services.restclient.jamadomain.JamaLocation;
+import com.jamasoftware.services.restclient.jamadomain.TestCaseStep;
 import com.jamasoftware.services.restclient.jamadomain.lazyresources.*;
 import com.jamasoftware.services.restclient.jamadomain.JamaDomainObject;
 import com.jamasoftware.services.restclient.jamadomain.fields.*;
 import com.jamasoftware.services.restclient.jamadomain.values.JamaFieldValue;
 import com.jamasoftware.services.restclient.jamadomain.values.RichTextFieldValue;
+import com.jamasoftware.services.restclient.jamadomain.values.TestCaseStepsFieldValue;
 import com.jamasoftware.services.restclient.jamadomain.values.TextFieldValue;
 import com.jamasoftware.services.restclient.jamaclient.JamaPage;
 import com.jamasoftware.services.restclient.exception.JsonException;
@@ -274,8 +276,13 @@ public class SimpleJson implements JsonSerializerDeserializer {
         List<JamaFieldValue> fieldValues = new ArrayList<>();
         for(JamaField field : itemType.getFields()) {
             JamaFieldValue fieldValue = field.getValue();
+            String fieldName = fieldValue.getName();
             try {
-                fieldValue.setValue(util.getFieldValue(fields, fieldValue.getName(), itemTypeId));
+                if(fieldValue instanceof TestCaseStepsFieldValue) {
+                    ((TestCaseStepsFieldValue)fieldValue).setValue(getStepList(fields, fieldName));
+                } else {
+                    fieldValue.setValue(util.getFieldValue(fields, fieldName, itemTypeId));
+                }
             } catch (RestClientException e) {
                 throw new JsonException(e);
             }
@@ -291,6 +298,20 @@ public class SimpleJson implements JsonSerializerDeserializer {
         item.associate(util.requireInt(itemJson, "id"), jamaInstance);
 
         return item;
+    }
+
+    private List<TestCaseStep> getStepList(JSONObject fields, String fieldName) {
+        List<TestCaseStep> stepList = new ArrayList<>();
+        JSONArray steps = (JSONArray)fields.get(fieldName);
+        for(Object s : steps) {
+            TestCaseStep step = new TestCaseStep();
+            JSONObject jsonStep = (JSONObject) s;
+            step.setAction((String)jsonStep.get("action"));
+            step.setExpectedResult((String)jsonStep.get("expectedResult"));
+            step.setNotes((String)jsonStep.get("notes"));
+            stepList.add(step);
+        }
+        return stepList;
     }
 
     private JamaLocation deserializeLocation(JSONObject itemJson, JamaInstance jamaInstance) throws JsonException {
