@@ -4,6 +4,7 @@ import com.jamasoftware.services.restclient.httpconnection.ApacheHttpClient;
 import com.jamasoftware.services.restclient.httpconnection.HttpClient;
 import com.jamasoftware.services.restclient.json.JsonSerializerDeserializer;
 import com.jamasoftware.services.restclient.json.SimpleJson;
+import com.sun.xml.internal.bind.v2.TODO;
 
 import java.io.FileInputStream;
 import java.io.InputStream;
@@ -11,11 +12,12 @@ import java.util.Properties;
 
 public class JamaConfig {
     private String baseUrl;
+    // TODO add ending forward slash off of domain name
     private String username;
     private String password;
     private JsonSerializerDeserializer json;
     private HttpClient httpClient;
-    private Integer resourceTimeOut;
+    private Integer resourceTimeOut;    //value is seconds
 
     public JamaConfig() {
         json = new SimpleJson();

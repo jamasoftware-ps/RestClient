@@ -18,7 +18,7 @@ public class JamaInstance implements JamaDomainObject {
     private JamaConfig jamaConfig;
     private Integer resourceTimeOut;
 
-    // todo encapsulate this
+    // todo remove itemType map
     private HashMap<Integer, JamaItemType> itemTypeMap = new HashMap<>();
     private Map<String, JamaDomainObject> resourcePool = new HashMap<>();
 

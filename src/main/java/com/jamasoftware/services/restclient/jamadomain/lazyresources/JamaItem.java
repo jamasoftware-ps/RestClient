@@ -192,19 +192,44 @@ public class JamaItem extends LazyResource implements JamaParent {
         this.lastActivityDate = lastActivityDate;
     }
 
-    public List<JamaRelationship> getDownstream() throws RestClientException {
+    public List<JamaRelationship> getDownstreamRelationships() throws RestClientException {
         List<JamaDomainObject> objects = getJamaInstance().getAll("items/" + getId() + "/downstreamrelationships");
         List<JamaRelationship> relationships = new ArrayList<>();
         for(JamaDomainObject o : objects) {
             relationships.add((JamaRelationship)o);
         }
         return relationships;
+    }
 
+    public List<JamaRelationship> getUpstreamRelationships() throws RestClientException {
+        List<JamaDomainObject> objects = getJamaInstance().getAll("items/" + getId() + "/upstreamrelationships");
+        List<JamaRelationship> relationships = new ArrayList<>();
+        for(JamaDomainObject object : objects){
+            relationships.add((JamaRelationship) object);
+        }
+        return relationships;
+    }
+
+    public List<JamaItem> getDownstreamItems() throws RestClientException {
+        List<JamaDomainObject> objects = getJamaInstance().getAll("items/" + getId() + "/downstreamrelated");
+        List<JamaItem> items = new ArrayList<>();
+        for(JamaDomainObject o : objects) {
+            items.add((JamaItem)o);
+        }
+        return items;
+    }
+
+    public List<JamaItem> getUpstreamItems() throws RestClientException {
+        List<JamaDomainObject> objects = getJamaInstance().getAll("items/" + getId() + "/upstreamrelated");
+        List<JamaItem> items = new ArrayList<>();
+        for(JamaDomainObject o : objects) {
+            items.add((JamaItem)o);
+        }
+        return items;
     }
 
     @Override
     public String toString() {
-        return name == null ? "Name not yet retrieved" : name.toString();
-//        return getName().toString();
+        return getName().toString();
     }
 }

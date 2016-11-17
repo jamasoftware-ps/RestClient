@@ -135,4 +135,13 @@ public class JamaProject extends LazyResource implements JamaParent {
     public String toString() {
         return getName();
     }
+
+    public List<JamaRelationship> getRelationships() throws RestClientException {
+        List<JamaDomainObject> objects = getJamaInstance().getAll("relationships?project=" + getId());
+        List<JamaRelationship> relationships = new ArrayList<>();
+        for(JamaDomainObject o : objects) {
+            relationships.add((JamaRelationship)o);
+        }
+        return relationships;
+    }
 }

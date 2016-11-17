@@ -2,18 +2,37 @@ package com.jamasoftware.services.restclient;
 
 import com.jamasoftware.services.restclient.jamadomain.lazyresources.JamaItem;
 import com.jamasoftware.services.restclient.jamadomain.JamaInstance;
-import com.jamasoftware.services.restclient.jamadomain.lazyresources.JamaItemType;
 import com.jamasoftware.services.restclient.jamadomain.lazyresources.JamaProject;
 import com.jamasoftware.services.restclient.jamadomain.lazyresources.JamaRelationship;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class Main {
     public static void main(String[] ignore) {
 
         try {
+            // TODO fail good (John) attempted to retireve item types for invalid item
             JamaInstance jamaInstance = new JamaInstance(new JamaConfig(true));
+            List<JamaProject> projects = jamaInstance.getProjects();
+            JamaProject aProject = projects.get(0);
+            List<JamaItem> items = aProject.getItems();
+            for(JamaItem item : items) {
+                if(item.getName().toString().equals("WORKED Profile - Insurance")) {
+                    JamaItem upItem = item.getUpstreamItems().get(0);
+                    System.out.println(upItem);
+                    System.out.println("-----");
+                    System.out.println(upItem.getDownstreamItems().get(0));
+                    System.out.println("Hellow");
+                }
+
+            }
+
+//            List<JamaRelationship> relationships = aProject.getRelationships();
+//            JamaRelationship relationship = relationships.get(0);
+//            System.out.println(relationship.getFromItem());
+//            System.out.println(relationship.getToItem());
+//            System.out.println(relationship.getRelationshipType());
+
 //            JamaProject jamaProject = new JamaProject();
 //            jamaProject.associate(20540, jamaInstance);
 //            List<JamaItemType> types = jamaInstance.getItemTypes();
@@ -35,9 +54,9 @@ public class Main {
 //                System.out.println(item.getName());
 //            }
 //
-//            List<JamaRelationship> relationships = items.get(1).getDownstream();
-            JamaItem item = jamaInstance.getItem(1972370);
-            item.getName();
+//            List<JamaRelationship> relationships = items.get(1).getDownstreamRelationships();
+            //JamaItem item = jamaInstance.getItem(1972370);
+//            item.getName();
 
             System.out.println("done");
 
