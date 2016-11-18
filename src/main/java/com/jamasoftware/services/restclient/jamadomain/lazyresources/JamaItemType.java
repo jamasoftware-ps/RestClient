@@ -16,7 +16,7 @@ public class JamaItemType extends LazyResource {
     private String displayPlural;
     private String imageURL;
     private List<JamaField> fields = new ArrayList<>();
-    private File image;
+    private byte[] image;
 
     @Override
     protected String getResourceUrl() {
@@ -70,15 +70,11 @@ public class JamaItemType extends LazyResource {
         this.displayPlural = displayPlural;
     }
 
-    public File getImage() {
+    public byte[] getImage() {
         fetch();
-        throw new NotImplementedException();
-        // todo: retrieve the image file
+        return image;
     }
 
-    public void setImage(File image) {
-        this.image = image;
-    }
 
     public String getImageURL() {
         fetch();

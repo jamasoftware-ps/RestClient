@@ -280,4 +280,7 @@ public class JamaItem extends LazyResource implements JamaParent {
         return getName().toString();
     }
 
+    public byte[] getItemTypeImage() {
+        return getItemType().getImage();
+    }
 }

@@ -1,5 +1,6 @@
 package com.jamasoftware.services.restclient.jamaclient;
 
+import com.jamasoftware.services.restclient.httpconnection.FileResponse;
 import com.jamasoftware.services.restclient.jamadomain.JamaDomainObject;
 import com.jamasoftware.services.restclient.jamadomain.JamaInstance;
 import com.jamasoftware.services.restclient.httpconnection.Response;
@@ -58,11 +59,19 @@ public class JamaClient {
     }
 
     public void put(String url, String payload) throws RestClientException {
-
         httpClient.put(url, username, password, payload);
     }
 
     public void post(String url, String payload) throws RestClientException {
         httpClient.post(url, username, password, payload);
+    }
+
+    public byte[] getItemTypeImage(String url) throws RestClientException{
+        String domain = url.substring(0, url.indexOf("/img/"));
+        if(!baseUrl.contains(domain)){
+            throw new RestClientException("Not a valid Item Type image URL: \"" + url + "\"");
+        }
+        FileResponse response = httpClient.getFile(url, username, password);
+        return response.getFileData();
     }
 }

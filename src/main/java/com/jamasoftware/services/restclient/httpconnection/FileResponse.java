@@ -17,10 +17,7 @@ public class FileResponse extends Response {
         this.fileBytes = IOUtils.toByteArray(inputStream);
     }
 
-    public File writeToFile(File file) throws RestClientException, IOException {
-        FileOutputStream fileOutputStream = new FileOutputStream(file);
-        IOUtils.write(fileBytes, fileOutputStream);
-        fileOutputStream.close();
-        return file;
+    public byte[] getFileData() {
+        return fileBytes;
     }
 }

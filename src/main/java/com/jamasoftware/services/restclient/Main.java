@@ -5,6 +5,8 @@ import com.jamasoftware.services.restclient.jamadomain.JamaInstance;
 import com.jamasoftware.services.restclient.jamadomain.lazyresources.JamaProject;
 import com.jamasoftware.services.restclient.jamadomain.lazyresources.JamaRelationship;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.util.List;
 
 public class Main {
@@ -15,11 +17,16 @@ public class Main {
             JamaInstance jamaInstance = new JamaInstance(new JamaConfig(true));
             JamaItem item = new JamaItem();
             item.associate(2119533, jamaInstance);
-            System.out.println(item.isLocked());
-            System.out.println(item.lockedBy());
-            item.lock();
-            System.out.println(item.isLocked());
-            System.out.println(item.lockedBy());
+            byte[] imageData = item.getItemTypeImage();
+            FileOutputStream fos = new FileOutputStream("out.png");
+            fos.write(imageData);
+            fos.close();
+
+//            System.out.println(item.isLocked());
+//            System.out.println(item.lockedBy());
+//            item.lock();
+//            System.out.println(item.isLocked());
+//            System.out.println(item.lockedBy());
 //            List<JamaProject> projects = jamaInstance.getProjects();
 //            JamaProject aProject = projects.get(0);
 //            List<JamaItem> items = aProject.getItems();

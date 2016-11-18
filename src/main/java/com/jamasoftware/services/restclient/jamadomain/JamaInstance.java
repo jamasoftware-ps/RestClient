@@ -155,6 +155,10 @@ public class JamaInstance implements JamaDomainObject {
         jamaClient.post(jamaConfig.getBaseUrl() + resource, payload);
     }
 
+    public byte[] retrieveItemTypeImage(String url) throws RestClientException {
+        return jamaClient.getItemTypeImage(url);
+    }
+
     public void setResourceTimeOut(Integer resourceTimeOut) {
         this.resourceTimeOut = resourceTimeOut;
     }

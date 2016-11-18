@@ -362,7 +362,14 @@ public class SimpleJson implements JsonSerializerDeserializer {
         itemType.associate(itemTypeId, jamaInstance);
         itemType.setDisplay(util.requireString(itemTypeJson, "display"));
         itemType.setDisplayPlural(util.requireString(itemTypeJson, "displayPlural"));
-        itemType.setImageURL(util.requireString(itemTypeJson, "image"));
+        String imageUrl = util.requireString(itemTypeJson, "image");
+        byte[] imageData;
+        try {
+            imageData = jamaInstance.retrieveItemTypeImage(imageUrl);
+        } catch (RestClientException e) {
+            throw new JsonException(e);
+        }
+        forceValue(itemType, JamaItemType.class, "image", imageData);
         itemType.setTypeKey(util.requireString(itemTypeJson, "typeKey"));
         JSONArray fieldsJson = util.requireArray(itemTypeJson, "fields");
 
