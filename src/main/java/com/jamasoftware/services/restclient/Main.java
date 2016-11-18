@@ -13,19 +13,29 @@ public class Main {
         try {
             // TODO fail good (John) attempted to retireve item types for invalid item
             JamaInstance jamaInstance = new JamaInstance(new JamaConfig(true));
-            List<JamaProject> projects = jamaInstance.getProjects();
-            JamaProject aProject = projects.get(0);
-            List<JamaItem> items = aProject.getItems();
-            for(JamaItem item : items) {
-                if(item.getName().toString().equals("WORKED Profile - Insurance")) {
-                    JamaItem upItem = item.getUpstreamItems().get(0);
-                    System.out.println(upItem);
-                    System.out.println("-----");
-                    System.out.println(upItem.getDownstreamItems().get(0));
-                    System.out.println("Hellow");
-                }
+            JamaItem item = new JamaItem();
+            item.associate(2119533, jamaInstance);
+            System.out.println(item.isLocked());
+            System.out.println(item.lockedBy());
+            item.lock();
+            System.out.println(item.isLocked());
+            System.out.println(item.lockedBy());
+//            List<JamaProject> projects = jamaInstance.getProjects();
+//            JamaProject aProject = projects.get(0);
+//            List<JamaItem> items = aProject.getItems();
+//            for(JamaItem item : items) {
+//                if(item.getName().toString().contains("dont care")) {
+//                    item.forceLockItem();
+//                    if(item.isLockedByCurrentUser())
+//                        System.out.println("DONZO");
+////                    JamaItem upItem = item.getUpstreamItems().get(0);
+//                    System.out.println(upItem);
+//                    System.out.println("-----");
+//                    System.out.println(upItem.getDownstreamItems().get(0));
+//                    System.out.println("Hellow");
 
-            }
+
+
 
 //            List<JamaRelationship> relationships = aProject.getRelationships();
 //            JamaRelationship relationship = relationships.get(0);

@@ -1,9 +1,11 @@
 package com.jamasoftware.services.restclient.jamadomain;
 
 import com.jamasoftware.services.restclient.JamaConfig;
+import com.jamasoftware.services.restclient.httpconnection.Response;
 import com.jamasoftware.services.restclient.jamadomain.lazyresources.*;
 import com.jamasoftware.services.restclient.exception.RestClientException;
 import com.jamasoftware.services.restclient.jamaclient.JamaClient;
+import com.sun.org.apache.regexp.internal.RE;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -143,6 +145,14 @@ public class JamaInstance implements JamaDomainObject {
             currentUser = (JamaUser) getResource("users/current");
         }
         return currentUser;
+    }
+
+    public void putRawData(String resource, String payload) throws RestClientException {
+        jamaClient.put(jamaConfig.getBaseUrl() + resource, payload);
+    }
+
+    public void postRawData(String resource, String payload) throws RestClientException {
+        jamaClient.post(jamaConfig.getBaseUrl() + resource, payload);
     }
 
     public void setResourceTimeOut(Integer resourceTimeOut) {

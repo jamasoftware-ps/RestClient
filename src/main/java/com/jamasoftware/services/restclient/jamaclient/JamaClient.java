@@ -56,4 +56,13 @@ public class JamaClient {
     public void ping() throws RestClientException {
         httpClient.get(baseUrl, username, password);
     }
+
+    public void put(String url, String payload) throws RestClientException {
+
+        httpClient.put(url, username, password, payload);
+    }
+
+    public void post(String url, String payload) throws RestClientException {
+        httpClient.post(url, username, password, payload);
+    }
 }

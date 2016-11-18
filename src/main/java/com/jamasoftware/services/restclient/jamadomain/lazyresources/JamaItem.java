@@ -8,7 +8,6 @@ import com.jamasoftware.services.restclient.jamadomain.LockStatus;
 import com.jamasoftware.services.restclient.jamadomain.values.JamaFieldValue;
 import com.jamasoftware.services.restclient.jamadomain.values.RichTextFieldValue;
 import com.jamasoftware.services.restclient.jamadomain.values.TextFieldValue;
-import com.jamasoftware.services.restclient.exception.UnexpectedJamaResponseException;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.util.ArrayList;
@@ -210,6 +209,10 @@ public class JamaItem extends LazyResource implements JamaParent {
         return lockStatus.getLastLocked();
     }
 
+    public JamaUser lockedBy() {
+        return lockStatus.getLockedBy();
+    }
+
     public List<JamaRelationship> getDownstreamRelationships() throws RestClientException {
         List<JamaDomainObject> objects = getJamaInstance().getAll("items/" + getId() + "/downstreamrelationships");
         List<JamaRelationship> relationships = new ArrayList<>();
@@ -246,8 +249,35 @@ public class JamaItem extends LazyResource implements JamaParent {
         return items;
     }
 
+    public void forceLockItem() throws RestClientException {
+        sendLockRequest(false);
+        sendLockRequest(true);
+        forceFetch();
+    }
+
+    public boolean acquireLock() throws RestClientException {
+        sendLockRequest(true);
+        forceFetch();
+        return getJamaInstance().getCurrentUser().equals(lockStatus.getLockedBy());
+    }
+
+    public void lock() throws RestClientException {
+        sendLockRequest(true);
+        forceFetch();
+    }
+
+    private void sendLockRequest(boolean lockState) throws RestClientException {
+        getJamaInstance().putRawData("items/" + getId() + "/lock", "{\"locked\":" + lockState + "}" );
+    }
+
+//    public List<JamaDomainObject> searchUsingContains() throws RestClientException {
+//
+//
+//    }
+
     @Override
     public String toString() {
         return getName().toString();
     }
+
 }
