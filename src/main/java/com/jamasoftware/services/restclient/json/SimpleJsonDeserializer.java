@@ -18,10 +18,9 @@ import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
-import java.util.IllegalFormatCodePointException;
 import java.util.List;
 
-public class SimpleJson implements JsonSerializerDeserializer {
+public class SimpleJsonDeserializer implements JsonDeserializer {
     private JSONParser jsonParser = new JSONParser();
     private SimpleJsonUtil util = new SimpleJsonUtil();
 
@@ -264,7 +263,7 @@ public class SimpleJson implements JsonSerializerDeserializer {
             item.setCreatedBy(modifiedBy);
         }
 
-        item.setLocation(deserializeLocation(itemJson, jamaInstance));
+        forceValue(item, JamaItem.class, "location", deserializeLocation(itemJson, jamaInstance));
         forceValue(item, JamaItem.class, "lockStatus", deserializeLockStatus(itemJson, jamaInstance));
 
         JSONObject fields = util.requireObject(itemJson, "fields");
@@ -404,8 +403,8 @@ public class SimpleJson implements JsonSerializerDeserializer {
             JSONObject resource = (JSONObject)object;
             JamaDomainObject domainObject = typeCheckResource(resource, jamaInstance);
             if(domainObject instanceof LazyResource) {
-                forceValue(domainObject, LazyResource.class, "shouldFetch", false);
-                forceValue(domainObject, LazyResource.class, "lastFetch", System.currentTimeMillis());
+                forceValue(domainObject, LazyBase.class, "shouldFetch", false);
+                forceValue(domainObject, LazyBase.class, "lastFetch", System.currentTimeMillis());
             }
             page.addResource(domainObject);
         }

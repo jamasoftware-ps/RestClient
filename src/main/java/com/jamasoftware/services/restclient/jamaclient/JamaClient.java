@@ -6,19 +6,19 @@ import com.jamasoftware.services.restclient.jamadomain.JamaInstance;
 import com.jamasoftware.services.restclient.httpconnection.Response;
 import com.jamasoftware.services.restclient.exception.RestClientException;
 import com.jamasoftware.services.restclient.httpconnection.HttpClient;
-import com.jamasoftware.services.restclient.json.JsonSerializerDeserializer;
+import com.jamasoftware.services.restclient.json.JsonDeserializer;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class JamaClient {
     private HttpClient httpClient;
-    private JsonSerializerDeserializer json;
+    private JsonDeserializer json;
     private String username;
     private String password;
     private String baseUrl;
 
-    public JamaClient(HttpClient httpClient, JsonSerializerDeserializer json, String baseUrl, String username, String password) {
+    public JamaClient(HttpClient httpClient, JsonDeserializer json, String baseUrl, String username, String password) {
         this.httpClient = httpClient;
         this.json = json;
         this.baseUrl = baseUrl;

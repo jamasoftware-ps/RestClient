@@ -3,10 +3,10 @@ package com.jamasoftware.services.restclient.jamadomain.lazyresources;
 import com.jamasoftware.services.restclient.JamaParent;
 import com.jamasoftware.services.restclient.exception.RestClientException;
 import com.jamasoftware.services.restclient.jamadomain.JamaDomainObject;
-import com.jamasoftware.services.restclient.exception.UnexpectedJamaResponseException;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -19,15 +19,32 @@ public class JamaProject extends LazyResource implements JamaParent {
     private Date modifiedDate;
     private JamaUser createdBy;
     private JamaUser modifiedBy;
+    ChildrenList children;
 
     @Override
-    public boolean addChild(JamaItem jamaItem) {
-        throw new NotImplementedException();
+    public List<JamaItem> getChildren() throws RestClientException {
+        if(children == null) {
+            children = new ChildrenList();
+            children.associate(getId(), jamaInstance);
+            children.setParent(this);
+        }
+        return Collections.unmodifiableList(children.getChildren());
     }
 
     @Override
-    public List<JamaItem> getChildren() {
+    public void addChild(JamaItem jamaItem) {
         throw new NotImplementedException();
+
+    }
+
+    @Override
+    public boolean isProject() {
+        return false;
+    }
+
+    @Override
+    public void makeChildOf(JamaParent jamaParent) {
+
     }
 
     @Override

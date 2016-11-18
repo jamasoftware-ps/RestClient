@@ -11,6 +11,7 @@ import com.jamasoftware.services.restclient.jamadomain.values.TextFieldValue;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -30,15 +31,41 @@ public class JamaItem extends LazyResource implements JamaParent {
     private JamaLocation location;
     private List<JamaFieldValue> fieldValues;
     private LockStatus lockStatus;
+    private ChildrenList children;
+
+    public JamaParent getParent() {
+        fetch();
+        return location.getParent();
+    }
+
+    public String getSequence() {
+        fetch();
+        return location.getSequence();
+    }
 
     @Override
-    public boolean addChild(JamaItem jamaItem) {
+    public List<JamaItem> getChildren() throws RestClientException {
+        if(children == null) {
+            children = new ChildrenList();
+            children.associate(getId(), jamaInstance);
+            children.setParent(this);
+        }
+        return Collections.unmodifiableList(children.getChildren());
+    }
+
+    @Override
+    public void addChild(JamaItem jamaItem) throws RestClientException {
         throw new NotImplementedException();
     }
 
     @Override
-    public List<JamaItem> getChildren() {
-        throw new NotImplementedException();
+    public boolean isProject() {
+        return false;
+    }
+
+    @Override
+    public void makeChildOf(JamaParent jamaParent) throws RestClientException {
+
     }
 
     @Override
@@ -140,13 +167,9 @@ public class JamaItem extends LazyResource implements JamaParent {
         this.modifiedBy = modifiedBy;
     }
 
-    public JamaLocation getLocation() {
+    protected JamaLocation getLocation() {
         fetch();
         return location;
-    }
-
-    public void setLocation(JamaLocation location) {
-        this.location = location;
     }
 
     public List<JamaFieldValue> getFieldValues() {

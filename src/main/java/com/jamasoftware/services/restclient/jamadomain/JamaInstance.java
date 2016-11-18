@@ -1,12 +1,12 @@
 package com.jamasoftware.services.restclient.jamadomain;
 
 import com.jamasoftware.services.restclient.JamaConfig;
-import com.jamasoftware.services.restclient.httpconnection.Response;
+import com.jamasoftware.services.restclient.JamaParent;
 import com.jamasoftware.services.restclient.jamadomain.lazyresources.*;
 import com.jamasoftware.services.restclient.exception.RestClientException;
 import com.jamasoftware.services.restclient.jamaclient.JamaClient;
-import com.sun.org.apache.regexp.internal.RE;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -20,7 +20,7 @@ public class JamaInstance implements JamaDomainObject {
 
     // todo remove itemType map
     private HashMap<Integer, JamaItemType> itemTypeMap = new HashMap<>();
-    private Map<String, JamaDomainObject> resourcePool = new HashMap<>();
+    private Map<String, WeakReference<JamaDomainObject>> resourcePool = new HashMap<>();
 
 
     public JamaInstance(JamaConfig jamaConfig) {
@@ -34,23 +34,28 @@ public class JamaInstance implements JamaDomainObject {
                 jamaConfig.getPassword());
     }
 
+    private JamaDomainObject getPoolOrNull(String key) {
+        WeakReference<JamaDomainObject> wr = resourcePool.get(key);
+        return wr == null ? null : wr.get();
+    }
+
     public JamaDomainObject checkPool(Class clazz, int id) {
-        return resourcePool.get(clazz.getName() + id);
+        return getPoolOrNull(clazz.getName() + id);
     }
 
     public void addToPool(Class clazz, int id, JamaDomainObject jamaDomainObject) {
-        resourcePool.put(clazz.getName() + id, jamaDomainObject);
+        resourcePool.put(clazz.getName() + id, new WeakReference<>(jamaDomainObject));
     }
 
     private JamaDomainObject checkPool(JamaDomainObject fresh) {
         if(fresh instanceof LazyResource) {
             String key = fresh.getClass().getName() + ((LazyResource) fresh).getId();
-            LazyResource existingResource = (LazyResource) resourcePool.get(key);
+            LazyResource existingResource = (LazyResource) getPoolOrNull(key);
             if(existingResource != null) {
                 existingResource.copyContentFrom(fresh);
                 return existingResource;
             }
-            resourcePool.put(key, fresh);
+            resourcePool.put(key, new WeakReference<>(fresh));
         }
         return fresh;
     }
@@ -58,6 +63,10 @@ public class JamaInstance implements JamaDomainObject {
     public JamaDomainObject getResource(String resource) throws RestClientException {
         JamaDomainObject retrieved = jamaClient.getResource(resource, this);
         return checkPool(retrieved);
+    }
+
+    public List<JamaDomainObject> getResourceCollection(String resource) throws RestClientException {
+        return getAll(resource);
     }
 
     public List<JamaDomainObject> getAll(String resource) throws RestClientException {
@@ -70,13 +79,13 @@ public class JamaInstance implements JamaDomainObject {
 
     public JamaProject getProject(int id) {
         String key = JamaProject.class.getName() + id;
-        JamaProject project = (JamaProject)resourcePool.get(key);
+        JamaProject project = (JamaProject) getPoolOrNull(key);
         if(project != null) {
             project.fetch();
         } else {
             project = new JamaProject();
             project.associate(id, this);
-            resourcePool.put(key, project);
+            resourcePool.put(key, new WeakReference<>((JamaDomainObject)project));
         }
         return project;
     }

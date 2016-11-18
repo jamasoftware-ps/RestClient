@@ -1,26 +1,49 @@
 package com.jamasoftware.services.restclient;
 
+import com.jamasoftware.services.restclient.exception.RestClientException;
 import com.jamasoftware.services.restclient.jamadomain.lazyresources.JamaItem;
 import com.jamasoftware.services.restclient.jamadomain.JamaInstance;
 import com.jamasoftware.services.restclient.jamadomain.lazyresources.JamaProject;
-import com.jamasoftware.services.restclient.jamadomain.lazyresources.JamaRelationship;
 
-import java.io.File;
-import java.io.FileOutputStream;
 import java.util.List;
 
 public class Main {
+    public static void printAll(JamaParent jamaParent, int indent) throws RestClientException {
+        String indentString = "";
+        for(int i = 0; i < indent; ++i) {
+            indentString += "==";
+        }
+        if(jamaParent.isProject()) {
+            JamaProject project = (JamaProject)jamaParent;
+            System.out.println(indentString + project.getName() + " - " + project.getId());
+        } else {
+            JamaItem item = (JamaItem)jamaParent;
+            System.out.println(indentString + item.getName() + " - " + item.getSequence());
+        }
+        for(JamaItem child : jamaParent.getChildren()) {
+            printAll(child, indent + 1);
+        }
+    }
+
     public static void main(String[] ignore) {
 
         try {
             // TODO fail good (John) attempted to retireve item types for invalid item
             JamaInstance jamaInstance = new JamaInstance(new JamaConfig(true));
-            JamaItem item = new JamaItem();
-            item.associate(2119533, jamaInstance);
-            byte[] imageData = item.getItemTypeImage();
-            FileOutputStream fos = new FileOutputStream("out.png");
-            fos.write(imageData);
-            fos.close();
+            JamaItem jamaItem = new JamaItem();
+//            jamaItem.associate(1972359, jamaInstance);
+            jamaItem.associate(1972350, jamaInstance);
+            System.out.println(jamaItem.getParent());
+            System.out.println("blah");
+            System.out.println(jamaItem.getParent());
+//            printAll(jamaItem, 0);
+//            printAll(jamaItem, 0);
+//            JamaItem item = new JamaItem();
+//            item.associate(2119533, jamaInstance);
+//            byte[] imageData = item.getItemTypeImage();
+//            FileOutputStream fos = new FileOutputStream("out.png");
+//            fos.write(imageData);
+//            fos.close();
 
 //            System.out.println(item.isLocked());
 //            System.out.println(item.lockedBy());
