@@ -4,6 +4,7 @@ import com.jamasoftware.services.restclient.JamaParent;
 import com.jamasoftware.services.restclient.exception.RestClientException;
 import com.jamasoftware.services.restclient.jamadomain.JamaDomainObject;
 import com.jamasoftware.services.restclient.jamadomain.JamaLocation;
+import com.jamasoftware.services.restclient.jamadomain.LockStatus;
 import com.jamasoftware.services.restclient.jamadomain.values.JamaFieldValue;
 import com.jamasoftware.services.restclient.jamadomain.values.RichTextFieldValue;
 import com.jamasoftware.services.restclient.jamadomain.values.TextFieldValue;
@@ -29,6 +30,7 @@ public class JamaItem extends LazyResource implements JamaParent {
     private JamaUser modifiedBy;
     private JamaLocation location;
     private List<JamaFieldValue> fieldValues;
+    private LockStatus lockStatus;
 
     @Override
     public boolean addChild(JamaItem jamaItem) {
@@ -64,6 +66,7 @@ public class JamaItem extends LazyResource implements JamaParent {
         modifiedBy = item.modifiedBy;
         location = item.location;
         fieldValues = item.fieldValues;
+        lockStatus = item.lockStatus;
     }
 
     public TextFieldValue getName() {
@@ -190,6 +193,21 @@ public class JamaItem extends LazyResource implements JamaParent {
 
     public void setLastActivityDate(Date lastActivityDate) {
         this.lastActivityDate = lastActivityDate;
+    }
+
+    public boolean isLocked() {
+        fetch();
+        return lockStatus.isLocked();
+    }
+
+    public boolean isLockedByCurrentUser() throws RestClientException{
+        // fetch is called in isLocked so we removed it here
+        return isLocked() && lockStatus.getLockedBy().getId().equals(getJamaInstance().getCurrentUser().getId());
+    }
+
+    public Date lastLockedDate(){
+        fetch();
+        return lockStatus.getLastLocked();
     }
 
     public List<JamaRelationship> getDownstreamRelationships() throws RestClientException {

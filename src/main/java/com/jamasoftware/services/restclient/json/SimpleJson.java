@@ -1,11 +1,8 @@
 package com.jamasoftware.services.restclient.json;
 
 import com.jamasoftware.services.restclient.JamaParent;
-import com.jamasoftware.services.restclient.jamadomain.JamaInstance;
-import com.jamasoftware.services.restclient.jamadomain.JamaLocation;
-import com.jamasoftware.services.restclient.jamadomain.TestCaseStep;
+import com.jamasoftware.services.restclient.jamadomain.*;
 import com.jamasoftware.services.restclient.jamadomain.lazyresources.*;
-import com.jamasoftware.services.restclient.jamadomain.JamaDomainObject;
 import com.jamasoftware.services.restclient.jamadomain.fields.*;
 import com.jamasoftware.services.restclient.jamadomain.values.JamaFieldValue;
 import com.jamasoftware.services.restclient.jamadomain.values.RichTextFieldValue;
@@ -21,6 +18,7 @@ import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.IllegalFormatCodePointException;
 import java.util.List;
 
 public class SimpleJson implements JsonSerializerDeserializer {
@@ -247,7 +245,6 @@ public class SimpleJson implements JsonSerializerDeserializer {
         Integer childItemTypeId = util.requestInt(itemJson, "childItemType");
         if(childItemTypeId != null) {
             JamaItemType childItemType = checkItemTypePool(childItemTypeId, jamaInstance);
-            childItemType.associate(childItemTypeId, jamaInstance);
             item.setChildItemType(childItemType);
         }
 
@@ -258,18 +255,17 @@ public class SimpleJson implements JsonSerializerDeserializer {
         Integer createdById = util.requestInt(itemJson, "createdBy");
         if(createdById != null) {
             JamaUser createdBy = checkUserPool(createdById, jamaInstance);
-            createdBy.associate(createdById, jamaInstance);
             item.setCreatedBy(createdBy);
         }
 
         Integer modifiedById = util.requestInt(itemJson, "modifiedBy");
         if(modifiedById != null) {
             JamaUser modifiedBy = checkUserPool(modifiedById, jamaInstance);
-            modifiedBy.associate(modifiedById, jamaInstance);
             item.setCreatedBy(modifiedBy);
         }
 
         item.setLocation(deserializeLocation(itemJson, jamaInstance));
+        forceValue(item, JamaItem.class, "lockStatus", deserializeLockStatus(itemJson, jamaInstance));
 
         JSONObject fields = util.requireObject(itemJson, "fields");
 
@@ -298,6 +294,19 @@ public class SimpleJson implements JsonSerializerDeserializer {
         item.associate(util.requireInt(itemJson, "id"), jamaInstance);
 
         return item;
+    }
+
+    private LockStatus deserializeLockStatus(JSONObject itemJson, JamaInstance jamaInstance) throws JsonException {
+        LockStatus lockStatus = new LockStatus();
+        JSONObject lockJson = util.requireObject(itemJson, "lock");
+        lockStatus.setLocked(util.requireBoolean(lockJson, "locked"));
+        lockStatus.setLastLocked(util.requestDate(lockJson, "lastLockedDate"));
+        Integer lockedById = util.requestInt(lockJson, "lockedBy");
+        if(lockedById != null) {
+            JamaUser lockedBy = checkUserPool(lockedById, jamaInstance);
+            lockStatus.setLockedBy(lockedBy);
+        }
+        return lockStatus;
     }
 
     private List<TestCaseStep> getStepList(JSONObject fields, String fieldName) {
@@ -388,21 +397,23 @@ public class SimpleJson implements JsonSerializerDeserializer {
             JSONObject resource = (JSONObject)object;
             JamaDomainObject domainObject = typeCheckResource(resource, jamaInstance);
             if(domainObject instanceof LazyResource) {
-                try {
-                    Field field = LazyResource.class.getDeclaredField("shouldFetch");
-                    field.setAccessible(true);
-                    field.set(domainObject, false);
-                    field = LazyResource.class.getDeclaredField("lastFetch");
-                    field.setAccessible(true);
-                    field.set(domainObject, System.currentTimeMillis());
-                } catch(NoSuchFieldException | IllegalAccessException e) {
-                    throw new JsonException(e.getClass().toString());
-                }
+                forceValue(domainObject, LazyResource.class, "shouldFetch", false);
+                forceValue(domainObject, LazyResource.class, "lastFetch", System.currentTimeMillis());
             }
             page.addResource(domainObject);
         }
 
         return page;
+    }
+
+    private void forceValue(Object object, Class clazz, String fieldName, Object value) throws JsonException {
+        try {
+            Field field = clazz.getDeclaredField(fieldName);
+            field.setAccessible(true);
+            field.set(object, value);
+        } catch(NoSuchFieldException | IllegalAccessException e) {
+            throw new JsonException(e.getClass().toString());
+        }
     }
 
     private JamaField deserializeField(JSONObject fieldJson) throws JsonException {

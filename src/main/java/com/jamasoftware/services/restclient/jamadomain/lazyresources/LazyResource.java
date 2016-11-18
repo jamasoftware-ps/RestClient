@@ -8,20 +8,24 @@ import com.jamasoftware.services.restclient.exception.RestClientException;
 public abstract class LazyResource implements JamaDomainObject {
     private JamaInstance jamaInstance;
     private Integer id;
-    private boolean shouldFetch = true;
-    private Long lastFetch = null;
+    protected boolean shouldFetch = true;
+    protected Long lastFetch = null;
 
     public void fetch() {
         checkFetched();
         try {
             if (shouldFetch && id != null) {
-                shouldFetch = false;
-                lastFetch = System.currentTimeMillis();
-                copyContentFrom(jamaInstance.getResource(getResourceUrl()));
+                forceFetch();
             }
         } catch (RestClientException e) {
             e.printStackTrace();
         }
+    }
+
+    public void forceFetch() throws RestClientException{
+        shouldFetch = false;
+        lastFetch = System.currentTimeMillis();
+        copyContentFrom(jamaInstance.getResource(getResourceUrl()));
     }
 
     protected abstract String getResourceUrl();

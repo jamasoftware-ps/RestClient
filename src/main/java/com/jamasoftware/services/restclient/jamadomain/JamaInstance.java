@@ -1,12 +1,9 @@
 package com.jamasoftware.services.restclient.jamadomain;
 
 import com.jamasoftware.services.restclient.JamaConfig;
-import com.jamasoftware.services.restclient.jamadomain.lazyresources.JamaItem;
-import com.jamasoftware.services.restclient.jamadomain.lazyresources.JamaItemType;
-import com.jamasoftware.services.restclient.jamadomain.lazyresources.JamaProject;
+import com.jamasoftware.services.restclient.jamadomain.lazyresources.*;
 import com.jamasoftware.services.restclient.exception.RestClientException;
 import com.jamasoftware.services.restclient.jamaclient.JamaClient;
-import com.jamasoftware.services.restclient.jamadomain.lazyresources.LazyResource;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -17,6 +14,7 @@ public class JamaInstance implements JamaDomainObject {
     private JamaClient jamaClient;
     private JamaConfig jamaConfig;
     private Integer resourceTimeOut;
+    private JamaUser currentUser;
 
     // todo remove itemType map
     private HashMap<Integer, JamaItemType> itemTypeMap = new HashMap<>();
@@ -138,6 +136,13 @@ public class JamaInstance implements JamaDomainObject {
 
     public Integer getResourceTimeOut() {
         return resourceTimeOut;
+    }
+
+    public JamaUser getCurrentUser() throws RestClientException{
+        if(currentUser == null) {
+            currentUser = (JamaUser) getResource("users/current");
+        }
+        return currentUser;
     }
 
     public void setResourceTimeOut(Integer resourceTimeOut) {
