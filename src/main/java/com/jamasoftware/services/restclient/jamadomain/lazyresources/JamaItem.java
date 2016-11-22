@@ -4,9 +4,10 @@ import com.jamasoftware.services.restclient.JamaParent;
 import com.jamasoftware.services.restclient.exception.RestClientException;
 import com.jamasoftware.services.restclient.jamadomain.JamaDomainObject;
 import com.jamasoftware.services.restclient.jamadomain.JamaLocation;
+import com.jamasoftware.services.restclient.jamadomain.LazyResource;
 import com.jamasoftware.services.restclient.jamadomain.LockStatus;
+import com.jamasoftware.services.restclient.jamadomain.stagingresources.StagingItem;
 import com.jamasoftware.services.restclient.jamadomain.values.JamaFieldValue;
-import com.jamasoftware.services.restclient.jamadomain.values.RichTextFieldValue;
 import com.jamasoftware.services.restclient.jamadomain.values.TextFieldValue;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
@@ -16,22 +17,27 @@ import java.util.Date;
 import java.util.List;
 
 public class JamaItem extends LazyResource implements JamaParent {
-    private TextFieldValue name;
-    private RichTextFieldValue description;
-    private String globalId;
-    private String documentKey;
-    private JamaProject project;
-    private JamaItemType itemType;
-    private JamaItemType childItemType;
-    private Date createdDate;
-    private Date modifiedDate;
-    private Date lastActivityDate;
-    private JamaUser createdBy;
-    private JamaUser modifiedBy;
-    private JamaLocation location;
-    private List<JamaFieldValue> fieldValues;
-    private LockStatus lockStatus;
+    protected TextFieldValue name;
+    protected String globalId;
+    protected String documentKey;
+    protected JamaProject project;
+    protected JamaItemType itemType;
+    protected JamaItemType childItemType;
+    protected Date createdDate;
+    protected Date modifiedDate;
+    protected Date lastActivityDate;
+    protected JamaUser createdBy;
+    protected JamaUser modifiedBy;
+    protected JamaLocation location;
+    protected List<JamaFieldValue> fieldValues = new ArrayList<>();
+    protected LockStatus lockStatus;
     private ChildrenList children;
+
+    public JamaItem(){}
+
+    public JamaItem(JamaItem item) {
+        copyContentFrom(item);
+    }
 
     public JamaParent getParent() {
         fetch();
@@ -72,14 +78,14 @@ public class JamaItem extends LazyResource implements JamaParent {
     protected String getResourceUrl() {
         return "items/" + getId();
     }
+    
 
     @Override
-    public void copyContentFrom(JamaDomainObject jamaDomainObject) {
-        checkType(this.getClass(), jamaDomainObject);
+    protected void copyContentFrom(JamaDomainObject jamaDomainObject) {
+        checkType(JamaItem.class, jamaDomainObject);
 
         JamaItem item = (JamaItem) jamaDomainObject;
         name = item.name;
-        description = item.description;
         globalId = item.globalId;
         documentKey = item.documentKey;
         project = item.project;
@@ -95,22 +101,15 @@ public class JamaItem extends LazyResource implements JamaParent {
         lockStatus = item.lockStatus;
     }
 
+    @Override
+    protected void writeContentTo(JamaDomainObject jamaItem){
+        checkType(JamaItem.class, jamaItem);
+        ((JamaItem)jamaItem).copyContentFrom(this);
+    }
+
     public TextFieldValue getName() {
         fetch();
         return name;
-    }
-
-    public void setName(TextFieldValue name) {
-        this.name = name;
-    }
-
-    public RichTextFieldValue getDescription() {
-        fetch();
-        return description;
-    }
-
-    public void setDescription(RichTextFieldValue description) {
-        this.description = description;
     }
 
     public String getGlobalId() {
@@ -118,17 +117,9 @@ public class JamaItem extends LazyResource implements JamaParent {
         return globalId;
     }
 
-    public void setGlobalId(String globalId) {
-        this.globalId = globalId;
-    }
-
     public JamaProject getProject() {
         fetch();
         return project;
-    }
-
-    public void setProject(JamaProject project) {
-        this.project = project;
     }
 
     public JamaItemType getItemType() {
@@ -136,17 +127,10 @@ public class JamaItem extends LazyResource implements JamaParent {
         return itemType;
     }
 
-    public void setItemType(JamaItemType itemType) {
-        this.itemType = itemType;
-    }
 
     public JamaItemType getChildItemType() {
         fetch();
         return childItemType;
-    }
-
-    public void setChildItemType(JamaItemType childItemType) {
-        this.childItemType = childItemType;
     }
 
     public JamaUser getCreatedBy() {
@@ -154,17 +138,9 @@ public class JamaItem extends LazyResource implements JamaParent {
         return createdBy;
     }
 
-    public void setCreatedBy(JamaUser createdBy) {
-        this.createdBy = createdBy;
-    }
-
     public JamaUser getModifiedBy() {
         fetch();
         return modifiedBy;
-    }
-
-    public void setModifiedBy(JamaUser modifiedBy) {
-        this.modifiedBy = modifiedBy;
     }
 
     protected JamaLocation getLocation() {
@@ -177,17 +153,9 @@ public class JamaItem extends LazyResource implements JamaParent {
         return fieldValues;
     }
 
-    public void setFieldValues(List<JamaFieldValue> fieldValues) {
-        this.fieldValues = fieldValues;
-    }
-
     public String getDocumentKey() {
         fetch();
         return documentKey;
-    }
-
-    public void setDocumentKey(String documentKey) {
-        this.documentKey = documentKey;
     }
 
     public Date getCreatedDate() {
@@ -195,26 +163,14 @@ public class JamaItem extends LazyResource implements JamaParent {
         return createdDate;
     }
 
-    public void setCreatedDate(Date createdDate) {
-        this.createdDate = createdDate;
-    }
-
     public Date getModifiedDate() {
         fetch();
         return modifiedDate;
     }
 
-    public void setModifiedDate(Date modifiedDate) {
-        this.modifiedDate = modifiedDate;
-    }
-
     public Date getLastActivityDate() {
         fetch();
         return lastActivityDate;
-    }
-
-    public void setLastActivityDate(Date lastActivityDate) {
-        this.lastActivityDate = lastActivityDate;
     }
 
     public boolean isLocked() {
@@ -293,11 +249,6 @@ public class JamaItem extends LazyResource implements JamaParent {
         getJamaInstance().putRawData("items/" + getId() + "/lock", "{\"locked\":" + lockState + "}" );
     }
 
-//    public List<JamaDomainObject> searchUsingContains() throws RestClientException {
-//
-//
-//    }
-
     @Override
     public String toString() {
         return getName().toString();
@@ -305,5 +256,10 @@ public class JamaItem extends LazyResource implements JamaParent {
 
     public byte[] getItemTypeImage() {
         return getItemType().getImage();
+    }
+
+    public StagingItem edit() {
+        StagingItem stagingItem = new StagingItem(this);
+        return stagingItem;
     }
 }

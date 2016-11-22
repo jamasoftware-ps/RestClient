@@ -1,10 +1,11 @@
 package com.jamasoftware.services.restclient.jamadomain.lazyresources;
 
 import com.jamasoftware.services.restclient.jamadomain.JamaDomainObject;
+import com.jamasoftware.services.restclient.jamadomain.LazyResource;
 
 public class JamaRelationshipType extends LazyResource {
-    private String name;
-    private boolean isDefault;
+    protected String name;
+    protected boolean isDefault;
 
     @Override
     protected String getResourceUrl() {
@@ -20,22 +21,21 @@ public class JamaRelationshipType extends LazyResource {
         this.isDefault = relationshipType.isDefault;
     }
 
+    @Override
+    protected void writeContentTo(JamaDomainObject jamaDomainObject) {
+        checkType(JamaRelationshipType.class, jamaDomainObject);
+        ((JamaRelationshipType)jamaDomainObject).copyContentFrom(this);
+    }
+
+
     public String getName() {
         fetch();
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public boolean isDefault() {
         fetch();
         return isDefault;
-    }
-
-    public void setDefault(boolean aDefault) {
-        isDefault = aDefault;
     }
 
     @Override

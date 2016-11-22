@@ -4,6 +4,7 @@ import com.jamasoftware.services.restclient.exception.RestClientException;
 import com.jamasoftware.services.restclient.exception.UnexpectedJamaResponseException;
 import com.jamasoftware.services.restclient.jamadomain.JamaDomainObject;
 import com.jamasoftware.services.restclient.jamadomain.JamaInstance;
+import com.jamasoftware.services.restclient.jamadomain.stagingresources.StagingResource;
 
 public abstract class LazyBase {
     protected JamaInstance jamaInstance;
@@ -12,6 +13,7 @@ public abstract class LazyBase {
     private Integer id;
 
     public void fetch() {
+        if(this instanceof StagingResource) return;
         checkFetched();
         try {
             if (shouldFetch && id != null) {
@@ -23,6 +25,7 @@ public abstract class LazyBase {
     }
 
     public void checkType(Class clazz, JamaDomainObject jamaDomainObject) {
+        if(this == jamaDomainObject) return;
         if(!clazz.isInstance(jamaDomainObject)) {
             throw new UnexpectedJamaResponseException("Expecting a " + clazz.getName() + " from the Jama server. Instead, got: " + jamaDomainObject.getClass().getName());
         }

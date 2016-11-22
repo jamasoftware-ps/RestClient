@@ -1,17 +1,18 @@
 package com.jamasoftware.services.restclient.jamadomain.lazyresources;
 
 import com.jamasoftware.services.restclient.jamadomain.JamaDomainObject;
+import com.jamasoftware.services.restclient.jamadomain.LazyResource;
 
 public class JamaUser extends LazyResource {
-    private String username;
-    private String firstName;
-    private String lastName;
-    private String email;
-    private String phone;
-    private String title;
-    private String location;
-    private String licenseType;
-    private boolean active;
+    protected String username;
+    protected String firstName;
+    protected String lastName;
+    protected String email;
+    protected String phone;
+    protected String title;
+    protected String location;
+    protected String licenseType;
+    protected boolean active;
 
     @Override
     protected String getResourceUrl() {
@@ -19,8 +20,8 @@ public class JamaUser extends LazyResource {
     }
 
     @Override
-    public void copyContentFrom(JamaDomainObject jamaDomainObject) {
-        checkType(this.getClass(), jamaDomainObject);
+    protected void copyContentFrom(JamaDomainObject jamaDomainObject) {
+        checkType(JamaUser.class, jamaDomainObject);
 
         JamaUser user = (JamaUser) jamaDomainObject;
         username = user.username;
@@ -34,13 +35,15 @@ public class JamaUser extends LazyResource {
         active = user.active;
     }
 
+    @Override
+    protected void writeContentTo(JamaDomainObject jamaDomainObject) {
+        checkType(JamaUser.class, jamaDomainObject);
+        ((JamaUser)jamaDomainObject).copyContentFrom(this);
+    }
+
     public String getUsername() {
         fetch();
         return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
     }
 
     public String getFirstName() {
@@ -48,17 +51,9 @@ public class JamaUser extends LazyResource {
         return firstName;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
     public String getLastName() {
         fetch();
         return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
     }
 
     public String getEmail() {
@@ -66,17 +61,9 @@ public class JamaUser extends LazyResource {
         return email;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
     public String getPhone() {
         fetch();
         return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
     }
 
     public String getTitle() {
@@ -84,17 +71,9 @@ public class JamaUser extends LazyResource {
         return title;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
     public String getLocation() {
         fetch();
         return location;
-    }
-
-    public void setLocation(String location) {
-        this.location = location;
     }
 
     public String getLicenseType() {
@@ -102,17 +81,9 @@ public class JamaUser extends LazyResource {
         return licenseType;
     }
 
-    public void setLicenseType(String licenseType) {
-        this.licenseType = licenseType;
-    }
-
     public boolean isActive() {
         fetch();
         return active;
-    }
-
-    public void setActive(boolean active) {
-        this.active = active;
     }
 
     @Override

@@ -3,6 +3,7 @@ package com.jamasoftware.services.restclient.jamadomain.lazyresources;
 import com.jamasoftware.services.restclient.JamaParent;
 import com.jamasoftware.services.restclient.exception.RestClientException;
 import com.jamasoftware.services.restclient.jamadomain.JamaDomainObject;
+import com.jamasoftware.services.restclient.jamadomain.LazyResource;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.util.ArrayList;
@@ -11,15 +12,15 @@ import java.util.Date;
 import java.util.List;
 
 public class JamaProject extends LazyResource implements JamaParent {
-    private String projectKey;
-    private String name;
-    private String description;
-    private boolean isFolder;
-    private Date createdDate;
-    private Date modifiedDate;
-    private JamaUser createdBy;
-    private JamaUser modifiedBy;
-    ChildrenList children;
+    protected String projectKey;
+    protected String name;
+    protected String description;
+    protected boolean isFolder;
+    protected Date createdDate;
+    protected Date modifiedDate;
+    protected JamaUser createdBy;
+    protected JamaUser modifiedBy;
+    private ChildrenList children;
 
     @Override
     public List<JamaItem> getChildren() throws RestClientException {
@@ -54,7 +55,7 @@ public class JamaProject extends LazyResource implements JamaParent {
 
     @Override
     public void copyContentFrom(JamaDomainObject jamaDomainObject) {
-        checkType(this.getClass(), jamaDomainObject);
+        checkType(JamaProject.class, jamaDomainObject);
 
         JamaProject project = (JamaProject) jamaDomainObject;
         projectKey = project.projectKey;
@@ -67,13 +68,15 @@ public class JamaProject extends LazyResource implements JamaParent {
         modifiedBy = project.modifiedBy;
     }
 
+    @Override
+    protected void writeContentTo(JamaDomainObject jamaDomainObject) {
+        checkType(JamaProject.class, jamaDomainObject);
+        ((JamaProject)jamaDomainObject).copyContentFrom(this);
+    }
+
     public String getProjectKey() {
         fetch();
         return projectKey;
-    }
-
-    public void setProjectKey(String projectKey) {
-        this.projectKey = projectKey;
     }
 
     public String getName() {
@@ -81,26 +84,14 @@ public class JamaProject extends LazyResource implements JamaParent {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public String getDescription() {
         fetch();
         return description;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
     public boolean isFolder() {
         fetch();
         return isFolder;
-    }
-
-    public void setFolder(boolean folder) {
-        isFolder = folder;
     }
 
     public JamaUser getCreatedBy() {
@@ -113,30 +104,14 @@ public class JamaProject extends LazyResource implements JamaParent {
         return createdDate;
     }
 
-    public void setCreatedDate(Date createdDate) {
-        this.createdDate = createdDate;
-    }
-
     public Date getModifiedDate() {
         fetch();
         return modifiedDate;
     }
 
-    public void setModifiedDate(Date modifiedDate) {
-        this.modifiedDate = modifiedDate;
-    }
-
-    public void setCreatedBy(JamaUser createdBy) {
-        this.createdBy = createdBy;
-    }
-
     public JamaUser getModifiedBy() {
         fetch();
         return modifiedBy;
-    }
-
-    public void setModifiedBy(JamaUser modifiedBy) {
-        this.modifiedBy = modifiedBy;
     }
 
     public List<JamaItem> getItems() throws RestClientException {

@@ -1,12 +1,13 @@
 package com.jamasoftware.services.restclient.jamadomain.lazyresources;
 
 import com.jamasoftware.services.restclient.jamadomain.JamaDomainObject;
+import com.jamasoftware.services.restclient.jamadomain.LazyResource;
 
 public class JamaRelationship extends LazyResource {
-    private JamaItem toItem;
-    private JamaItem fromItem;
-    private JamaRelationshipType relationshipType;
-    private boolean suspect;
+    protected JamaItem toItem;
+    protected JamaItem fromItem;
+    protected JamaRelationshipType relationshipType;
+    protected boolean suspect;
 
     @Override
     protected String getResourceUrl() {
@@ -24,13 +25,15 @@ public class JamaRelationship extends LazyResource {
         suspect = jamaRelationship.suspect;
     }
 
+    @Override
+    protected void writeContentTo(JamaDomainObject jamaDomainObject) {
+        checkType(JamaRelationship.class, jamaDomainObject);
+        ((JamaRelationship)jamaDomainObject).copyContentFrom(this);
+    }
+
     public JamaItem getToItem() {
         fetch();
         return toItem;
-    }
-
-    public void setToItem(JamaItem toItem) {
-        this.toItem = toItem;
     }
 
     public JamaItem getFromItem() {
@@ -38,25 +41,13 @@ public class JamaRelationship extends LazyResource {
         return fromItem;
     }
 
-    public void setFromItem(JamaItem fromItem) {
-        this.fromItem = fromItem;
-    }
-
     public JamaRelationshipType getRelationshipType() {
         fetch();
         return relationshipType;
     }
 
-    public void setRelationshipType(JamaRelationshipType relationshipType) {
-        this.relationshipType = relationshipType;
-    }
-
     public boolean isSuspect() {
         fetch();
         return suspect;
-    }
-
-    public void setSuspect(boolean suspect) {
-        this.suspect = suspect;
     }
 }

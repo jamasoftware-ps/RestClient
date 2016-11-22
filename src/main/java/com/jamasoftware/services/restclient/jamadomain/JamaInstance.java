@@ -1,10 +1,10 @@
 package com.jamasoftware.services.restclient.jamadomain;
 
 import com.jamasoftware.services.restclient.JamaConfig;
-import com.jamasoftware.services.restclient.JamaParent;
 import com.jamasoftware.services.restclient.jamadomain.lazyresources.*;
 import com.jamasoftware.services.restclient.exception.RestClientException;
 import com.jamasoftware.services.restclient.jamaclient.JamaClient;
+import com.jamasoftware.services.restclient.jamadomain.stagingresources.StagingItem;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
@@ -170,5 +170,9 @@ public class JamaInstance implements JamaDomainObject {
 
     public void setResourceTimeOut(Integer resourceTimeOut) {
         this.resourceTimeOut = resourceTimeOut;
+    }
+
+    public JamaItem createItem() {
+        return new StagingItem();
     }
 }

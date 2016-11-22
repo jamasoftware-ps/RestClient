@@ -1,14 +1,14 @@
 package com.jamasoftware.services.restclient.jamadomain.lazyresources;
 
 import com.jamasoftware.services.restclient.jamadomain.JamaDomainObject;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+import com.jamasoftware.services.restclient.jamadomain.LazyResource;
 
 public class PickListOption extends LazyResource {
-    private String name;
-    private String description;
-    private boolean active;
-    private String color;
-    private boolean defaultValue;
+    protected String name;
+    protected String description;
+    protected boolean active;
+    protected String color;
+    protected boolean defaultValue;
 
     @Override
     protected String getResourceUrl() {
@@ -27,13 +27,15 @@ public class PickListOption extends LazyResource {
         defaultValue = option.defaultValue;
     }
 
+    @Override
+    protected void writeContentTo(JamaDomainObject jamaDomainObject) {
+        checkType(PickListOption.class, jamaDomainObject);
+        ((PickListOption)jamaDomainObject).copyContentFrom(this);
+    }
+
     public String getName() {
         fetch();
         return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public boolean isActive() {
@@ -41,35 +43,20 @@ public class PickListOption extends LazyResource {
         return active;
     }
 
-    public void setActive(boolean active) {
-        this.active = active;
-    }
-
     public String getDescription() {
         fetch();
         return description;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
 
     public String getColor() {
         fetch();
         return color;
     }
 
-    public void setColor(String color) {
-        this.color = color;
-    }
-
     public boolean isDefaultValue() {
         fetch();
         return defaultValue;
-    }
-
-    public void setDefaultValue(boolean defaultValue) {
-        this.defaultValue = defaultValue;
     }
 
     @Override

@@ -1,9 +1,12 @@
 package com.jamasoftware.services.restclient;
 
 import com.jamasoftware.services.restclient.exception.RestClientException;
+import com.jamasoftware.services.restclient.jamadomain.JamaLocation;
 import com.jamasoftware.services.restclient.jamadomain.lazyresources.JamaItem;
 import com.jamasoftware.services.restclient.jamadomain.JamaInstance;
 import com.jamasoftware.services.restclient.jamadomain.lazyresources.JamaProject;
+import com.jamasoftware.services.restclient.jamadomain.stagingresources.StagingItem;
+import com.jamasoftware.services.restclient.json.JsonStagingItem;
 
 import java.util.List;
 
@@ -30,12 +33,32 @@ public class Main {
         try {
             // TODO fail good (John) attempted to retireve item types for invalid item
             JamaInstance jamaInstance = new JamaInstance(new JamaConfig(true));
+
             JamaItem jamaItem = new JamaItem();
-//            jamaItem.associate(1972359, jamaInstance);
-            jamaItem.associate(1972350, jamaInstance);
-            System.out.println(jamaItem.getParent());
-            System.out.println("blah");
-            System.out.println(jamaItem.getParent());
+            jamaItem.associate(1972359, jamaInstance);
+            System.out.println(jamaItem);
+
+//            jamaItem.edit()
+//                    .setName("Edited")
+//                    .setDescription("Desc")
+//                    .commit();
+//            jamaInstance.createItem()
+//                    .setName("Worked")
+//                    .setDescription("Dug")
+//                    .setParent(jamaItem)
+//                    .setItemType(jamaInstance.getItemType("text"))
+//                    .commit();
+
+//            jamaItem.associate(2119331, jamaInstance);
+
+//            System.out.println("Item is: " + jamaItem);
+//            System.out.println("Parent is: " + jamaItem.getParent());
+//            System.out.println("blah");
+//            List<JamaItem> children = jamaItem.getChildren();
+//            System.out.println("CHildren are : ");
+//            for(JamaItem item: children){
+//                System.out.println(item);
+//            }
 //            printAll(jamaItem, 0);
 //            printAll(jamaItem, 0);
 //            JamaItem item = new JamaItem();
@@ -49,10 +72,13 @@ public class Main {
 //            System.out.println(item.lockedBy());
 //            item.lock();
 //            System.out.println(item.isLocked());
-//            System.out.println(item.lockedBy());
+////            System.out.println(item.lockedBy());
 //            List<JamaProject> projects = jamaInstance.getProjects();
 //            JamaProject aProject = projects.get(0);
 //            List<JamaItem> items = aProject.getItems();
+//            for(JamaItem item : items){
+//                System.out.println(item);
+//            }
 //            for(JamaItem item : items) {
 //                if(item.getName().toString().contains("dont care")) {
 //                    item.forceLockItem();

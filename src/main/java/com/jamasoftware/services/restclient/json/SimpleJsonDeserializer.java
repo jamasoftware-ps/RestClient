@@ -4,10 +4,7 @@ import com.jamasoftware.services.restclient.JamaParent;
 import com.jamasoftware.services.restclient.jamadomain.*;
 import com.jamasoftware.services.restclient.jamadomain.lazyresources.*;
 import com.jamasoftware.services.restclient.jamadomain.fields.*;
-import com.jamasoftware.services.restclient.jamadomain.values.JamaFieldValue;
-import com.jamasoftware.services.restclient.jamadomain.values.RichTextFieldValue;
-import com.jamasoftware.services.restclient.jamadomain.values.TestCaseStepsFieldValue;
-import com.jamasoftware.services.restclient.jamadomain.values.TextFieldValue;
+import com.jamasoftware.services.restclient.jamadomain.values.*;
 import com.jamasoftware.services.restclient.jamaclient.JamaPage;
 import com.jamasoftware.services.restclient.exception.JsonException;
 import com.jamasoftware.services.restclient.exception.RestClientException;
@@ -73,8 +70,8 @@ public class SimpleJsonDeserializer implements JsonDeserializer {
     }
 
     public JamaRelationship deserializeRelationship(JSONObject relJson, JamaInstance jamaInstance) throws JsonException {
-        int relationshipId = util.requireInt(relJson, "id");
-        JamaRelationship relationship = (JamaRelationship)checkPool(JamaRelationship.class, relationshipId, jamaInstance);
+        JsonStagingRelationship relationship = new JsonStagingRelationship();
+
         int toItemId = util.requireInt(relJson, "toItem");
         JamaItem toItem = checkItemPool(toItemId, jamaInstance);
         relationship.setToItem(toItem);
@@ -87,22 +84,31 @@ public class SimpleJsonDeserializer implements JsonDeserializer {
             JamaRelationshipType relType = (JamaRelationshipType)checkPool(JamaRelationshipType.class, relationshipTypeId, jamaInstance);
             relationship.setRelationshipType(relType);
         }
-        return relationship;
+
+        int relationshipId = util.requireInt(relJson, "id");
+        JamaRelationship jamaRelationship = (JamaRelationship)checkPool(JamaRelationship.class, relationshipId, jamaInstance);
+        checkIds(relJson, jamaRelationship);
+        relationship.writeContentTo(jamaRelationship);
+
+        return jamaRelationship;
     }
 
     public JamaRelationshipType deserializeRelationshipType(JSONObject relTypeJson, JamaInstance jamaInstance) throws JsonException {
-        int relationshipTypeId = util.requireInt(relTypeJson, "id");
-        JamaRelationshipType relType = (JamaRelationshipType)checkPool(JamaRelationshipType.class, relationshipTypeId, jamaInstance);
-        relType.associate(relationshipTypeId, jamaInstance);
+        JsonStagingRelationshipType relType = new JsonStagingRelationshipType();
+
         relType.setName(util.requestString(relTypeJson, "name"));
         relType.setDefault(util.requireBoolean(relTypeJson, "isDefault"));
-        return relType;
+
+        int relationshipTypeId = util.requireInt(relTypeJson, "id");
+        JamaRelationshipType jamaRelType = (JamaRelationshipType)checkPool(JamaRelationshipType.class, relationshipTypeId, jamaInstance);
+        checkIds(relTypeJson, jamaRelType);
+        relType.writeContentTo(jamaRelType);
+
+        return jamaRelType;
     }
 
     public Release deserializeRelease(JSONObject releaseJson, JamaInstance jamaInstance) throws JsonException {
-        int releaseId = util.requireInt(releaseJson, "id");
-        Release release = (Release)checkPool(Release.class, releaseId, jamaInstance);
-        release.associate(releaseId, jamaInstance);
+        JsonStagingRelease release = new JsonStagingRelease();
         release.setName(util.requestString(releaseJson, "name"));
         release.setDescription(util.requestString(releaseJson, "description"));
 
@@ -115,30 +121,34 @@ public class SimpleJsonDeserializer implements JsonDeserializer {
         release.setActive(util.requireBoolean(releaseJson, "active"));
         release.setArchived(util.requireBoolean(releaseJson, "archived"));
         release.setItemCount(util.requestInt(releaseJson, "itemCount"));
-        return release;
+
+        int releaseId = util.requireInt(releaseJson, "id");
+        Release jamaRelease = (Release)checkPool(Release.class, releaseId, jamaInstance);
+        checkIds(releaseJson, jamaRelease);
+        release.writeContentTo(jamaRelease);
+
+        return jamaRelease;
     }
 
     public PickListOption deserializeOption(JSONObject optionJson, JamaInstance jamaInstance) throws JsonException {
-        int optionId = util.requireInt(optionJson, "id");
-        PickListOption option = (PickListOption)checkPool(PickListOption.class, optionId, jamaInstance);
-        option.associate(optionId, jamaInstance);
+        JsonStagingPickListOption option = new JsonStagingPickListOption();
         option.setName(util.requestString(optionJson, "name"));
         option.setDescription(util.requestString(optionJson, "description"));
         option.setActive(util.requireBoolean(optionJson, "active"));
         option.setColor(util.requestString(optionJson, "color"));
         option.setDefaultValue(util.requireBoolean(optionJson, "default"));
-        return option;
-    }
 
-    public JamaUser deserializeUser(String json, JamaInstance jamaInstance) throws JsonException {
-        JSONObject userJson = util.parseObject(json, jsonParser);
-        return deserializeUser(userJson, jamaInstance);
+        int optionId = util.requireInt(optionJson, "id");
+        PickListOption jamaOption = (PickListOption)checkPool(PickListOption.class, optionId, jamaInstance);
+        checkIds(optionJson, jamaOption);
+        option.writeContentTo(jamaOption);
+
+        return jamaOption;
     }
 
     public JamaUser deserializeUser(JSONObject userJson, JamaInstance jamaInstance) throws JsonException {
         int userId = util.requireInt(userJson, "id");
-        JamaUser user = checkUserPool(userId, jamaInstance);
-        user.associate(userId, jamaInstance);
+        JsonStagingUser user = new JsonStagingUser();
 
         user.setUsername(util.requireString(userJson, "username"));
         user.setFirstName(util.requestString(userJson, "firstName"));
@@ -149,18 +159,15 @@ public class SimpleJsonDeserializer implements JsonDeserializer {
         user.setLocation(util.requestString(userJson, "location"));
         user.setLicenseType(util.requestString(userJson, "licenseType"));
         user.setActive(util.requireBoolean(userJson, "active"));
-        return user;
-    }
 
-    public JamaProject deserializeProject(String json, JamaInstance jamaInstance) throws JsonException {
-        JSONObject projectJson = util.parseObject(json, jsonParser);
-        return deserializeProject(projectJson, jamaInstance);
+        JamaUser jamaUser = checkUserPool(userId, jamaInstance);
+        checkIds(userJson, jamaUser);
+        user.writeContentTo(jamaUser);
+        return jamaUser;
     }
 
     private JamaProject deserializeProject(JSONObject projectJson, JamaInstance jamaInstance) throws JsonException {
-        int projectId = util.requireInt(projectJson, "id");
-        JamaProject project = checkProjectPool(projectId, jamaInstance);
-        project.associate(util.requireInt(projectJson, "id"), jamaInstance);
+        JsonStagingProject project = new JsonStagingProject();
 
         project.setFolder(util.requireBoolean(projectJson, "isFolder"));
         project.setCreatedDate(util.requestDate(projectJson, "createdDate"));
@@ -183,12 +190,11 @@ public class SimpleJsonDeserializer implements JsonDeserializer {
         project.setDescription(util.requestString(fields, "description"));
         project.setName(util.requireString(fields, "name"));
 
+        int projectId = util.requireInt(projectJson, "id");
+        JamaProject jamaProject = checkProjectPool(projectId, jamaInstance);
+        checkIds(projectJson, jamaProject);
+        project.writeContentTo(jamaProject);
         return project;
-    }
-
-    public JamaItem deserializeItem(String json, JamaInstance jamaInstance) throws JsonException {
-        JSONObject itemJson = util.parseObject(json, jsonParser);
-        return deserializeItem(itemJson, jamaInstance);
     }
 
     private JamaDomainObject checkPool(Class clazz, int id, JamaInstance jamaInstance) throws JsonException {
@@ -226,7 +232,7 @@ public class SimpleJsonDeserializer implements JsonDeserializer {
 
     private JamaItem deserializeItem(JSONObject itemJson, JamaInstance jamaInstance) throws JsonException {
         int itemId = util.requireInt(itemJson, "id");
-        JamaItem item = checkItemPool(itemId, jamaInstance);
+        JsonStagingItem item = new JsonStagingItem();
 
         item.setGlobalId(util.requireString(itemJson, "globalId"));
         item.setDocumentKey(util.requireString(itemJson, "documentKey"));
@@ -263,12 +269,9 @@ public class SimpleJsonDeserializer implements JsonDeserializer {
             item.setCreatedBy(modifiedBy);
         }
 
-        forceValue(item, JamaItem.class, "location", deserializeLocation(itemJson, jamaInstance));
-        forceValue(item, JamaItem.class, "lockStatus", deserializeLockStatus(itemJson, jamaInstance));
 
         JSONObject fields = util.requireObject(itemJson, "fields");
 
-        List<JamaFieldValue> fieldValues = new ArrayList<>();
         for(JamaField field : itemType.getFields()) {
             JamaFieldValue fieldValue = field.getValue();
             String fieldName = fieldValue.getName();
@@ -281,18 +284,27 @@ public class SimpleJsonDeserializer implements JsonDeserializer {
             } catch (RestClientException e) {
                 throw new JsonException(e);
             }
-            fieldValues.add(fieldValue);
             if(fieldValue.getName().equals("name")) {
+                if(!(fieldValue instanceof TextFieldValue)) throw new JsonException("Name must be a text field.");
                 item.setName((TextFieldValue)fieldValue);
-            } else if(fieldValue.getName().equals("description")) {
-                item.setDescription((RichTextFieldValue)fieldValue);
+            } else {
+                item.addFieldValue(fieldValue);
             }
         }
-        item.setFieldValues(fieldValues);
+        item.setLocation(deserializeLocation(itemJson, jamaInstance));
+        item.setLock(deserializeLockStatus(itemJson, jamaInstance));
+        JamaItem jamaItem = checkItemPool(itemId, jamaInstance);
+        checkIds(itemJson, jamaItem);
+        item.writeContentTo(jamaItem);
 
-        item.associate(util.requireInt(itemJson, "id"), jamaInstance);
+        return jamaItem;
+    }
 
-        return item;
+    private void checkIds(JSONObject jsonObject, LazyResource resource) throws JsonException{
+        if(!util.requireInt(jsonObject, "id").equals(resource.getId())){
+            throw new JsonException("Retrieved resource ID did not match existing ID in: " + jsonObject.toJSONString());
+        }
+
     }
 
     private LockStatus deserializeLockStatus(JSONObject itemJson, JamaInstance jamaInstance) throws JsonException {
@@ -352,13 +364,12 @@ public class SimpleJsonDeserializer implements JsonDeserializer {
     }
 
     public JamaItemType deserializeItemType(JSONObject itemTypeJson, JamaInstance jamaInstance) throws JsonException {
-        int itemTypeId = util.requireInt(itemTypeJson, "id");
-        JamaItemType itemType = checkItemTypePool(itemTypeId, jamaInstance);
         String category = util.requestString(itemTypeJson, "category");
         if(category != null && category.equals("CORE")) {
             return null;
         }
-        itemType.associate(itemTypeId, jamaInstance);
+
+        JsonStagingItemType itemType = new JsonStagingItemType();
         itemType.setDisplay(util.requireString(itemTypeJson, "display"));
         itemType.setDisplayPlural(util.requireString(itemTypeJson, "displayPlural"));
         String imageUrl = util.requireString(itemTypeJson, "image");
@@ -368,21 +379,23 @@ public class SimpleJsonDeserializer implements JsonDeserializer {
         } catch (RestClientException e) {
             throw new JsonException(e);
         }
-        forceValue(itemType, JamaItemType.class, "image", imageData);
+        itemType.setImage(imageData);
         itemType.setTypeKey(util.requireString(itemTypeJson, "typeKey"));
         JSONArray fieldsJson = util.requireArray(itemTypeJson, "fields");
 
-        List<JamaField> fields = new ArrayList<>();
         for(Object object : fieldsJson) {
             JamaField field = deserializeField((JSONObject)object);
             if(field != null) {
                 field.setJamaInstance(jamaInstance);
-                fields.add(field);
+                itemType.addField(field);
             }
         }
 
-        itemType.setFields(fields);
-        return itemType;
+        int itemTypeId = util.requireInt(itemTypeJson, "id");
+        JamaItemType jamaItemType = checkItemTypePool(itemTypeId, jamaInstance);
+        checkIds(itemTypeJson, jamaItemType);
+        itemType.writeContentTo(jamaItemType);
+        return jamaItemType;
     }
 
     public JamaPage getPage(String json, JamaInstance jamaInstance) throws JsonException {

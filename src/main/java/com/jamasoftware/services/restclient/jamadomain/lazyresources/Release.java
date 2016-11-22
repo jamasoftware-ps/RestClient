@@ -1,20 +1,19 @@
 package com.jamasoftware.services.restclient.jamadomain.lazyresources;
 
 import com.jamasoftware.services.restclient.jamadomain.JamaDomainObject;
-import com.jamasoftware.services.restclient.jamadomain.values.DateFieldValue;
+import com.jamasoftware.services.restclient.jamadomain.LazyResource;
 import com.jamasoftware.services.restclient.util.DateUtil;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.util.Date;
 
-public class Release extends LazyResource{
-    private String name;
-    private String description;
-    private JamaProject project;
-    private Date releaseDate;
-    private boolean active;
-    private boolean archived;
-    private Integer itemCount;
+public class Release extends LazyResource {
+    protected String name;
+    protected String description;
+    protected JamaProject project;
+    protected Date releaseDate;
+    protected boolean active;
+    protected boolean archived;
+    protected Integer itemCount;
 
     @Override
     protected String getResourceUrl() {
@@ -35,13 +34,15 @@ public class Release extends LazyResource{
         itemCount = release.itemCount;
     }
 
+    @Override
+    protected void writeContentTo(JamaDomainObject jamaDomainObject) {
+        checkType(Release.class, jamaDomainObject);
+        ((Release)jamaDomainObject).copyContentFrom(this);
+    }
+
     public String getName() {
         fetch();
         return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public String getDescription() {
@@ -49,17 +50,10 @@ public class Release extends LazyResource{
         return description;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
 
     public JamaProject getProject() {
         fetch();
         return project;
-    }
-
-    public void setProject(JamaProject project) {
-        this.project = project;
     }
 
     public Date getReleaseDate() {
@@ -67,17 +61,10 @@ public class Release extends LazyResource{
         return releaseDate;
     }
 
-    public void setReleaseDate(Date releaseDate) {
-        this.releaseDate = releaseDate;
-    }
 
     public boolean isActive() {
         fetch();
         return active;
-    }
-
-    public void setActive(boolean active) {
-        this.active = active;
     }
 
     public boolean isArchived() {
@@ -85,17 +72,9 @@ public class Release extends LazyResource{
         return archived;
     }
 
-    public void setArchived(boolean archived) {
-        this.archived = archived;
-    }
-
     public Integer getItemCount() {
         fetch();
         return itemCount;
-    }
-
-    public void setItemCount(Integer itemCount) {
-        this.itemCount = itemCount;
     }
 
     @Override
