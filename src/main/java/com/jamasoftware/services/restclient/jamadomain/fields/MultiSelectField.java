@@ -5,7 +5,6 @@ import com.jamasoftware.services.restclient.jamadomain.values.MultiSelectFieldVa
 
 public class MultiSelectField extends JamaField {
     private PickList pickList;
-    private int picklistId;
 
     public PickList getPickList() {
         return pickList;
@@ -13,14 +12,6 @@ public class MultiSelectField extends JamaField {
 
     public void setPickList(PickList pickList) {
         this.pickList = pickList;
-    }
-
-    public int getPicklistId() {
-        return picklistId;
-    }
-
-    public void setPicklistId(int picklistId) {
-        this.picklistId = picklistId;
     }
 
     @Override

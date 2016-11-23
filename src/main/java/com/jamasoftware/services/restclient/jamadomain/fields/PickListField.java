@@ -11,14 +11,6 @@ public class PickListField extends JamaField {
         return picklistId;
     }
 
-    public void setPicklistId(int picklistId) {
-        this.picklistId = picklistId;
-    }
-
-    public PickList getPickList() {
-        return pickList;
-    }
-
     public void setPickList(PickList pickList) {
         this.pickList = pickList;
     }

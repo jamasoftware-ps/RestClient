@@ -52,9 +52,7 @@ public class JamaItem extends LazyResource implements JamaParent{
     @Override
     public List<JamaItem> getChildren() throws RestClientException {
         if(children == null) {
-            children = new ChildrenList();
-            children.associate(getId(), jamaInstance);
-            children.setParent(this);
+            children = new ChildrenList(this);
         }
         return Collections.unmodifiableList(children.getChildren());
     }

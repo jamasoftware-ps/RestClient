@@ -1,5 +1,6 @@
 package com.jamasoftware.services.restclient.jamadomain.lazyresources;
 
+import com.jamasoftware.services.restclient.exception.RestClientException;
 import com.jamasoftware.services.restclient.jamadomain.JamaDomainObject;
 import com.jamasoftware.services.restclient.jamadomain.LazyResource;
 
@@ -7,9 +8,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PickList extends LazyResource {
-    private List<PickListOption> options = new ArrayList<>();
-    private String name;
-    private String description;
+    protected OptionList options;
+    protected String name;
+    protected String description;
 
     @Override
     protected String getResourceUrl() {
@@ -31,9 +32,11 @@ public class PickList extends LazyResource {
         ((PickList)jamaDomainObject).copyContentFrom(this);
     }
 
-    public List<PickListOption> getOptions() {
-        fetch();
-        return options;
+    public List<PickListOption> getOptions() throws RestClientException {
+        if(options == null) {
+            options = new OptionList(this);
+        }
+        return options.getOptions();
     }
 
     public String getName() {

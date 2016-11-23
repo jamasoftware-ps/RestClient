@@ -25,17 +25,18 @@ public class SimpleJsonDeserializer {
     private JSONParser jsonParser = new JSONParser();
     private SimpleJsonUtil util = new SimpleJsonUtil();
 
-    protected JamaDomainObject deserialize(String json, JamaInstance jamaInstance) throws JsonException, RestClientException {
+    protected JamaDomainObject deserialize(String json, JamaInstance jamaInstance) throws RestClientException {
         JSONObject jsonObject = util.parseObject(json, jsonParser);
         return typeCheckResource(jsonObject, jamaInstance);
     }
 
-    private JamaDomainObject typeCheckResource(JSONObject resourceJson, JamaInstance jamaInstance) throws JsonException, RestClientException {
+    private JamaDomainObject typeCheckResource(JSONObject resourceJson, JamaInstance jamaInstance) throws RestClientException {
         String type = util.requestString(resourceJson, "type");
         if(type == null) {
             if(resourceJson.get("suspect") != null) {
                 return deserializeRelationship(resourceJson, jamaInstance);
             }
+            type = "Invalid type.  Default case will catch this String.";
         }
         switch(type) {
             case "itemtypes":
@@ -52,12 +53,14 @@ public class SimpleJsonDeserializer {
                 return deserializeRelease(resourceJson, jamaInstance);
             case "relationshiptypes":
                 return deserializeRelationshipType(resourceJson, jamaInstance);
+            case "picklists":
+                return deserializePickList(resourceJson, jamaInstance);
             default:
                 throw new JsonException("type not found for object: " + resourceJson.toJSONString());
         }
     }
 
-    private JamaRelationship deserializeRelationship(JSONObject relJson, JamaInstance jamaInstance) throws JsonException, RestClientException {
+    private JamaRelationship deserializeRelationship(JSONObject relJson, JamaInstance jamaInstance) throws RestClientException {
         JsonStagingRelationship relationship = new JsonStagingRelationship();
 
         int toItemId = util.requireInt(relJson, "toItem");
@@ -81,7 +84,7 @@ public class SimpleJsonDeserializer {
         return jamaRelationship;
     }
 
-    private JamaRelationshipType deserializeRelationshipType(JSONObject relTypeJson, JamaInstance jamaInstance) throws JsonException, RestClientException {
+    private JamaRelationshipType deserializeRelationshipType(JSONObject relTypeJson, JamaInstance jamaInstance) throws RestClientException {
         JsonStagingRelationshipType relType = new JsonStagingRelationshipType();
 
         relType.setName(util.requestString(relTypeJson, "name"));
@@ -95,7 +98,7 @@ public class SimpleJsonDeserializer {
         return jamaRelType;
     }
 
-    private Release deserializeRelease(JSONObject releaseJson, JamaInstance jamaInstance) throws JsonException, RestClientException {
+    private Release deserializeRelease(JSONObject releaseJson, JamaInstance jamaInstance) throws RestClientException {
         JsonStagingRelease release = new JsonStagingRelease();
         release.setName(util.requestString(releaseJson, "name"));
         release.setDescription(util.requestString(releaseJson, "description"));
@@ -118,7 +121,14 @@ public class SimpleJsonDeserializer {
         return jamaRelease;
     }
 
-    private PickListOption deserializeOption(JSONObject optionJson, JamaInstance jamaInstance) throws JsonException, RestClientException {
+    private PickList deserializePickList(JSONObject pickListJson, JamaInstance jamaInstance) throws RestClientException {
+        JsonStagingPickList pickList = new JsonStagingPickList();
+        pickList.setName(util.requireString(pickListJson, "name"));
+        pickList.setDescription(util.requestString(pickListJson, "description"));
+
+    }
+
+    private PickListOption deserializeOption(JSONObject optionJson, JamaInstance jamaInstance) throws RestClientException {
         JsonStagingPickListOption option = new JsonStagingPickListOption();
         option.setName(util.requestString(optionJson, "name"));
         option.setDescription(util.requestString(optionJson, "description"));
@@ -134,7 +144,7 @@ public class SimpleJsonDeserializer {
         return jamaOption;
     }
 
-    private JamaUser deserializeUser(JSONObject userJson, JamaInstance jamaInstance) throws JsonException, RestClientException {
+    private JamaUser deserializeUser(JSONObject userJson, JamaInstance jamaInstance) throws RestClientException {
         int userId = util.requireInt(userJson, "id");
         JsonStagingUser user = new JsonStagingUser();
 
@@ -154,7 +164,7 @@ public class SimpleJsonDeserializer {
         return jamaUser;
     }
 
-    private JamaProject deserializeProject(JSONObject projectJson, JamaInstance jamaInstance) throws JsonException, RestClientException{
+    private JamaProject deserializeProject(JSONObject projectJson, JamaInstance jamaInstance) throws RestClientException{
         JsonStagingProject project = new JsonStagingProject();
 
         project.setFolder(util.requireBoolean(projectJson, "isFolder"));
@@ -185,7 +195,7 @@ public class SimpleJsonDeserializer {
         return project;
     }
 
-    private JamaDomainObject checkPool(Class clazz, int id, JamaInstance jamaInstance) throws JsonException, RestClientException {
+    private JamaDomainObject checkPool(Class clazz, int id, JamaInstance jamaInstance) throws RestClientException {
         JamaDomainObject jamaDomainObject = jamaInstance.checkPool(clazz, id);
         if(jamaDomainObject != null) {
             return jamaDomainObject;
@@ -202,23 +212,23 @@ public class SimpleJsonDeserializer {
         return jamaDomainObject;
     }
 
-    private JamaProject checkProjectPool(int id, JamaInstance jamaInstance) throws JsonException, RestClientException {
+    private JamaProject checkProjectPool(int id, JamaInstance jamaInstance) throws RestClientException {
         return (JamaProject)checkPool(JamaProject.class, id, jamaInstance);
     }
 
-    private JamaUser checkUserPool(int id, JamaInstance jamaInstance) throws JsonException, RestClientException {
+    private JamaUser checkUserPool(int id, JamaInstance jamaInstance) throws RestClientException {
         return (JamaUser) checkPool(JamaUser.class, id, jamaInstance);
     }
 
-    private JamaItem checkItemPool(int id, JamaInstance jamaInstance) throws JsonException, RestClientException {
+    private JamaItem checkItemPool(int id, JamaInstance jamaInstance) throws RestClientException {
         return (JamaItem) checkPool(JamaItem.class, id, jamaInstance);
     }
 
-    private JamaItemType checkItemTypePool(int id, JamaInstance jamaInstance) throws JsonException, RestClientException {
+    private JamaItemType checkItemTypePool(int id, JamaInstance jamaInstance) throws RestClientException {
         return (JamaItemType) checkPool(JamaItemType.class, id, jamaInstance);
     }
 
-    private JamaItem deserializeItem(JSONObject itemJson, JamaInstance jamaInstance) throws JsonException, RestClientException {
+    private JamaItem deserializeItem(JSONObject itemJson, JamaInstance jamaInstance) throws RestClientException {
         int itemId = util.requireInt(itemJson, "id");
         JsonStagingItem item = new JsonStagingItem();
 
@@ -295,7 +305,7 @@ public class SimpleJsonDeserializer {
 
     }
 
-    private LockStatus deserializeLockStatus(JSONObject itemJson, JamaInstance jamaInstance) throws JsonException, RestClientException {
+    private LockStatus deserializeLockStatus(JSONObject itemJson, JamaInstance jamaInstance) throws RestClientException {
         LockStatus lockStatus = new LockStatus();
         JSONObject lockJson = util.requireObject(itemJson, "lock");
         lockStatus.setLocked(util.requireBoolean(lockJson, "locked"));
@@ -322,7 +332,7 @@ public class SimpleJsonDeserializer {
         return stepList;
     }
 
-    private JamaLocation deserializeLocation(JSONObject itemJson, JamaInstance jamaInstance) throws JsonException, RestClientException {
+    private JamaLocation deserializeLocation(JSONObject itemJson, JamaInstance jamaInstance) throws RestClientException {
         JamaLocation jamaLocation = new JamaLocation();
         JSONObject location = util.requireObject(itemJson, "location");
         jamaLocation.setSortOrder(util.requestInt(location, "sortOrder"));
@@ -346,7 +356,7 @@ public class SimpleJsonDeserializer {
         return jamaLocation;
     }
 
-    private JamaItemType deserializeItemType(JSONObject itemTypeJson, JamaInstance jamaInstance) throws JsonException, RestClientException {
+    private JamaItemType deserializeItemType(JSONObject itemTypeJson, JamaInstance jamaInstance) throws RestClientException {
         String category = util.requestString(itemTypeJson, "category");
         if(category != null && category.equals("CORE")) {
             return null;
@@ -367,7 +377,7 @@ public class SimpleJsonDeserializer {
         JSONArray fieldsJson = util.requireArray(itemTypeJson, "fields");
 
         for(Object object : fieldsJson) {
-            JamaField field = deserializeField((JSONObject)object);
+            JamaField field = deserializeField((JSONObject)object, jamaInstance);
             if(field != null) {
                 field.setJamaInstance(jamaInstance);
                 itemType.addField(field);
@@ -381,7 +391,7 @@ public class SimpleJsonDeserializer {
         return jamaItemType;
     }
 
-    protected JamaPage getPage(String json, JamaInstance jamaInstance) throws JsonException, RestClientException {
+    protected JamaPage getPage(String json, JamaInstance jamaInstance) throws RestClientException {
         JSONObject response = util.parseObject(json, jsonParser);
         JSONObject meta = util.requireObject(response, "meta");
         JSONObject pageInfo = util.requestObject(meta, "pageInfo");
@@ -418,7 +428,7 @@ public class SimpleJsonDeserializer {
         }
     }
 
-    private JamaField deserializeField(JSONObject fieldJson) throws JsonException {
+    private JamaField deserializeField(JSONObject fieldJson, JamaInstance jamaInstance) throws RestClientException {
         String type = util.requireString(fieldJson, "fieldType");
         JamaField field = null;
         switch (type) {
@@ -433,12 +443,14 @@ public class SimpleJsonDeserializer {
                 break;
             case "MULTI_LOOKUP":
                 MultiSelectField multiSelectField = new MultiSelectField();
-                multiSelectField.setPicklistId((int) (long) fieldJson.get("pickList"));
+                int multiListId = util.requireInt(fieldJson, "pickList");
+                multiSelectField.setPickList((PickList)checkPool(PickList.class, multiListId, jamaInstance));
                 field = multiSelectField;
                 break;
             case "LOOKUP":
                 PickListField pickListField = new PickListField();
-                pickListField.setPicklistId((int) (long) fieldJson.get("pickList"));
+                int pickListId = util.requireInt(fieldJson, "pickList");
+                pickListField.setPickList((PickList)checkPool(PickList.class, pickListId, jamaInstance));
                 field = pickListField;
                 break;
             case "RELEASE":

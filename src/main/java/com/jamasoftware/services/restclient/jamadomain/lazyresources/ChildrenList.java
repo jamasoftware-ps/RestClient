@@ -1,14 +1,21 @@
 package com.jamasoftware.services.restclient.jamadomain.lazyresources;
 
 import com.jamasoftware.services.restclient.JamaParent;
+import com.jamasoftware.services.restclient.exception.RestClientException;
 import com.jamasoftware.services.restclient.jamadomain.JamaDomainObject;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class ChildrenList extends LazyCollection {
-    private JamaParent parent;
+    private final JamaParent parent;
     private List<JamaItem> children;
+
+    public ChildrenList(JamaParent parent) throws RestClientException {
+        this.parent = parent;
+        associate(parent.getId(), parent.getJamaInstance());
+    }
 
     @Override
     public String getCollectionUrl() {
@@ -29,15 +36,11 @@ public class ChildrenList extends LazyCollection {
 
     public List<JamaItem> getChildren() {
         fetch();
-        return children;
+        return Collections.unmodifiableList(children);
     }
 
     public JamaParent getParent() {
         fetch();
         return parent;
-    }
-
-    public void setParent(JamaParent parent) {
-        this.parent = parent;
     }
 }
