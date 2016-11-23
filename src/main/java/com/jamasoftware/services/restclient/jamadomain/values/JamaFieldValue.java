@@ -9,7 +9,7 @@ public abstract class JamaFieldValue {
     private JamaInstance jamaInstance;
     private String name;
     private String label;
-    private JamaField field;
+    protected JamaField field;
 
     public abstract Object getValue();
 
