@@ -142,4 +142,10 @@ class SimpleJsonUtil {
         }
     }
 
+    @SuppressWarnings("unchecked")
+    void putIfNotNull(JSONObject object, String key, Object value) {
+        if(value != null) {
+            object.put(key, value);
+        }
+    }
 }

@@ -6,19 +6,20 @@ import com.jamasoftware.services.restclient.jamadomain.JamaInstance;
 import com.jamasoftware.services.restclient.httpconnection.Response;
 import com.jamasoftware.services.restclient.exception.RestClientException;
 import com.jamasoftware.services.restclient.httpconnection.HttpClient;
-import com.jamasoftware.services.restclient.json.JsonDeserializer;
+import com.jamasoftware.services.restclient.jamadomain.LazyResource;
+import com.jamasoftware.services.restclient.json.JsonHandler;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class JamaClient {
     private HttpClient httpClient;
-    private JsonDeserializer json;
+    private JsonHandler json;
     private String username;
     private String password;
     private String baseUrl;
 
-    public JamaClient(HttpClient httpClient, JsonDeserializer json, String baseUrl, String username, String password) {
+    public JamaClient(HttpClient httpClient, JsonHandler json, String baseUrl, String username, String password) {
         this.httpClient = httpClient;
         this.json = json;
         this.baseUrl = baseUrl;
@@ -58,12 +59,20 @@ public class JamaClient {
         httpClient.get(baseUrl, username, password);
     }
 
-    public void put(String url, String payload) throws RestClientException {
+    public void putRaw(String url, String payload) throws RestClientException {
         httpClient.put(url, username, password, payload);
     }
 
-    public void post(String url, String payload) throws RestClientException {
+    public void put(String resource, LazyResource payload) throws RestClientException {
+//        System.out.println(json.serialize(payload));
+        putRaw(baseUrl + resource, json.serialize(payload));
+    }
+    public void postRaw(String url, String payload) throws RestClientException {
         httpClient.post(url, username, password, payload);
+    }
+
+    public void post(String resource, String payload) throws RestClientException {
+        postRaw(baseUrl + resource, payload);
     }
 
     public byte[] getItemTypeImage(String url) throws RestClientException{

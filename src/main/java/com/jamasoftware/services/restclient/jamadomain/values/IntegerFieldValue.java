@@ -1,5 +1,6 @@
 package com.jamasoftware.services.restclient.jamadomain.values;
 
+import com.jamasoftware.services.restclient.exception.JamaTypeMismatchException;
 import com.jamasoftware.services.restclient.exception.RestClientException;
 
 public class IntegerFieldValue extends JamaFieldValue {
@@ -18,6 +19,10 @@ public class IntegerFieldValue extends JamaFieldValue {
         this.value = Integer.valueOf(value);
     }
 
+    public void setValue(Object value) throws JamaTypeMismatchException {
+        checkType(Integer.class, value);
+        this.value = (Integer)value;
+    }
     public void setValue(Integer value) {
         this.value = value;
     }

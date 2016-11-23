@@ -50,4 +50,5 @@ public class JamaRelationship extends LazyResource {
         fetch();
         return suspect;
     }
+
 }

@@ -1,5 +1,6 @@
 package com.jamasoftware.services.restclient.jamadomain.values;
 
+import com.jamasoftware.services.restclient.exception.JamaTypeMismatchException;
 import com.jamasoftware.services.restclient.exception.RestClientException;
 import com.jamasoftware.services.restclient.util.DateUtil;
 
@@ -23,6 +24,10 @@ public class DateFieldValue extends JamaFieldValue {
         }
     }
 
+    public void setValue(Object value) throws JamaTypeMismatchException {
+        checkType(Date.class, value);
+        this.value = (Date) value;
+    }
     public void setValue(Date value) {
         this.value = value;
     }

@@ -1,5 +1,6 @@
 package com.jamasoftware.services.restclient.jamadomain.stagingresources;
 
+import com.jamasoftware.services.restclient.exception.RestClientException;
 import com.jamasoftware.services.restclient.jamadomain.lazyresources.JamaProject;
 
 public class StagingProject extends JamaProject implements StagingResource {
@@ -22,4 +23,10 @@ public class StagingProject extends JamaProject implements StagingResource {
         this.isFolder = folder;
         return this;
     }
+
+    @Override
+    protected String getEditUrl() throws RestClientException {
+        return "items/" + getId();
+    }
+
 }

@@ -1,5 +1,6 @@
 package com.jamasoftware.services.restclient.jamadomain.lazyresources;
 
+import com.jamasoftware.services.restclient.exception.RestClientException;
 import com.jamasoftware.services.restclient.jamadomain.JamaDomainObject;
 import com.jamasoftware.services.restclient.jamadomain.LazyResource;
 
@@ -41,5 +42,10 @@ public class JamaRelationshipType extends LazyResource {
     @Override
     public String toString() {
         return getName();
+    }
+
+    @Override
+    protected String getEditUrl() throws RestClientException {
+        throw new RestClientException("An attempt was made to edit a Relationship Type which is not editable. ");
     }
 }

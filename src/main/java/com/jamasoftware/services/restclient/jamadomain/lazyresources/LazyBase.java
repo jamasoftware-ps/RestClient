@@ -59,4 +59,13 @@ public abstract class LazyBase {
     }
 
     public abstract void forceFetch() throws RestClientException;
+
+    protected void invalidate() {
+        shouldFetch = true;
+        lastFetch = null;
+    }
+
+    protected void invalidate(LazyBase lazyBase) {
+        lazyBase.invalidate();
+    }
 }

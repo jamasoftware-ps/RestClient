@@ -1,5 +1,6 @@
 package com.jamasoftware.services.restclient.jamadomain.values;
 
+import com.jamasoftware.services.restclient.exception.JamaTypeMismatchException;
 import com.jamasoftware.services.restclient.jamadomain.lazyresources.Release;
 import com.jamasoftware.services.restclient.exception.RestClientException;
 
@@ -24,5 +25,10 @@ public class ReleaseFieldValue extends JamaFieldValue {
         int releaseId = Integer.valueOf(value);
         this.value = new Release();
         this.value.associate(releaseId, getJamaInstance());
+    }
+
+    public void setValue(Object value) throws JamaTypeMismatchException {
+        checkType(Release.class, value);
+        this.value = (Release) value;
     }
 }

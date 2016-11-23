@@ -16,7 +16,7 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
-public class JamaItem extends LazyResource implements JamaParent {
+public class JamaItem extends LazyResource implements JamaParent{
     protected TextFieldValue name;
     protected String globalId;
     protected String documentKey;
@@ -259,7 +259,9 @@ public class JamaItem extends LazyResource implements JamaParent {
     }
 
     public StagingItem edit() {
+        fetch();
         StagingItem stagingItem = new StagingItem(this);
         return stagingItem;
     }
+
 }

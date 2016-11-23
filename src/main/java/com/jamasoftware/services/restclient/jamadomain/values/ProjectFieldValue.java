@@ -1,5 +1,6 @@
 package com.jamasoftware.services.restclient.jamadomain.values;
 
+import com.jamasoftware.services.restclient.exception.JamaTypeMismatchException;
 import com.jamasoftware.services.restclient.jamadomain.lazyresources.JamaProject;
 import com.jamasoftware.services.restclient.exception.RestClientException;
 
@@ -7,7 +8,7 @@ public class ProjectFieldValue extends JamaFieldValue {
     private JamaProject value;
 
     @Override
-    public Object getValue() {
+    public JamaProject getValue() {
         return value;
     }
 
@@ -20,5 +21,9 @@ public class ProjectFieldValue extends JamaFieldValue {
         int projectId = Integer.valueOf(value);
         this.value = new JamaProject();
         this.value.associate(projectId, getJamaInstance());
+    }
+    public void setValue(Object value) throws JamaTypeMismatchException {
+        checkType(JamaProject.class, value);
+        this.value = (JamaProject)value;
     }
 }

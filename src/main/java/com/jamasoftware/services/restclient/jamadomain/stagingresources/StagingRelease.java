@@ -1,5 +1,6 @@
 package com.jamasoftware.services.restclient.jamadomain.stagingresources;
 
+import com.jamasoftware.services.restclient.exception.RestClientException;
 import com.jamasoftware.services.restclient.jamadomain.lazyresources.JamaProject;
 import com.jamasoftware.services.restclient.jamadomain.lazyresources.Release;
 
@@ -36,4 +37,10 @@ public class StagingRelease extends Release implements StagingResource {
         this.archived = archived;
         return this;
     }
+
+    @Override
+    protected String getEditUrl() throws RestClientException {
+        return "items/" + getId();
+    }
+
 }

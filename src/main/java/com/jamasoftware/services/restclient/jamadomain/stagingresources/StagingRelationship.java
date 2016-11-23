@@ -1,5 +1,6 @@
 package com.jamasoftware.services.restclient.jamadomain.stagingresources;
 
+import com.jamasoftware.services.restclient.exception.RestClientException;
 import com.jamasoftware.services.restclient.jamadomain.lazyresources.JamaItem;
 import com.jamasoftware.services.restclient.jamadomain.lazyresources.JamaRelationship;
 
@@ -23,6 +24,11 @@ public class StagingRelationship extends JamaRelationship implements StagingReso
     @Override
     public JamaItem getFromItem() {
         return fromItem;
+    }
+
+    @Override
+    protected String getEditUrl() throws RestClientException {
+        return "items/" + getId();
     }
 
 }

@@ -1,5 +1,6 @@
 package com.jamasoftware.services.restclient.jamadomain.values;
 
+import com.jamasoftware.services.restclient.exception.JamaTypeMismatchException;
 import com.jamasoftware.services.restclient.jamadomain.lazyresources.PickListOption;
 import com.jamasoftware.services.restclient.exception.RestClientException;
 
@@ -29,6 +30,17 @@ public class MultiSelectFieldValue extends JamaFieldValue {
             pickListOption.associate(optionId, getJamaInstance());
             this.value.add(pickListOption);
         }
+    }
+
+    public void setValue(Object value) throws JamaTypeMismatchException {
+        checkType(List.class, value);
+        List<?> list = (List)value;
+        List<PickListOption> options = new ArrayList<>();
+        for(Object o : list) {
+            checkType(PickListOption.class, o);
+            options.add((PickListOption)o);
+        }
+        this.value = options;
     }
 
     public void setValue(List<PickListOption> value) {

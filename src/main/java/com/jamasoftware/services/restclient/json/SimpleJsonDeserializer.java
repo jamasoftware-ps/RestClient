@@ -1,13 +1,15 @@
 package com.jamasoftware.services.restclient.json;
 
 import com.jamasoftware.services.restclient.JamaParent;
-import com.jamasoftware.services.restclient.jamadomain.*;
-import com.jamasoftware.services.restclient.jamadomain.lazyresources.*;
-import com.jamasoftware.services.restclient.jamadomain.fields.*;
-import com.jamasoftware.services.restclient.jamadomain.values.*;
-import com.jamasoftware.services.restclient.jamaclient.JamaPage;
 import com.jamasoftware.services.restclient.exception.JsonException;
 import com.jamasoftware.services.restclient.exception.RestClientException;
+import com.jamasoftware.services.restclient.jamaclient.JamaPage;
+import com.jamasoftware.services.restclient.jamadomain.*;
+import com.jamasoftware.services.restclient.jamadomain.fields.*;
+import com.jamasoftware.services.restclient.jamadomain.lazyresources.*;
+import com.jamasoftware.services.restclient.jamadomain.values.JamaFieldValue;
+import com.jamasoftware.services.restclient.jamadomain.values.TestCaseStepsFieldValue;
+import com.jamasoftware.services.restclient.jamadomain.values.TextFieldValue;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -17,11 +19,13 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SimpleJsonDeserializer implements JsonDeserializer {
+
+public class SimpleJsonDeserializer {
+
     private JSONParser jsonParser = new JSONParser();
     private SimpleJsonUtil util = new SimpleJsonUtil();
 
-    public JamaDomainObject deserialize(String json, JamaInstance jamaInstance) throws JsonException {
+    protected JamaDomainObject deserialize(String json, JamaInstance jamaInstance) throws JsonException {
         JSONObject jsonObject = util.parseObject(json, jsonParser);
         return typeCheckResource(jsonObject, jamaInstance);
     }
@@ -53,23 +57,7 @@ public class SimpleJsonDeserializer implements JsonDeserializer {
         }
     }
 
-    public String serialize(JamaItem item) throws JsonException {
-        throw new NotImplementedException();
-    }
-
-    public String serialize(JamaRelationship relationship) throws JsonException {
-        throw new NotImplementedException();
-    }
-
-    public JamaRelationship deserializeRelationship(String json) throws JsonException {
-        throw new NotImplementedException();
-    }
-
-    public String serialize(JamaItemType itemType) throws JsonException {
-        throw new NotImplementedException();
-    }
-
-    public JamaRelationship deserializeRelationship(JSONObject relJson, JamaInstance jamaInstance) throws JsonException {
+    private JamaRelationship deserializeRelationship(JSONObject relJson, JamaInstance jamaInstance) throws JsonException {
         JsonStagingRelationship relationship = new JsonStagingRelationship();
 
         int toItemId = util.requireInt(relJson, "toItem");
@@ -93,7 +81,7 @@ public class SimpleJsonDeserializer implements JsonDeserializer {
         return jamaRelationship;
     }
 
-    public JamaRelationshipType deserializeRelationshipType(JSONObject relTypeJson, JamaInstance jamaInstance) throws JsonException {
+    private JamaRelationshipType deserializeRelationshipType(JSONObject relTypeJson, JamaInstance jamaInstance) throws JsonException {
         JsonStagingRelationshipType relType = new JsonStagingRelationshipType();
 
         relType.setName(util.requestString(relTypeJson, "name"));
@@ -107,7 +95,7 @@ public class SimpleJsonDeserializer implements JsonDeserializer {
         return jamaRelType;
     }
 
-    public Release deserializeRelease(JSONObject releaseJson, JamaInstance jamaInstance) throws JsonException {
+    private Release deserializeRelease(JSONObject releaseJson, JamaInstance jamaInstance) throws JsonException {
         JsonStagingRelease release = new JsonStagingRelease();
         release.setName(util.requestString(releaseJson, "name"));
         release.setDescription(util.requestString(releaseJson, "description"));
@@ -130,7 +118,7 @@ public class SimpleJsonDeserializer implements JsonDeserializer {
         return jamaRelease;
     }
 
-    public PickListOption deserializeOption(JSONObject optionJson, JamaInstance jamaInstance) throws JsonException {
+    private PickListOption deserializeOption(JSONObject optionJson, JamaInstance jamaInstance) throws JsonException {
         JsonStagingPickListOption option = new JsonStagingPickListOption();
         option.setName(util.requestString(optionJson, "name"));
         option.setDescription(util.requestString(optionJson, "description"));
@@ -146,7 +134,7 @@ public class SimpleJsonDeserializer implements JsonDeserializer {
         return jamaOption;
     }
 
-    public JamaUser deserializeUser(JSONObject userJson, JamaInstance jamaInstance) throws JsonException {
+    private JamaUser deserializeUser(JSONObject userJson, JamaInstance jamaInstance) throws JsonException {
         int userId = util.requireInt(userJson, "id");
         JsonStagingUser user = new JsonStagingUser();
 
@@ -286,7 +274,7 @@ public class SimpleJsonDeserializer implements JsonDeserializer {
             }
             if(fieldValue.getName().equals("name")) {
                 if(!(fieldValue instanceof TextFieldValue)) throw new JsonException("Name must be a text field.");
-                item.setName((TextFieldValue)fieldValue);
+                item.setName(((TextFieldValue)fieldValue).getValue());
             } else {
                 item.addFieldValue(fieldValue);
             }
@@ -358,12 +346,7 @@ public class SimpleJsonDeserializer implements JsonDeserializer {
         return jamaLocation;
     }
 
-    public JamaItemType deserializeItemType(String json, JamaInstance jamaInstance) throws JsonException {
-        JSONObject itemTypeJson = util.parseObject(json, jsonParser);
-        return deserializeItemType(itemTypeJson, jamaInstance);
-    }
-
-    public JamaItemType deserializeItemType(JSONObject itemTypeJson, JamaInstance jamaInstance) throws JsonException {
+    private JamaItemType deserializeItemType(JSONObject itemTypeJson, JamaInstance jamaInstance) throws JsonException {
         String category = util.requestString(itemTypeJson, "category");
         if(category != null && category.equals("CORE")) {
             return null;
@@ -398,7 +381,7 @@ public class SimpleJsonDeserializer implements JsonDeserializer {
         return jamaItemType;
     }
 
-    public JamaPage getPage(String json, JamaInstance jamaInstance) throws JsonException {
+    protected JamaPage getPage(String json, JamaInstance jamaInstance) throws JsonException {
         JSONObject response = util.parseObject(json, jsonParser);
         JSONObject meta = util.requireObject(response, "meta");
         JSONObject pageInfo = util.requestObject(meta, "pageInfo");
@@ -515,8 +498,4 @@ public class SimpleJsonDeserializer implements JsonDeserializer {
         return field;
     }
 
-    @Override
-    public String serialize(JamaDomainObject jamaDomainObject) throws JsonException {
-        throw new NotImplementedException();
-    }
 }

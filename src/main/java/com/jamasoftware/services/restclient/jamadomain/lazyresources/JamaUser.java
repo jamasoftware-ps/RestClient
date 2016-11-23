@@ -90,4 +90,7 @@ public class JamaUser extends LazyResource {
     public String toString() {
         return getUsername();
     }
+
+
+
 }

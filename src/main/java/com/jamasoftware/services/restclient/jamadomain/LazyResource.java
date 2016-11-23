@@ -1,6 +1,5 @@
 package com.jamasoftware.services.restclient.jamadomain;
 
-import com.jamasoftware.services.restclient.jamadomain.JamaDomainObject;
 import com.jamasoftware.services.restclient.exception.RestClientException;
 import com.jamasoftware.services.restclient.jamadomain.lazyresources.LazyBase;
 
@@ -19,5 +18,11 @@ public abstract class LazyResource extends LazyBase implements JamaDomainObject 
     public boolean isAssociated() {
         return getId() != null && jamaInstance != null;
     }
+    protected void put() throws RestClientException {
+        jamaInstance.put(this);
+    }
 
+    protected String getEditUrl() throws RestClientException {
+        throw new RestClientException("Unable to edit " + this.getClass() + " for item " + this);
+    }
 }

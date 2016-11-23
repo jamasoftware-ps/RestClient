@@ -89,6 +89,7 @@ public abstract class JamaField implements SerializableJamaDomainObject {
         fieldValue.setJamaInstance(jamaInstance);
         fieldValue.setName(name);
         fieldValue.setLabel(label);
+        fieldValue.setField(this);
     }
 
     @Override

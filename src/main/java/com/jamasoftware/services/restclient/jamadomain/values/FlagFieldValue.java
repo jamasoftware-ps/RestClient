@@ -1,5 +1,6 @@
 package com.jamasoftware.services.restclient.jamadomain.values;
 
+import com.jamasoftware.services.restclient.exception.JamaTypeMismatchException;
 import com.jamasoftware.services.restclient.exception.RestClientException;
 
 public class FlagFieldValue extends JamaFieldValue {
@@ -18,6 +19,10 @@ public class FlagFieldValue extends JamaFieldValue {
         this.value = Boolean.valueOf(value);
     }
 
+    public void setValue(Object value) throws JamaTypeMismatchException {
+        checkType(Boolean.class, value);
+        this.value = (Boolean) value;
+    }
     public void setValue(Boolean value) {
         this.value = value;
     }

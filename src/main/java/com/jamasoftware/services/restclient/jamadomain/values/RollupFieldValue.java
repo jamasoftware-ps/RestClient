@@ -1,5 +1,6 @@
 package com.jamasoftware.services.restclient.jamadomain.values;
 
+import com.jamasoftware.services.restclient.exception.JamaTypeMismatchException;
 import com.jamasoftware.services.restclient.exception.RestClientException;
 
 public class RollupFieldValue extends JamaFieldValue{
@@ -21,5 +22,10 @@ public class RollupFieldValue extends JamaFieldValue{
 
     public void setValue(Integer value) {
         this.value = value;
+    }
+
+
+    public void setValue(Object value) throws JamaTypeMismatchException {
+        throw new JamaTypeMismatchException("Rollup fields are not editable for field " + getName());
     }
 }

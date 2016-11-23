@@ -1,3 +1,8 @@
 package com.jamasoftware.services.restclient.jamadomain.stagingresources;
 
-public interface StagingResource {}
+import com.jamasoftware.services.restclient.jamadomain.JamaDomainObject;
+
+public interface StagingResource {
+
+}
+

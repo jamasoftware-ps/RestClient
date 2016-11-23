@@ -2,10 +2,12 @@ package com.jamasoftware.services.restclient;
 
 import com.jamasoftware.services.restclient.exception.RestClientException;
 import com.jamasoftware.services.restclient.jamadomain.JamaLocation;
+import com.jamasoftware.services.restclient.jamadomain.fields.TextField;
 import com.jamasoftware.services.restclient.jamadomain.lazyresources.JamaItem;
 import com.jamasoftware.services.restclient.jamadomain.JamaInstance;
 import com.jamasoftware.services.restclient.jamadomain.lazyresources.JamaProject;
 import com.jamasoftware.services.restclient.jamadomain.stagingresources.StagingItem;
+import com.jamasoftware.services.restclient.jamadomain.values.TextFieldValue;
 import com.jamasoftware.services.restclient.json.JsonStagingItem;
 
 import java.util.List;
@@ -35,8 +37,12 @@ public class Main {
             JamaInstance jamaInstance = new JamaInstance(new JamaConfig(true));
 
             JamaItem jamaItem = new JamaItem();
-            jamaItem.associate(1972359, jamaInstance);
+            jamaItem.associate(1972342, jamaInstance);
             System.out.println(jamaItem);
+//            jamaItem.edit()
+//                    .setName("NEW NAME ALERT")
+//                    .setFieldValue("description", "textblahblhablhasdbkljhsdflkhjasfkljhsd")
+//                    .commit();
 
 //            jamaItem.edit()
 //                    .setName("Edited")

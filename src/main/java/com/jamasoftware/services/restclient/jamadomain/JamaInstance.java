@@ -157,11 +157,11 @@ public class JamaInstance implements JamaDomainObject {
     }
 
     public void putRawData(String resource, String payload) throws RestClientException {
-        jamaClient.put(jamaConfig.getBaseUrl() + resource, payload);
+        jamaClient.putRaw(jamaConfig.getBaseUrl() + resource, payload);
     }
 
     public void postRawData(String resource, String payload) throws RestClientException {
-        jamaClient.post(jamaConfig.getBaseUrl() + resource, payload);
+        jamaClient.postRaw(jamaConfig.getBaseUrl() + resource, payload);
     }
 
     public byte[] retrieveItemTypeImage(String url) throws RestClientException {
@@ -174,5 +174,9 @@ public class JamaInstance implements JamaDomainObject {
 
     public JamaItem createItem() {
         return new StagingItem();
+    }
+
+    protected void put(LazyResource lazyResource) throws RestClientException{
+        jamaClient.put(lazyResource.getEditUrl(), lazyResource);
     }
 }

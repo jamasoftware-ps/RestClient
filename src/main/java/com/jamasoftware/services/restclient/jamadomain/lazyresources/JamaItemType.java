@@ -1,5 +1,6 @@
 package com.jamasoftware.services.restclient.jamadomain.lazyresources;
 
+import com.jamasoftware.services.restclient.exception.RestClientException;
 import com.jamasoftware.services.restclient.jamadomain.JamaDomainObject;
 import com.jamasoftware.services.restclient.jamadomain.JamaInstance;
 import com.jamasoftware.services.restclient.jamadomain.LazyResource;
@@ -75,8 +76,23 @@ public class JamaItemType extends LazyResource {
         return fields;
     }
 
+    public JamaField getField(String name) {
+        fetch();
+        for(JamaField field : fields) {
+            if(field.getName().equals(name)) {
+                return field;
+            }
+        }
+        return null;
+    }
+
     @Override
     public String toString() {
         return getDisplay();
+    }
+
+    @Override
+    protected String getEditUrl() throws RestClientException {
+        throw new RestClientException("An attempt was made to edit an Item Type which is not editable. ");
     }
 }

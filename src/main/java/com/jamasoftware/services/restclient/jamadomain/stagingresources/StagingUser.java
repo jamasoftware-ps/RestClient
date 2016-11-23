@@ -1,5 +1,6 @@
 package com.jamasoftware.services.restclient.jamadomain.stagingresources;
 
+import com.jamasoftware.services.restclient.exception.RestClientException;
 import com.jamasoftware.services.restclient.jamadomain.lazyresources.JamaUser;
 
 public class StagingUser extends JamaUser implements StagingResource {
@@ -43,4 +44,10 @@ public class StagingUser extends JamaUser implements StagingResource {
         this.licenseType = licenseType;
         return this;
     }
+
+    @Override
+    protected String getEditUrl() throws RestClientException {
+        return "items/" + getId();
+    }
+
 }
