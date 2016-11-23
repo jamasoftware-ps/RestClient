@@ -4,7 +4,6 @@ import com.jamasoftware.services.restclient.exception.JamaTypeMismatchException;
 import com.jamasoftware.services.restclient.jamadomain.fields.PickListField;
 import com.jamasoftware.services.restclient.jamadomain.lazyresources.PickListOption;
 import com.jamasoftware.services.restclient.exception.RestClientException;
-import com.jamasoftware.services.restclient.jamadomain.picklists.PickList;
 import com.jamasoftware.services.restclient.util.CompareUtil;
 
 import java.util.List;

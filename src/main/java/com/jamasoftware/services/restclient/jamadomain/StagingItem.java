@@ -27,10 +27,11 @@ public class StagingItem extends JamaItem implements StagingResource {
         originatingItem = item;
     }
 
-    protected StagingItem(String name, JamaParent parent, JamaItemType itemType) throws RestClientException{
+    protected StagingItem(JamaInstance jamaInstance, String name, JamaParent parent, JamaItemType itemType) throws RestClientException{
         setItemType(itemType);
         setName(name);
         setParent(parent);
+
         originatingItem = null;
     }
 

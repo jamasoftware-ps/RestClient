@@ -1,8 +1,7 @@
-package com.jamasoftware.services.restclient.jamadomain.picklists;
+package com.jamasoftware.services.restclient.jamadomain.lazyresources;
 
 import com.jamasoftware.services.restclient.jamadomain.JamaDomainObject;
 import com.jamasoftware.services.restclient.jamadomain.LazyResource;
-import com.jamasoftware.services.restclient.jamadomain.lazyresources.PickListOption;
 
 import java.util.ArrayList;
 import java.util.List;
