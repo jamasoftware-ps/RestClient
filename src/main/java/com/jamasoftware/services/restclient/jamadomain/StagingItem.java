@@ -1,12 +1,11 @@
-package com.jamasoftware.services.restclient.jamadomain.stagingresources;
+package com.jamasoftware.services.restclient.jamadomain;
 
 import com.jamasoftware.services.restclient.JamaParent;
 import com.jamasoftware.services.restclient.exception.JamaFieldNotFound;
 import com.jamasoftware.services.restclient.exception.JamaTypeMismatchException;
 import com.jamasoftware.services.restclient.exception.RestClientException;
-import com.jamasoftware.services.restclient.jamadomain.JamaDomainObject;
-import com.jamasoftware.services.restclient.jamadomain.JamaInstance;
 import com.jamasoftware.services.restclient.jamadomain.lazyresources.*;
+import com.jamasoftware.services.restclient.jamadomain.stagingresources.StagingResource;
 import com.jamasoftware.services.restclient.jamadomain.values.JamaFieldValue;
 import com.jamasoftware.services.restclient.jamadomain.values.TextFieldValue;
 
@@ -18,22 +17,21 @@ public class StagingItem extends JamaItem implements StagingResource {
     // only getters and setters for edits
     final private JamaItem originatingItem;
 
-    public StagingItem(){
-        super();
+    protected StagingItem(){
         originatingItem = null;
     }
 
-    //TODO Iman
-    public StagingItem(JamaInstance jamaInstance) {
-        super();
-        associate((int)Math.random(), jamaInstance);
-        originatingItem = null;
-    }
-
-    public StagingItem(JamaItem item) {
+    protected StagingItem(JamaItem item) throws RestClientException{
         super(item);
         associate(item.getId(), item.getJamaInstance());
         originatingItem = item;
+    }
+
+    protected StagingItem(String name, JamaParent parent, JamaItemType itemType) throws RestClientException{
+        setItemType(itemType);
+        setName(name);
+        setParent(parent);
+        originatingItem = null;
     }
 
     @Override
@@ -42,15 +40,9 @@ public class StagingItem extends JamaItem implements StagingResource {
     }
 
     public StagingItem setName(String name) {
-        if(this.name == null){
-            if(itemType != null) {
-                this.name = (TextFieldValue) itemType.getField("name").getValue();
-            } else {
-                this.name = new TextFieldValue();
-                this.name.setName("name");
-            }
+        if(this.name == null) {
+            this.name = (TextFieldValue) itemType.getField("name").getValue();
         }
-        //TODO name could still be null here, and is seg faulting when it is
         this.name.setValue(name);
         return this;
     }
@@ -125,6 +117,18 @@ public class StagingItem extends JamaItem implements StagingResource {
     }
 
     public void commit() throws RestClientException {
+        if (getId() == null) {
+            postCommit();
+        } else {
+            putCommit();
+        }
+    }
+
+    private void postCommit() throws RestClientException {
+        post();
+    }
+
+    private void putCommit() throws RestClientException {
         for(JamaFieldValue value : fieldValues) {
             System.out.println(value.getName() + ": " + value.getValue());
         }
@@ -143,4 +147,8 @@ public class StagingItem extends JamaItem implements StagingResource {
         return this;
     }
 
+    @Override
+    public void associate(int id, JamaInstance jamaInstance) throws RestClientException {
+        throw new RestClientException("You cannot associate an item while it is in edit mode.");
+    }
 }

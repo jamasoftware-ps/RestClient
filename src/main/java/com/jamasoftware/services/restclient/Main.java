@@ -1,17 +1,9 @@
 package com.jamasoftware.services.restclient;
 
 import com.jamasoftware.services.restclient.exception.RestClientException;
-import com.jamasoftware.services.restclient.jamadomain.JamaLocation;
-import com.jamasoftware.services.restclient.jamadomain.fields.TextField;
 import com.jamasoftware.services.restclient.jamadomain.lazyresources.JamaItem;
 import com.jamasoftware.services.restclient.jamadomain.JamaInstance;
 import com.jamasoftware.services.restclient.jamadomain.lazyresources.JamaProject;
-import com.jamasoftware.services.restclient.jamadomain.stagingresources.StagingItem;
-import com.jamasoftware.services.restclient.jamadomain.values.TextFieldValue;
-import com.jamasoftware.services.restclient.json.JsonStagingItem;
-
-import java.io.OutputStream;
-import java.util.List;
 
 public class Main {
     public static void printAll(JamaParent jamaParent, int indent) throws RestClientException {
@@ -49,11 +41,8 @@ public class Main {
 //                    .setName("Edited")
 //                    .setDescription("Desc")
 //                    .commit();
-            jamaInstance.createItem()
+            jamaInstance.createItem("name", jamaItem, jamaInstance.getItemType("Text"))
                     .setName("Day before Thanksgiving")
-                    .setItemType(jamaInstance.getItemType("Text"))
-                    .setFieldValueQuietly("description", "Ya diggggg", System.out)
-                    .setParent(jamaItem)
                     .commit();
 
 //            jamaItem.associate(2119331, jamaInstance);

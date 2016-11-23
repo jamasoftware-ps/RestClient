@@ -71,8 +71,8 @@ public class JamaClient {
         httpClient.post(url, username, password, payload);
     }
 
-    public void post(String resource, String payload) throws RestClientException {
-        postRaw(baseUrl + resource, payload);
+    public void post(String resource, LazyResource payload) throws RestClientException {
+        postRaw(baseUrl + resource, json.serialize(payload));
     }
 
     public byte[] getItemTypeImage(String url) throws RestClientException{

@@ -5,17 +5,13 @@ import com.jamasoftware.services.restclient.exception.JsonException;
 import com.jamasoftware.services.restclient.jamadomain.JamaDomainObject;
 import com.jamasoftware.services.restclient.jamadomain.LazyResource;
 import com.jamasoftware.services.restclient.jamadomain.TestCaseStep;
-import com.jamasoftware.services.restclient.jamadomain.fields.JamaField;
-import com.jamasoftware.services.restclient.jamadomain.fields.RollupField;
-import com.jamasoftware.services.restclient.jamadomain.fields.TestCaseStatusField;
 import com.jamasoftware.services.restclient.jamadomain.lazyresources.JamaItem;
 import com.jamasoftware.services.restclient.jamadomain.lazyresources.JamaProject;
 import com.jamasoftware.services.restclient.jamadomain.lazyresources.PickListOption;
-import com.jamasoftware.services.restclient.jamadomain.stagingresources.StagingItem;
+import com.jamasoftware.services.restclient.jamadomain.StagingItem;
 import com.jamasoftware.services.restclient.jamadomain.values.*;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 public class SimpleJsonSerializer implements JsonSerializer {
     private SimpleJsonUtil util = new SimpleJsonUtil();

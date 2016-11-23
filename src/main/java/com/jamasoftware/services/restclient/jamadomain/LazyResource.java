@@ -22,6 +22,10 @@ public abstract class LazyResource extends LazyBase implements JamaDomainObject 
         jamaInstance.put(this);
     }
 
+    protected void post() throws RestClientException {
+        jamaInstance.post(this);
+    }
+
     protected String getEditUrl() throws RestClientException {
         throw new RestClientException("Unable to edit " + this.getClass() + " for item " + this);
     }

@@ -44,7 +44,7 @@ public abstract class LazyBase {
         return id;
     }
 
-    public void associate(int id, JamaInstance jamaInstance) {
+    public void associate(int id, JamaInstance jamaInstance) throws RestClientException {
         this.id = id;
         this.jamaInstance = jamaInstance;
     }

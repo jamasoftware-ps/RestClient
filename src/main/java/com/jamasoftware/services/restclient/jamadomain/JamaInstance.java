@@ -1,10 +1,10 @@
 package com.jamasoftware.services.restclient.jamadomain;
 
 import com.jamasoftware.services.restclient.JamaConfig;
+import com.jamasoftware.services.restclient.JamaParent;
 import com.jamasoftware.services.restclient.jamadomain.lazyresources.*;
 import com.jamasoftware.services.restclient.exception.RestClientException;
 import com.jamasoftware.services.restclient.jamaclient.JamaClient;
-import com.jamasoftware.services.restclient.jamadomain.stagingresources.StagingItem;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
@@ -77,7 +77,7 @@ public class JamaInstance implements JamaDomainObject {
         return objects;
     }
 
-    public JamaProject getProject(int id) {
+    public JamaProject getProject(int id) throws RestClientException{
         String key = JamaProject.class.getName() + id;
         JamaProject project = (JamaProject) getPoolOrNull(key);
         if(project != null) {
@@ -115,7 +115,7 @@ public class JamaInstance implements JamaDomainObject {
         return itemTypes;
     }
 
-    public JamaItemType getItemType(int id) {
+    public JamaItemType getItemType(int id) throws RestClientException{
         JamaItemType itemType = new JamaItemType();
         itemType.associate(id, this);
         return itemType;
@@ -135,7 +135,7 @@ public class JamaInstance implements JamaDomainObject {
         return found;
     }
 
-    public JamaItem getItem(int id) {
+    public JamaItem getItem(int id) throws RestClientException {
         JamaItem item = new JamaItem();
         item.associate(id, this);
         return item;
@@ -172,11 +172,20 @@ public class JamaInstance implements JamaDomainObject {
         this.resourceTimeOut = resourceTimeOut;
     }
 
-    public StagingItem createItem() {
-        return new StagingItem(this);
+    public StagingItem createItem(String name, JamaParent parent, JamaItemType itemType) throws RestClientException{
+        return new StagingItem(this, name, parent, itemType);
     }
 
-    protected void put(LazyResource lazyResource) throws RestClientException{
+    protected void put(LazyResource lazyResource) throws RestClientException {
         jamaClient.put(lazyResource.getEditUrl(), lazyResource);
+    }
+
+    protected void post(LazyResource lazyResource) throws RestClientException {
+        jamaClient.post(lazyResource.getEditUrl(), lazyResource);
+    }
+
+    public StagingItem editItem(JamaItem jamaItem) throws RestClientException {
+        jamaItem.fetch();
+        return new StagingItem(jamaItem);
     }
 }

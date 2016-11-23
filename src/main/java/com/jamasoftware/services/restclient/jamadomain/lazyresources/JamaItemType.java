@@ -42,7 +42,7 @@ public class JamaItemType extends LazyResource {
     }
 
     @Override
-    public void associate(int id, JamaInstance jamaInstance) {
+    public void associate(int id, JamaInstance jamaInstance) throws RestClientException{
         super.associate(id, jamaInstance);
         for(JamaField field : fields) {
             field.setJamaInstance(jamaInstance);

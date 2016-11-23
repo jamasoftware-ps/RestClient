@@ -44,8 +44,8 @@ public class JamaProject extends LazyResource implements JamaParent {
     }
 
     @Override
-    public void makeChildOf(JamaParent jamaParent) {
-
+    public void makeChildOf(JamaParent jamaParent) throws RestClientException {
+        throw new RestClientException("You cannot set the parent of a project.");
     }
 
     @Override

@@ -21,12 +21,12 @@ public class SimpleJsonHandler implements JsonHandler {
     private SimpleJsonDeserializer deserializer = new SimpleJsonDeserializer();
     private SimpleJsonSerializer serializer = new SimpleJsonSerializer();
 
-    public JamaDomainObject deserialize(String json, JamaInstance jamaInstance) throws JsonException {
+    public JamaDomainObject deserialize(String json, JamaInstance jamaInstance) throws JsonException, RestClientException {
         return deserializer.deserialize(json, jamaInstance);
     }
 
     @Override
-    public JamaPage getPage(String json, JamaInstance jamaInstance) throws JsonException {
+    public JamaPage getPage(String json, JamaInstance jamaInstance) throws JsonException, RestClientException {
         return deserializer.getPage(json, jamaInstance);
     }
 
