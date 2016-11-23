@@ -172,8 +172,8 @@ public class JamaInstance implements JamaDomainObject {
         this.resourceTimeOut = resourceTimeOut;
     }
 
-    public JamaItem createItem() {
-        return new StagingItem();
+    public StagingItem createItem() {
+        return new StagingItem(this);
     }
 
     protected void put(LazyResource lazyResource) throws RestClientException{

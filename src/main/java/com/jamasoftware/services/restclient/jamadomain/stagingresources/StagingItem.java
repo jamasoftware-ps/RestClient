@@ -1,9 +1,11 @@
 package com.jamasoftware.services.restclient.jamadomain.stagingresources;
 
+import com.jamasoftware.services.restclient.JamaParent;
 import com.jamasoftware.services.restclient.exception.JamaFieldNotFound;
 import com.jamasoftware.services.restclient.exception.JamaTypeMismatchException;
 import com.jamasoftware.services.restclient.exception.RestClientException;
 import com.jamasoftware.services.restclient.jamadomain.JamaDomainObject;
+import com.jamasoftware.services.restclient.jamadomain.JamaInstance;
 import com.jamasoftware.services.restclient.jamadomain.lazyresources.*;
 import com.jamasoftware.services.restclient.jamadomain.values.JamaFieldValue;
 import com.jamasoftware.services.restclient.jamadomain.values.TextFieldValue;
@@ -17,6 +19,14 @@ public class StagingItem extends JamaItem implements StagingResource {
     final private JamaItem originatingItem;
 
     public StagingItem(){
+        super();
+        originatingItem = null;
+    }
+
+    //TODO Iman
+    public StagingItem(JamaInstance jamaInstance) {
+        super();
+        associate((int)Math.random(), jamaInstance);
         originatingItem = null;
     }
 
@@ -33,11 +43,18 @@ public class StagingItem extends JamaItem implements StagingResource {
 
     public StagingItem setName(String name) {
         if(this.name == null){
-            this.name = (TextFieldValue) itemType.getField("name").getValue();
+            if(itemType != null) {
+                this.name = (TextFieldValue) itemType.getField("name").getValue();
+            } else {
+                this.name = new TextFieldValue();
+                this.name.setName("name");
+            }
         }
+        //TODO name could still be null here, and is seg faulting when it is
         this.name.setValue(name);
         return this;
     }
+
 
     public StagingItem setGlobalId(String globalId) {
         //TODO need to change the query parameters
@@ -119,6 +136,11 @@ public class StagingItem extends JamaItem implements StagingResource {
     @Override
     protected String getEditUrl() throws RestClientException {
         return "items/" + getId();
+    }
+
+    public StagingItem setParent(JamaParent item) throws RestClientException{
+        this.makeChildOf(item);
+        return this;
     }
 
 }

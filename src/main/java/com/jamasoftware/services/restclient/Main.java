@@ -10,6 +10,7 @@ import com.jamasoftware.services.restclient.jamadomain.stagingresources.StagingI
 import com.jamasoftware.services.restclient.jamadomain.values.TextFieldValue;
 import com.jamasoftware.services.restclient.json.JsonStagingItem;
 
+import java.io.OutputStream;
 import java.util.List;
 
 public class Main {
@@ -48,12 +49,12 @@ public class Main {
 //                    .setName("Edited")
 //                    .setDescription("Desc")
 //                    .commit();
-//            jamaInstance.createItem()
-//                    .setName("Worked")
-//                    .setDescription("Dug")
-//                    .setParent(jamaItem)
-//                    .setItemType(jamaInstance.getItemType("text"))
-//                    .commit();
+            jamaInstance.createItem()
+                    .setName("Day before Thanksgiving")
+                    .setItemType(jamaInstance.getItemType("Text"))
+                    .setFieldValueQuietly("description", "Ya diggggg", System.out)
+                    .setParent(jamaItem)
+                    .commit();
 
 //            jamaItem.associate(2119331, jamaInstance);
 
