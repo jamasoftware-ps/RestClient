@@ -212,7 +212,7 @@ public class SimpleJsonDeserializer {
         JamaProject jamaProject = checkProjectPool(projectId, jamaInstance);
         checkIds(projectJson, jamaProject);
         project.writeContentTo(jamaProject);
-        return project;
+        return jamaProject;
     }
 
     private JamaDomainObject checkPool(Class clazz, String id, JamaInstance jamaInstance) throws RestClientException {
