@@ -1,10 +1,12 @@
-package com.jamasoftware.services.restclient.jamadomain;
+package com.jamasoftware.services.restclient.jamadomain.core;
 
 import com.jamasoftware.services.restclient.JamaConfig;
 import com.jamasoftware.services.restclient.JamaParent;
 import com.jamasoftware.services.restclient.jamadomain.lazyresources.*;
 import com.jamasoftware.services.restclient.exception.RestClientException;
 import com.jamasoftware.services.restclient.jamaclient.JamaClient;
+import com.jamasoftware.services.restclient.jamadomain.stagingresources.StagingItem;
+import com.jamasoftware.services.restclient.util.CompareUtil;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
@@ -17,11 +19,9 @@ public class JamaInstance implements JamaDomainObject {
     private JamaConfig jamaConfig;
     private Integer resourceTimeOut;
     private JamaUser currentUser;
+    private ItemTypeList itemTypeList;
 
-    // todo remove itemType map
-    private HashMap<Integer, JamaItemType> itemTypeMap = new HashMap<>();
     private Map<String, WeakReference<JamaDomainObject>> resourcePool = new HashMap<>();
-
 
     public JamaInstance(JamaConfig jamaConfig) {
         this.jamaConfig = jamaConfig;
@@ -100,19 +100,11 @@ public class JamaInstance implements JamaDomainObject {
         return projects;
     }
 
-    private void addItemType(JamaItemType itemType) {
-        itemTypeMap.put(itemType.getId(), itemType);
-    }
-
     public List<JamaItemType> getItemTypes() throws RestClientException {
-        List<JamaItemType> itemTypes = new ArrayList<>();
-        List<JamaDomainObject> jamaDomainObjects = getAll("itemtypes");
-        for(JamaDomainObject jamaDomainObject : jamaDomainObjects) {
-            JamaItemType itemType = (JamaItemType) jamaDomainObject;
-            itemTypes.add(itemType);
-            itemTypeMap.put(itemType.getId(), itemType);
+        if(itemTypeList == null) {
+            itemTypeList = new ItemTypeList(this);
         }
-        return itemTypes;
+        return itemTypeList.getItemTypes();
     }
 
     public JamaItemType getItemType(int id) throws RestClientException{
@@ -122,10 +114,10 @@ public class JamaInstance implements JamaDomainObject {
     }
 
     public JamaItemType getItemType(String name) throws RestClientException {
-        getItemTypes();
+        List<JamaItemType> itemTypes = getItemTypes();
         JamaItemType found = null;
-        for(JamaItemType itemType : itemTypeMap.values()) {
-            if(name.equals(itemType.getDisplay())) {
+        for(JamaItemType itemType : itemTypes) {
+            if(CompareUtil.closeEnough(name, itemType.getDisplay())) {
                 if(found != null) {
                     throw new RestClientException("Multiple ItemTypes with the display: " + name);
                 }
@@ -173,19 +165,30 @@ public class JamaInstance implements JamaDomainObject {
     }
 
     public StagingItem createItem(String name, JamaParent parent, JamaItemType itemType) throws RestClientException{
-        return new StagingItem(this, name, parent, itemType);
+        return (new StagingDispenser()).createStagingItem(this, name, parent, itemType);
     }
 
     protected void put(LazyResource lazyResource) throws RestClientException {
         jamaClient.put(lazyResource.getEditUrl(), lazyResource);
     }
 
-    protected void post(LazyResource lazyResource) throws RestClientException {
-        jamaClient.post(lazyResource.getEditUrl(), lazyResource);
+    protected LazyResource post(LazyResource lazyResource, Class clazz) throws RestClientException {
+        Integer resourceId = jamaClient.post(lazyResource.getCreateUrl(), lazyResource);
+        if(resourceId == null) {
+            return null;
+        }
+        LazyResource createdResource;
+        try {
+            createdResource = (LazyResource)clazz.newInstance();
+        } catch (InstantiationException | IllegalAccessException e) {
+            throw new RestClientException(e);
+        }
+        createdResource.associate(resourceId, this);
+        return createdResource;
     }
 
     public StagingItem editItem(JamaItem jamaItem) throws RestClientException {
         jamaItem.fetch();
-        return new StagingItem(jamaItem);
+        return (new StagingDispenser()).createStagingItem(jamaItem);
     }
 }

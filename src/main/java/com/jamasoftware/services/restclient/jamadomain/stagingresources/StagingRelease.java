@@ -40,7 +40,11 @@ public class StagingRelease extends Release implements StagingResource {
 
     @Override
     protected String getEditUrl() throws RestClientException {
-        return "items/" + getId();
+        return "releases/" + getId();
     }
 
+    @Override
+    protected String getCreateUrl() throws RestClientException {
+        return "releases/";
+    }
 }

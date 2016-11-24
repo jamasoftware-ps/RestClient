@@ -2,8 +2,8 @@ package com.jamasoftware.services.restclient.jamadomain.lazyresources;
 
 import com.jamasoftware.services.restclient.JamaParent;
 import com.jamasoftware.services.restclient.exception.RestClientException;
-import com.jamasoftware.services.restclient.jamadomain.JamaDomainObject;
-import com.jamasoftware.services.restclient.jamadomain.LazyResource;
+import com.jamasoftware.services.restclient.jamadomain.core.JamaDomainObject;
+import com.jamasoftware.services.restclient.jamadomain.core.LazyResource;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.util.ArrayList;
@@ -38,7 +38,7 @@ public class JamaProject extends LazyResource implements JamaParent {
 
     @Override
     public boolean isProject() {
-        return false;
+        return true;
     }
 
     @Override

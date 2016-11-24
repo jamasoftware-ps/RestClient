@@ -1,10 +1,11 @@
 package com.jamasoftware.services.restclient.jamadomain.lazyresources;
 
 import com.jamasoftware.services.restclient.exception.RestClientException;
-import com.jamasoftware.services.restclient.jamadomain.JamaDomainObject;
-import com.jamasoftware.services.restclient.jamadomain.JamaInstance;
-import com.jamasoftware.services.restclient.jamadomain.LazyResource;
+import com.jamasoftware.services.restclient.jamadomain.core.JamaDomainObject;
+import com.jamasoftware.services.restclient.jamadomain.core.JamaInstance;
+import com.jamasoftware.services.restclient.jamadomain.core.LazyResource;
 import com.jamasoftware.services.restclient.jamadomain.fields.JamaField;
+import com.jamasoftware.services.restclient.util.CompareUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -76,14 +77,14 @@ public class JamaItemType extends LazyResource {
         return fields;
     }
 
-    public JamaField getField(String name) {
+    public JamaField getField(String name) throws RestClientException {
         fetch();
         for(JamaField field : fields) {
-            if(field.getName().equals(name)) {
+            if(CompareUtil.closeEnough(field.getName(), name)) {
                 return field;
             }
         }
-        return null;
+        throw new RestClientException("Unable to locate field with name \"" + name + "\" in Item Type " + this);
     }
 
     @Override

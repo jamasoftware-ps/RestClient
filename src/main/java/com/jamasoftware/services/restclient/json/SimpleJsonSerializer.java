@@ -2,13 +2,13 @@ package com.jamasoftware.services.restclient.json;
 
 import com.jamasoftware.services.restclient.JamaParent;
 import com.jamasoftware.services.restclient.exception.JsonException;
-import com.jamasoftware.services.restclient.jamadomain.JamaDomainObject;
-import com.jamasoftware.services.restclient.jamadomain.LazyResource;
+import com.jamasoftware.services.restclient.jamadomain.core.JamaDomainObject;
+import com.jamasoftware.services.restclient.jamadomain.core.LazyResource;
 import com.jamasoftware.services.restclient.jamadomain.TestCaseStep;
 import com.jamasoftware.services.restclient.jamadomain.lazyresources.JamaItem;
 import com.jamasoftware.services.restclient.jamadomain.lazyresources.JamaProject;
 import com.jamasoftware.services.restclient.jamadomain.lazyresources.PickListOption;
-import com.jamasoftware.services.restclient.jamadomain.StagingItem;
+import com.jamasoftware.services.restclient.jamadomain.stagingresources.StagingItem;
 import com.jamasoftware.services.restclient.jamadomain.values.*;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -16,11 +16,19 @@ import org.json.simple.JSONObject;
 public class SimpleJsonSerializer implements JsonSerializer {
     private SimpleJsonUtil util = new SimpleJsonUtil();
 
-    public String serialize(JamaDomainObject object) throws JsonException {
+    public String serializeCreated(JamaDomainObject jamaDomainObject) throws JsonException {
+        return serialize(jamaDomainObject, true);
+    }
+
+    public String serializeEdited(JamaDomainObject jamaDomainObject) throws JsonException {
+        return serialize(jamaDomainObject, false);
+    }
+
+    private String serialize(JamaDomainObject object, boolean create) throws JsonException {
         JSONObject jsonObject = null;
 
         if(object instanceof StagingItem) {
-            jsonObject = serializeItem((StagingItem)object);
+            jsonObject = serializeItem((StagingItem)object, create);
         }
 
         if(jsonObject == null) {
@@ -30,8 +38,20 @@ public class SimpleJsonSerializer implements JsonSerializer {
         return jsonObject.toJSONString();
     }
 
+    private JSONObject serializeItem(StagingItem jamaItem, boolean create) throws JsonException {
+        JSONObject payload = serializeItem(jamaItem);
+
+        if(create) {
+            if(jamaItem.getParent().isProject()) {
+                util.putIfNotNull(payload, "project", getIdOrNull((LazyResource)jamaItem.getParent()));
+            }
+            util.putIfNotNull(payload, "itemType", getIdOrNull(jamaItem.getItemType()));
+        }
+        return payload;
+    }
+
     @SuppressWarnings("unchecked")
-    public JSONObject serializeItem(StagingItem jamaItem) {
+    private JSONObject serializeItem(StagingItem jamaItem) {
         JSONObject itemJson = new JSONObject();
         JSONObject fields = new JSONObject();
         JSONObject location = new JSONObject();
@@ -61,7 +81,7 @@ public class SimpleJsonSerializer implements JsonSerializer {
         return itemJson;
     }
 
-    public Object serializeValue(JamaFieldValue value) {
+    private Object serializeValue(JamaFieldValue value) {
         if(value.readOnly()) return null;
         if(value instanceof CalculatedFieldValue) return null;
         if(value instanceof RollupFieldValue) return null;

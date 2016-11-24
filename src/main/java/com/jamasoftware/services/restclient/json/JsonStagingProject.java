@@ -1,6 +1,6 @@
 package com.jamasoftware.services.restclient.json;
 
-import com.jamasoftware.services.restclient.jamadomain.JamaDomainObject;
+import com.jamasoftware.services.restclient.jamadomain.core.JamaDomainObject;
 import com.jamasoftware.services.restclient.jamadomain.lazyresources.JamaUser;
 import com.jamasoftware.services.restclient.jamadomain.stagingresources.StagingProject;
 

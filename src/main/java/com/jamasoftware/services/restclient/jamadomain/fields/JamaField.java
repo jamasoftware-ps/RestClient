@@ -1,6 +1,6 @@
 package com.jamasoftware.services.restclient.jamadomain.fields;
 
-import com.jamasoftware.services.restclient.jamadomain.JamaInstance;
+import com.jamasoftware.services.restclient.jamadomain.core.JamaInstance;
 import com.jamasoftware.services.restclient.jamadomain.SerializableJamaDomainObject;
 import com.jamasoftware.services.restclient.jamadomain.values.JamaFieldValue;
 

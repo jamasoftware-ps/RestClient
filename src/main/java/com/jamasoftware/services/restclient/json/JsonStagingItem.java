@@ -1,11 +1,11 @@
 package com.jamasoftware.services.restclient.json;
 
-import com.jamasoftware.services.restclient.jamadomain.JamaDomainObject;
+import com.jamasoftware.services.restclient.jamadomain.core.JamaDomainObject;
 import com.jamasoftware.services.restclient.jamadomain.JamaLocation;
 import com.jamasoftware.services.restclient.jamadomain.LockStatus;
 import com.jamasoftware.services.restclient.jamadomain.lazyresources.JamaProject;
 import com.jamasoftware.services.restclient.jamadomain.lazyresources.JamaUser;
-import com.jamasoftware.services.restclient.jamadomain.StagingItem;
+import com.jamasoftware.services.restclient.jamadomain.stagingresources.StagingItem;
 
 import java.util.Date;
 

@@ -26,7 +26,11 @@ public class StagingProject extends JamaProject implements StagingResource {
 
     @Override
     protected String getEditUrl() throws RestClientException {
-        return "items/" + getId();
+        return "projects/" + getId();
     }
 
+    @Override
+    protected String getCreateUrl() throws RestClientException {
+        return "items/";
+    }
 }

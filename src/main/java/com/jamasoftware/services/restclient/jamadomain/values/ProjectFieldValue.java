@@ -19,8 +19,7 @@ public class ProjectFieldValue extends JamaFieldValue {
             return;
         }
         int projectId = Integer.valueOf(value);
-        this.value = new JamaProject();
-        this.value.associate(projectId, getJamaInstance());
+        setValueFromPoolOrNew(JamaProject.class, projectId);
     }
     public void setValue(Object value) throws JamaTypeMismatchException {
         checkType(JamaProject.class, value);

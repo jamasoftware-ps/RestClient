@@ -23,8 +23,7 @@ public class ReleaseFieldValue extends JamaFieldValue {
             return;
         }
         int releaseId = Integer.valueOf(value);
-        this.value = new Release();
-        this.value.associate(releaseId, getJamaInstance());
+        setValueFromPoolOrNew(Release.class, releaseId);
     }
 
     public void setValue(Object value) throws JamaTypeMismatchException {

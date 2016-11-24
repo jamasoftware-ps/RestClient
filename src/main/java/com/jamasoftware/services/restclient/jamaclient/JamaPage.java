@@ -1,7 +1,7 @@
 package com.jamasoftware.services.restclient.jamaclient;
 
-import com.jamasoftware.services.restclient.jamadomain.JamaDomainObject;
-import com.jamasoftware.services.restclient.jamadomain.JamaInstance;
+import com.jamasoftware.services.restclient.jamadomain.core.JamaDomainObject;
+import com.jamasoftware.services.restclient.jamadomain.core.JamaInstance;
 import com.jamasoftware.services.restclient.exception.RestClientException;
 
 import java.util.ArrayList;

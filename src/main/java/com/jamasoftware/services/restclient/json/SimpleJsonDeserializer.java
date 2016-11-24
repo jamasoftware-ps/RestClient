@@ -5,11 +5,12 @@ import com.jamasoftware.services.restclient.exception.JsonException;
 import com.jamasoftware.services.restclient.exception.RestClientException;
 import com.jamasoftware.services.restclient.jamaclient.JamaPage;
 import com.jamasoftware.services.restclient.jamadomain.*;
+import com.jamasoftware.services.restclient.jamadomain.core.JamaDomainObject;
+import com.jamasoftware.services.restclient.jamadomain.core.JamaInstance;
+import com.jamasoftware.services.restclient.jamadomain.core.LazyResource;
 import com.jamasoftware.services.restclient.jamadomain.fields.*;
 import com.jamasoftware.services.restclient.jamadomain.lazyresources.*;
-import com.jamasoftware.services.restclient.jamadomain.values.JamaFieldValue;
-import com.jamasoftware.services.restclient.jamadomain.values.TestCaseStepsFieldValue;
-import com.jamasoftware.services.restclient.jamadomain.values.TextFieldValue;
+import com.jamasoftware.services.restclient.jamadomain.values.*;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -28,6 +29,21 @@ public class SimpleJsonDeserializer {
     protected JamaDomainObject deserialize(String json, JamaInstance jamaInstance) throws RestClientException {
         JSONObject jsonObject = util.parseObject(json, jsonParser);
         return typeCheckResource(jsonObject, jamaInstance);
+    }
+
+    protected Integer deserializeLocation(String response) throws RestClientException{
+        JSONObject jsonObject = util.parseObject(response, jsonParser);
+        try {
+            JSONObject meta = (JSONObject)jsonObject.get("meta");
+            String location = (String)meta.get("location");
+            String[] segments = location.split("/");
+            String id = segments[segments.length - 1];
+            return Integer.valueOf(id);
+        } catch (ClassCastException | NumberFormatException | NullPointerException e) {
+            return null;
+        } catch (Exception e) {
+            throw new RestClientException(e);
+        }
     }
 
     private JamaDomainObject typeCheckResource(JSONObject resourceJson, JamaInstance jamaInstance) throws RestClientException {
@@ -125,7 +141,11 @@ public class SimpleJsonDeserializer {
         JsonStagingPickList pickList = new JsonStagingPickList();
         pickList.setName(util.requireString(pickListJson, "name"));
         pickList.setDescription(util.requestString(pickListJson, "description"));
+        PickList jamaPickList = (PickList)checkPool(PickList.class, util.requireInt(pickListJson, "id"), jamaInstance);
+        checkIds(pickListJson, jamaPickList);
+        pickList.writeContentTo(jamaPickList);
 
+        return jamaPickList;
     }
 
     private PickListOption deserializeOption(JSONObject optionJson, JamaInstance jamaInstance) throws RestClientException {
@@ -193,6 +213,14 @@ public class SimpleJsonDeserializer {
         checkIds(projectJson, jamaProject);
         project.writeContentTo(jamaProject);
         return project;
+    }
+
+    private JamaDomainObject checkPool(Class clazz, String id, JamaInstance jamaInstance) throws RestClientException {
+        try {
+            return checkPool(clazz, Integer.valueOf(id), jamaInstance);
+        } catch(NumberFormatException e) {
+            throw new JsonException(e);
+        }
     }
 
     private JamaDomainObject checkPool(Class clazz, int id, JamaInstance jamaInstance) throws RestClientException {
@@ -271,17 +299,7 @@ public class SimpleJsonDeserializer {
         JSONObject fields = util.requireObject(itemJson, "fields");
 
         for(JamaField field : itemType.getFields()) {
-            JamaFieldValue fieldValue = field.getValue();
-            String fieldName = fieldValue.getName();
-            try {
-                if(fieldValue instanceof TestCaseStepsFieldValue) {
-                    ((TestCaseStepsFieldValue)fieldValue).setValue(getStepList(fields, fieldName));
-                } else {
-                    fieldValue.setValue(util.getFieldValue(fields, fieldName, itemTypeId));
-                }
-            } catch (RestClientException e) {
-                throw new JsonException(e);
-            }
+            JamaFieldValue fieldValue = getValueForField(field, fields, itemTypeId);
             if(fieldValue.getName().equals("name")) {
                 if(!(fieldValue instanceof TextFieldValue)) throw new JsonException("Name must be a text field.");
                 item.setName(((TextFieldValue)fieldValue).getValue());
@@ -298,11 +316,25 @@ public class SimpleJsonDeserializer {
         return jamaItem;
     }
 
+    private JamaFieldValue getValueForField(JamaField field, JSONObject fields, int itemTypeId) throws JsonException {
+        JamaFieldValue fieldValue = field.getValue();
+        String fieldName = fieldValue.getName();
+        try {
+            if(fieldValue instanceof TestCaseStepsFieldValue) {
+                ((TestCaseStepsFieldValue) fieldValue).setValue(getStepList(fields, fieldName));
+                return fieldValue;
+            }
+            fieldValue.setValue(util.getFieldValue(fields, fieldName, itemTypeId));
+            return fieldValue;
+        } catch (RestClientException e) {
+            throw new JsonException(e);
+        }
+    }
+
     private void checkIds(JSONObject jsonObject, LazyResource resource) throws JsonException{
         if(!util.requireInt(jsonObject, "id").equals(resource.getId())){
             throw new JsonException("Retrieved resource ID did not match existing ID in: " + jsonObject.toJSONString());
         }
-
     }
 
     private LockStatus deserializeLockStatus(JSONObject itemJson, JamaInstance jamaInstance) throws RestClientException {

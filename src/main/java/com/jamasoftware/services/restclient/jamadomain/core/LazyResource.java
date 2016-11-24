@@ -1,4 +1,4 @@
-package com.jamasoftware.services.restclient.jamadomain;
+package com.jamasoftware.services.restclient.jamadomain.core;
 
 import com.jamasoftware.services.restclient.exception.RestClientException;
 import com.jamasoftware.services.restclient.jamadomain.lazyresources.LazyBase;
@@ -22,11 +22,15 @@ public abstract class LazyResource extends LazyBase implements JamaDomainObject 
         jamaInstance.put(this);
     }
 
-    protected void post() throws RestClientException {
-        jamaInstance.post(this);
+    protected LazyResource post(Class clazz) throws RestClientException {
+        return jamaInstance.post(this, clazz);
     }
 
     protected String getEditUrl() throws RestClientException {
         throw new RestClientException("Unable to edit " + this.getClass() + " for item " + this);
+    }
+
+    protected String getCreateUrl() throws RestClientException {
+        throw new RestClientException("Unable to create a new " + this.getClass());
     }
 }

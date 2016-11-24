@@ -2,8 +2,8 @@ package com.jamasoftware.services.restclient.jamadomain.lazyresources;
 
 import com.jamasoftware.services.restclient.exception.RestClientException;
 import com.jamasoftware.services.restclient.exception.UnexpectedJamaResponseException;
-import com.jamasoftware.services.restclient.jamadomain.JamaDomainObject;
-import com.jamasoftware.services.restclient.jamadomain.JamaInstance;
+import com.jamasoftware.services.restclient.jamadomain.core.JamaDomainObject;
+import com.jamasoftware.services.restclient.jamadomain.core.JamaInstance;
 import com.jamasoftware.services.restclient.jamadomain.stagingresources.StagingResource;
 
 public abstract class LazyBase {

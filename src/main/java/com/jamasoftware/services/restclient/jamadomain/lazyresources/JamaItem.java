@@ -2,11 +2,11 @@ package com.jamasoftware.services.restclient.jamadomain.lazyresources;
 
 import com.jamasoftware.services.restclient.JamaParent;
 import com.jamasoftware.services.restclient.exception.RestClientException;
-import com.jamasoftware.services.restclient.jamadomain.JamaDomainObject;
+import com.jamasoftware.services.restclient.jamadomain.core.JamaDomainObject;
 import com.jamasoftware.services.restclient.jamadomain.JamaLocation;
-import com.jamasoftware.services.restclient.jamadomain.LazyResource;
+import com.jamasoftware.services.restclient.jamadomain.core.LazyResource;
 import com.jamasoftware.services.restclient.jamadomain.LockStatus;
-import com.jamasoftware.services.restclient.jamadomain.StagingItem;
+import com.jamasoftware.services.restclient.jamadomain.stagingresources.StagingItem;
 import com.jamasoftware.services.restclient.jamadomain.values.JamaFieldValue;
 import com.jamasoftware.services.restclient.jamadomain.values.TextFieldValue;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;

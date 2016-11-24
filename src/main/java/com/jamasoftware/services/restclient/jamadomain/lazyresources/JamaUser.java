@@ -1,7 +1,7 @@
 package com.jamasoftware.services.restclient.jamadomain.lazyresources;
 
-import com.jamasoftware.services.restclient.jamadomain.JamaDomainObject;
-import com.jamasoftware.services.restclient.jamadomain.LazyResource;
+import com.jamasoftware.services.restclient.jamadomain.core.JamaDomainObject;
+import com.jamasoftware.services.restclient.jamadomain.core.LazyResource;
 
 public class JamaUser extends LazyResource {
     protected String username;

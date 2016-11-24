@@ -1,10 +1,9 @@
 package com.jamasoftware.services.restclient.jamadomain.lazyresources;
 
 import com.jamasoftware.services.restclient.exception.RestClientException;
-import com.jamasoftware.services.restclient.jamadomain.JamaDomainObject;
-import com.jamasoftware.services.restclient.jamadomain.LazyResource;
+import com.jamasoftware.services.restclient.jamadomain.core.JamaDomainObject;
+import com.jamasoftware.services.restclient.jamadomain.core.LazyResource;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class PickList extends LazyResource {
@@ -47,5 +46,10 @@ public class PickList extends LazyResource {
     public String getDescription() {
         fetch();
         return description;
+    }
+
+    @Override
+    public String toString() {
+        return getName();
     }
 }

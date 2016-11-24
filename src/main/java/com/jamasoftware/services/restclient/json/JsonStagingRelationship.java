@@ -1,7 +1,6 @@
 package com.jamasoftware.services.restclient.json;
 
-import com.jamasoftware.services.restclient.jamadomain.JamaDomainObject;
-import com.jamasoftware.services.restclient.jamadomain.lazyresources.JamaRelationship;
+import com.jamasoftware.services.restclient.jamadomain.core.JamaDomainObject;
 import com.jamasoftware.services.restclient.jamadomain.lazyresources.JamaRelationshipType;
 import com.jamasoftware.services.restclient.jamadomain.stagingresources.StagingRelationship;
 

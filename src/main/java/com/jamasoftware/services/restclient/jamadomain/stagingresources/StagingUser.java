@@ -47,7 +47,11 @@ public class StagingUser extends JamaUser implements StagingResource {
 
     @Override
     protected String getEditUrl() throws RestClientException {
-        return "items/" + getId();
+        return "users/" + getId();
     }
 
+    @Override
+    protected String getCreateUrl() throws RestClientException {
+        return "users/";
+    }
 }

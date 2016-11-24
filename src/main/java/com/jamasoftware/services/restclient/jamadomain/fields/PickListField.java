@@ -21,4 +21,8 @@ public class PickListField extends JamaField {
         populateFieldValue(pickListFieldValue);
         return pickListFieldValue;
     }
+
+    public PickList getPickList() {
+        return pickList;
+    }
 }

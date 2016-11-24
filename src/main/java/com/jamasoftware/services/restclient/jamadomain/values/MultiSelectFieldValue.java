@@ -26,14 +26,20 @@ public class MultiSelectFieldValue extends JamaFieldValue {
         for(String optionIdString : values) {
             optionIdString = optionIdString.trim();
             int optionId = Integer.valueOf(optionIdString);
-            PickListOption pickListOption = new PickListOption();
-            pickListOption.associate(optionId, getJamaInstance());
-            this.value.add(pickListOption);
+            setValueFromPoolOrNew(PickListOption.class, optionId);
         }
     }
 
     public void setValue(Object value) throws JamaTypeMismatchException {
-        checkType(List.class, value);
+        Class[] allowedTypes = {
+                List.class,
+                PickListOption.class
+        };
+        checkTypes(allowedTypes, value);
+        if(value instanceof PickListOption) {
+            this.value.add((PickListOption)value);
+            return;
+        }
         List<?> list = (List)value;
         List<PickListOption> options = new ArrayList<>();
         for(Object o : list) {

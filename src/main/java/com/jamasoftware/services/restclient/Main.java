@@ -2,8 +2,9 @@ package com.jamasoftware.services.restclient;
 
 import com.jamasoftware.services.restclient.exception.RestClientException;
 import com.jamasoftware.services.restclient.jamadomain.lazyresources.JamaItem;
-import com.jamasoftware.services.restclient.jamadomain.JamaInstance;
+import com.jamasoftware.services.restclient.jamadomain.core.JamaInstance;
 import com.jamasoftware.services.restclient.jamadomain.lazyresources.JamaProject;
+import com.jamasoftware.services.restclient.jamadomain.stagingresources.StagingItem;
 
 public class Main {
     public static void printAll(JamaParent jamaParent, int indent) throws RestClientException {
@@ -29,9 +30,48 @@ public class Main {
             // TODO fail good (John) attempted to retireve item types for invalid item
             JamaInstance jamaInstance = new JamaInstance(new JamaConfig(true));
 
-            JamaItem jamaItem = new JamaItem();
-            jamaItem.associate(1972342, jamaInstance);
-            System.out.println(jamaItem);
+//            JamaItem jamaItem = new JamaItem();
+//            jamaItem.associate(1972342, jamaInstance);
+//            System.out.println(jamaItem);
+//            JamaProject jamaProject = new JamaProject();
+//            jamaProject.associate(20183, jamaInstance);
+            JamaProject jamaProject = jamaInstance.getProject(20183);
+//
+//            JamaItem jamaItem = jamaInstance.getItem(2119559);
+//            jamaItem.edit()
+//                    .setFieldValue("status", "approved")
+//                    .commit();
+//            for(JamaFieldValue value : jamaItem.getFieldValues()) {
+//                System.out.println(value);
+//            }
+
+
+            JamaItem component = jamaInstance
+                    .createItem("John Component", jamaProject, jamaInstance.getItemType("Component"))
+                    .commit();
+
+            JamaItem set = jamaInstance
+                    .createItem("John Set", component, jamaInstance.getItemType("Set"))
+                    .setChildItemType(jamaInstance.getItemType("Requirement"))
+                    .setFieldValue("setKey", jamaInstance.getItemType("Requirement").getTypeKey())
+                    .commit();
+
+            JamaItem item = jamaInstance
+                    .createItem("John Item", set, jamaInstance.getItemType("Requirement"))
+                    .setFieldValue("description", "hi nathan")
+                    .commit();
+
+            StagingItem stagingItem = item.edit();
+            stagingItem.setFieldValue("status", "approved");
+            stagingItem.commit();
+            stagingItem.setFieldValue("BREAK", "BUSTED");
+
+
+//
+//            System.out.println(component.getDocumentKey());
+//            System.out.println(set.getDocumentKey());
+//            System.out.println(item.getDocumentKey());
+//
 //            jamaItem.edit()
 //                    .setName("NEW NAME ALERT")
 //                    .setFieldValue("description", "textblahblhablhasdbkljhsdflkhjasfkljhsd")
@@ -41,9 +81,9 @@ public class Main {
 //                    .setName("Edited")
 //                    .setDescription("Desc")
 //                    .commit();
-            jamaInstance.createItem("name", jamaItem, jamaInstance.getItemType("Text"))
-                    .setName("Day before Thanksgiving")
-                    .commit();
+//            jamaInstance.createItem("name", jamaProject, jamaInstance.getItemType("Text"))
+//                    .setName("Day before Thanksgiving")
+//                    .commit();
 
 //            jamaItem.associate(2119331, jamaInstance);
 

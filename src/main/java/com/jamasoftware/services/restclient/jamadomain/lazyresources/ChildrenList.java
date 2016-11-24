@@ -2,7 +2,7 @@ package com.jamasoftware.services.restclient.jamadomain.lazyresources;
 
 import com.jamasoftware.services.restclient.JamaParent;
 import com.jamasoftware.services.restclient.exception.RestClientException;
-import com.jamasoftware.services.restclient.jamadomain.JamaDomainObject;
+import com.jamasoftware.services.restclient.jamadomain.core.JamaDomainObject;
 
 import java.util.ArrayList;
 import java.util.Collections;

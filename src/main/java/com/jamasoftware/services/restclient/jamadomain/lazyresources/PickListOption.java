@@ -1,8 +1,8 @@
 package com.jamasoftware.services.restclient.jamadomain.lazyresources;
 
 import com.jamasoftware.services.restclient.exception.RestClientException;
-import com.jamasoftware.services.restclient.jamadomain.JamaDomainObject;
-import com.jamasoftware.services.restclient.jamadomain.LazyResource;
+import com.jamasoftware.services.restclient.jamadomain.core.JamaDomainObject;
+import com.jamasoftware.services.restclient.jamadomain.core.LazyResource;
 
 public class PickListOption extends LazyResource {
     protected String name;
@@ -69,4 +69,6 @@ public class PickListOption extends LazyResource {
     protected String getEditUrl() throws RestClientException {
         throw new RestClientException("An attempt was made to edit a Pick List Option which is not editable. ");
     }
+
+
 }

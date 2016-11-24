@@ -1,12 +1,12 @@
 package com.jamasoftware.services.restclient.jamaclient;
 
 import com.jamasoftware.services.restclient.httpconnection.FileResponse;
-import com.jamasoftware.services.restclient.jamadomain.JamaDomainObject;
-import com.jamasoftware.services.restclient.jamadomain.JamaInstance;
+import com.jamasoftware.services.restclient.jamadomain.core.JamaDomainObject;
+import com.jamasoftware.services.restclient.jamadomain.core.JamaInstance;
 import com.jamasoftware.services.restclient.httpconnection.Response;
 import com.jamasoftware.services.restclient.exception.RestClientException;
 import com.jamasoftware.services.restclient.httpconnection.HttpClient;
-import com.jamasoftware.services.restclient.jamadomain.LazyResource;
+import com.jamasoftware.services.restclient.jamadomain.core.LazyResource;
 import com.jamasoftware.services.restclient.json.JsonHandler;
 
 import java.util.ArrayList;
@@ -65,14 +65,16 @@ public class JamaClient {
 
     public void put(String resource, LazyResource payload) throws RestClientException {
 //        System.out.println(json.serialize(payload));
-        putRaw(baseUrl + resource, json.serialize(payload));
+        putRaw(baseUrl + resource, json.serializeEdited(payload));
     }
-    public void postRaw(String url, String payload) throws RestClientException {
-        httpClient.post(url, username, password, payload);
+    public Response postRaw(String url, String payload) throws RestClientException {
+        return httpClient.post(url, username, password, payload);
+//        System.out.println(response.getResponse());
     }
 
-    public void post(String resource, LazyResource payload) throws RestClientException {
-        postRaw(baseUrl + resource, json.serialize(payload));
+    public Integer post(String resource, LazyResource payload) throws RestClientException {
+        Response response = postRaw(baseUrl + resource, json.serializeCreated(payload));
+        return json.deserializeLocation(response.getResponse());
     }
 
     public byte[] getItemTypeImage(String url) throws RestClientException{

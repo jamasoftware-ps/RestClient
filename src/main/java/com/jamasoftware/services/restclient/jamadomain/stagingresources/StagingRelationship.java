@@ -28,7 +28,11 @@ public class StagingRelationship extends JamaRelationship implements StagingReso
 
     @Override
     protected String getEditUrl() throws RestClientException {
-        return "items/" + getId();
+        return "relationships/" + getId();
     }
 
+    @Override
+    protected String getCreateUrl() throws RestClientException {
+        return "relationships/";
+    }
 }

@@ -1,21 +1,10 @@
 package com.jamasoftware.services.restclient.json;
 
-import com.jamasoftware.services.restclient.JamaParent;
-import com.jamasoftware.services.restclient.jamadomain.*;
-import com.jamasoftware.services.restclient.jamadomain.lazyresources.*;
-import com.jamasoftware.services.restclient.jamadomain.fields.*;
-import com.jamasoftware.services.restclient.jamadomain.values.*;
+import com.jamasoftware.services.restclient.jamadomain.core.JamaDomainObject;
 import com.jamasoftware.services.restclient.jamaclient.JamaPage;
 import com.jamasoftware.services.restclient.exception.JsonException;
 import com.jamasoftware.services.restclient.exception.RestClientException;
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
-
-import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.List;
+import com.jamasoftware.services.restclient.jamadomain.core.JamaInstance;
 
 public class SimpleJsonHandler implements JsonHandler {
     private SimpleJsonDeserializer deserializer = new SimpleJsonDeserializer();
@@ -31,8 +20,18 @@ public class SimpleJsonHandler implements JsonHandler {
     }
 
     @Override
-    public String serialize(JamaDomainObject object) throws JsonException {
-        return serializer.serialize(object);
+    public String serializeCreated(JamaDomainObject jamaDomainObject) throws RestClientException {
+        return serializer.serializeCreated(jamaDomainObject);
+    }
+
+    @Override
+    public String serializeEdited(JamaDomainObject jamaDomainObject) throws RestClientException {
+        return serializer.serializeEdited(jamaDomainObject);
+    }
+
+    @Override
+    public Integer deserializeLocation(String response) throws RestClientException{
+        return deserializer.deserializeLocation(response);
     }
 }
 

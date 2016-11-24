@@ -19,8 +19,7 @@ public class UserFieldValue extends JamaFieldValue {
             return;
         }
         int userId = Integer.valueOf(value);
-        this.value = new JamaUser();
-        this.value.associate(userId, getJamaInstance());
+        setValueFromPoolOrNew(JamaUser.class, userId);
     }
 
 

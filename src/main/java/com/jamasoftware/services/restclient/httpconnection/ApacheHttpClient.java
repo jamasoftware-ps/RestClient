@@ -112,7 +112,7 @@ public class ApacheHttpClient implements HttpClient {
     }
 
     public Response get(String url, String username, String password) throws RestClientException {
-//        System.out.println("GET: " + url);
+        System.out.println("GET: " + url);
         HttpGet getRequest = new HttpGet(url);
         UsernamePasswordCredentials credentials = new UsernamePasswordCredentials(username, password);
         Response response = execute(getRequest, credentials);
@@ -146,6 +146,7 @@ public class ApacheHttpClient implements HttpClient {
     }
 
     public Response put(String url, String username, String password, String payload) throws RestClientException {
+        System.out.println("PUT: " + url);
         UsernamePasswordCredentials credentials = new UsernamePasswordCredentials(username, password);
         HttpPut putRequest = new HttpPut(url);
         StringEntity body = new StringEntity(payload, "UTF-8");

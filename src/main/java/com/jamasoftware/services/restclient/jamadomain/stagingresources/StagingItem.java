@@ -1,11 +1,13 @@
-package com.jamasoftware.services.restclient.jamadomain;
+package com.jamasoftware.services.restclient.jamadomain.stagingresources;
 
 import com.jamasoftware.services.restclient.JamaParent;
 import com.jamasoftware.services.restclient.exception.JamaFieldNotFound;
 import com.jamasoftware.services.restclient.exception.JamaTypeMismatchException;
 import com.jamasoftware.services.restclient.exception.RestClientException;
+import com.jamasoftware.services.restclient.jamadomain.JamaLocation;
+import com.jamasoftware.services.restclient.jamadomain.core.JamaDomainObject;
+import com.jamasoftware.services.restclient.jamadomain.core.JamaInstance;
 import com.jamasoftware.services.restclient.jamadomain.lazyresources.*;
-import com.jamasoftware.services.restclient.jamadomain.stagingresources.StagingResource;
 import com.jamasoftware.services.restclient.jamadomain.values.JamaFieldValue;
 import com.jamasoftware.services.restclient.jamadomain.values.TextFieldValue;
 
@@ -13,9 +15,14 @@ import java.io.IOException;
 import java.io.OutputStream;
 
 public class StagingItem extends JamaItem implements StagingResource {
-    // todo no fetch
-    // only getters and setters for edits
     final private JamaItem originatingItem;
+    private boolean invalid = false;
+
+    private void testValidity() throws RestClientException {
+        if(invalid) {
+            throw new RestClientException("Staging item may not be accessed after commit is called.");
+        }
+    }
 
     protected StagingItem(){
         originatingItem = null;
@@ -23,15 +30,16 @@ public class StagingItem extends JamaItem implements StagingResource {
 
     protected StagingItem(JamaItem item) throws RestClientException{
         super(item);
-        associate(item.getId(), item.getJamaInstance());
+        super.associate(item.getId(), item.getJamaInstance());
         originatingItem = item;
     }
 
     protected StagingItem(JamaInstance jamaInstance, String name, JamaParent parent, JamaItemType itemType) throws RestClientException{
         setItemType(itemType);
         setName(name);
-        setParent(parent);
-
+        this.location = new JamaLocation();
+        this.location.setParent(parent);
+        this.jamaInstance = jamaInstance;
         originatingItem = null;
     }
 
@@ -40,7 +48,8 @@ public class StagingItem extends JamaItem implements StagingResource {
         super.copyContentFrom(jamaDomainObject);
     }
 
-    public StagingItem setName(String name) {
+    public StagingItem setName(String name) throws RestClientException {
+        testValidity();
         if(this.name == null) {
             this.name = (TextFieldValue) itemType.getField("name").getValue();
         }
@@ -49,33 +58,39 @@ public class StagingItem extends JamaItem implements StagingResource {
     }
 
 
-    public StagingItem setGlobalId(String globalId) {
+    public StagingItem setGlobalId(String globalId) throws RestClientException {
+        testValidity();
         //TODO need to change the query parameters
         this.globalId = globalId;
         return this;
     }
 
-    public StagingItem setItemType(JamaItemType itemType) {
+    public StagingItem setItemType(JamaItemType itemType) throws RestClientException {
+        testValidity();
         this.itemType = itemType;
         return this;
     }
 
-    public StagingItem setChildItemType(JamaItemType childItemType) {
+    public StagingItem setChildItemType(JamaItemType childItemType) throws RestClientException{
+        testValidity();
         this.childItemType = childItemType;
         return this;
     }
 
-    public StagingItem setModifiedBy(JamaUser modifiedBy) {
+    public StagingItem setModifiedBy(JamaUser modifiedBy) throws RestClientException {
+        testValidity();
         this.modifiedBy = modifiedBy;
         return this;
     }
 
-    public StagingItem addFieldValue(JamaFieldValue fieldValue) {
+    public StagingItem addFieldValue(JamaFieldValue fieldValue) throws RestClientException {
+        testValidity();
         fieldValues.add(fieldValue);
         return this;
     }
 
-    public StagingItem setFieldValue(String fieldName, Object value) throws JamaTypeMismatchException, JamaFieldNotFound {
+    public StagingItem setFieldValue(String fieldName, Object value) throws RestClientException {
+        testValidity();
         if(fieldName.equals("name")) {
             setName(value.toString());
             return this;
@@ -86,7 +101,8 @@ public class StagingItem extends JamaItem implements StagingResource {
         return this;
     }
 
-    public StagingItem setFieldValueQuietly(String fieldName, Object value, OutputStream out) throws IOException{
+    public StagingItem setFieldValueQuietly(String fieldName, Object value, OutputStream out) throws IOException, RestClientException{
+        testValidity();
         try{
             setFieldValue(fieldName, value);
         } catch(JamaTypeMismatchException | JamaFieldNotFound e) {
@@ -98,7 +114,8 @@ public class StagingItem extends JamaItem implements StagingResource {
         return this;
     }
 
-    public StagingItem setFieldValueQuietly(String fieldName, Object value) {
+    public StagingItem setFieldValueQuietly(String fieldName, Object value) throws RestClientException {
+        testValidity();
         try{
             setFieldValueQuietly(fieldName, value, null);
         } catch(IOException e) {
@@ -114,28 +131,27 @@ public class StagingItem extends JamaItem implements StagingResource {
                 return;
             }
         }
-        throw new JamaFieldNotFound("Unable to locate field \"" + value.getName() + "\" in item " + this);
+        fieldValues.add(value);
     }
 
-    public void commit() throws RestClientException {
+    public JamaItem commit() throws RestClientException {
+        testValidity();
+        invalid = true; // never to be unset...
         if (getId() == null) {
-            postCommit();
+            return postCommit();
         } else {
-            putCommit();
+            return putCommit();
         }
     }
 
-    private void postCommit() throws RestClientException {
-        post();
+    private JamaItem postCommit() throws RestClientException {
+        return (JamaItem)post(JamaItem.class);
     }
 
-    private void putCommit() throws RestClientException {
-        for(JamaFieldValue value : fieldValues) {
-            System.out.println(value.getName() + ": " + value.getValue());
-        }
-        System.out.println("name: " + getName());
+    private JamaItem putCommit() throws RestClientException {
         put();
         invalidate(originatingItem);
+        return originatingItem;
     }
 
     @Override
@@ -144,12 +160,19 @@ public class StagingItem extends JamaItem implements StagingResource {
     }
 
     public StagingItem setParent(JamaParent item) throws RestClientException{
+        testValidity();
         this.makeChildOf(item);
         return this;
     }
 
     @Override
     public void associate(int id, JamaInstance jamaInstance) throws RestClientException {
+        testValidity();
         throw new RestClientException("You cannot associate an item while it is in edit mode.");
+    }
+
+    @Override
+    protected String getCreateUrl() throws RestClientException {
+        return "items";
     }
 }
