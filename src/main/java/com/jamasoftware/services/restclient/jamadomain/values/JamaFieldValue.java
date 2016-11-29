@@ -46,9 +46,9 @@ public abstract class JamaFieldValue {
     @Override
     public String toString() {
         if(getValue() == null) {
-            return getName() + ": ";
+            return "";
         }
-        return getName() + ": " + getValue().toString();
+        return getValue().toString();
     }
 
     protected void checkType(Class clazz, Object value) throws JamaTypeMismatchException {

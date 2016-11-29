@@ -398,13 +398,17 @@ public class SimpleJsonDeserializer {
         itemType.setDisplay(util.requireString(itemTypeJson, "display"));
         itemType.setDisplayPlural(util.requireString(itemTypeJson, "displayPlural"));
         String imageUrl = util.requireString(itemTypeJson, "image");
-        byte[] imageData;
-        try {
-            imageData = jamaInstance.retrieveItemTypeImage(imageUrl);
-        } catch (RestClientException e) {
-            throw new JsonException(e);
-        }
-        itemType.setImage(imageData);
+        ItemTypeImage itemTypeImage = new ItemTypeImage();
+        itemTypeImage.setJamaInstance(jamaInstance);
+        itemTypeImage.setImageUrl(imageUrl);
+        itemType.setImage(itemTypeImage);
+//        byte[] imageData;
+//        try {
+//            imageData = jamaInstance.retrieveItemTypeImage(imageUrl);
+//        } catch (RestClientException e) {
+//            throw new JsonException(e);
+//        }
+//        itemType.setImage(imageData);
         itemType.setTypeKey(util.requireString(itemTypeJson, "typeKey"));
         JSONArray fieldsJson = util.requireArray(itemTypeJson, "fields");
 

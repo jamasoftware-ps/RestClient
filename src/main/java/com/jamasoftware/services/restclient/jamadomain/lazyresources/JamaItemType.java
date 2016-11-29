@@ -1,10 +1,12 @@
 package com.jamasoftware.services.restclient.jamadomain.lazyresources;
 
+import com.jamasoftware.services.restclient.exception.JsonException;
 import com.jamasoftware.services.restclient.exception.RestClientException;
 import com.jamasoftware.services.restclient.jamadomain.core.JamaDomainObject;
 import com.jamasoftware.services.restclient.jamadomain.core.JamaInstance;
 import com.jamasoftware.services.restclient.jamadomain.core.LazyResource;
 import com.jamasoftware.services.restclient.jamadomain.fields.JamaField;
+import com.jamasoftware.services.restclient.json.ItemTypeImage;
 import com.jamasoftware.services.restclient.util.CompareUtil;
 
 import java.util.ArrayList;
@@ -15,7 +17,8 @@ public class JamaItemType extends LazyResource {
     protected String display;
     protected String displayPlural;
     protected List<JamaField> fields = new ArrayList<>();
-    protected byte[] image;
+//    protected byte[] image;
+    protected ItemTypeImage image;
 
     public void checkType(JamaDomainObject jamaDomainObject){
         checkType(JamaItemType.class, jamaDomainObject);
@@ -34,6 +37,7 @@ public class JamaItemType extends LazyResource {
         display = itemType.display;
         displayPlural = itemType.displayPlural;
         fields = itemType.fields;
+        image = itemType.image;
     }
 
     @Override
@@ -67,9 +71,9 @@ public class JamaItemType extends LazyResource {
     }
 
 
-    public byte[] getImage() {
+    public byte[] getImage() throws JsonException {
         fetch();
-        return image;
+        return image.getImage();
     }
 
     public List<JamaField> getFields() {
@@ -89,7 +93,9 @@ public class JamaItemType extends LazyResource {
 
     @Override
     public String toString() {
-        return getDisplay();
+        //TODO fix this or replace it
+        return "debug item type";
+//        return getDisplay();
     }
 
     @Override

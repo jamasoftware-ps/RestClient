@@ -1,0 +1,348 @@
+{
+  "GET test/rest/v1/items/2210690": {
+    "statusCode": 200,
+    "response": {
+      "meta": {
+        "status": "OK",
+        "timestamp": "2016-11-28T23:22:15.999+0000"
+      },
+      "links": {
+        "data.createdBy": {
+          "type": "users",
+          "href": "https://jama-jschroeder.jamacloud.com/rest/latest/users/{data.createdBy}"
+        },
+        "data.fields.multiselect$89070": {
+          "type": "picklistoptions",
+          "href": "https://jama-jschroeder.jamacloud.com/rest/latest/picklistoptions/{data.fields.multiselect$89070}"
+        },
+        "data.modifiedBy": {
+          "type": "users",
+          "href": "https://jama-jschroeder.jamacloud.com/rest/latest/users/{data.modifiedBy}"
+        },
+        "data.fields.release": {
+          "type": "releases",
+          "href": "https://jama-jschroeder.jamacloud.com/rest/latest/releases/{data.fields.release}"
+        },
+        "data.fields.assignedTo": {
+          "type": "users",
+          "href": "https://jama-jschroeder.jamacloud.com/rest/latest/users/{data.fields.assignedTo}"
+        },
+        "data.fields.picklist$89070": {
+          "type": "picklistoptions",
+          "href": "https://jama-jschroeder.jamacloud.com/rest/latest/picklistoptions/{data.fields.picklist$89070}"
+        },
+        "data.location.parent.item": {
+          "type": "items",
+          "href": "https://jama-jschroeder.jamacloud.com/rest/latest/items/{data.location.parent.item}"
+        },
+        "data.project": {
+          "type": "projects",
+          "href": "https://jama-jschroeder.jamacloud.com/rest/latest/projects/{data.project}"
+        },
+        "data.fields.item_of_type$89070": {
+          "type": "items",
+          "href": "https://jama-jschroeder.jamacloud.com/rest/latest/items/{data.fields.item_of_type$89070}"
+        },
+        "data.itemType": {
+          "type": "itemtypes",
+          "href": "https://jama-jschroeder.jamacloud.com/rest/latest/itemtypes/{data.itemType}"
+        }
+      },
+      "data": {
+        "id": 2210690,
+        "documentKey": "Z-AFD-1",
+        "globalId": "GID-AFD-113502",
+        "itemType": 89070,
+        "project": 20540,
+        "createdDate": "2016-11-08T21:23:22.000+0000",
+        "modifiedDate": "2016-11-09T23:17:30.000+0000",
+        "lastActivityDate": "2016-11-09T23:17:30.000+0000",
+        "createdBy": 18362,
+        "modifiedBy": 18362,
+        "fields": {
+          "documentKey": "Z-AFD-1",
+          "globalId": "GID-AFD-113502",
+          "name": "Test Item",
+          "description": "<p>Description</p>\n",
+          "multiselect$89070": [
+            156395,
+            156396,
+            156397,
+            156398
+          ],
+          "flag$89070": true,
+          "integer$89070": 4,
+          "date$89070": "2016-11-08",
+          "url$89070": "http://www.google.com",
+          "richtext$89070": "<p>rich&nbsp;<strong>text&nbsp;<em><u>test</u></em></strong></p>\n",
+          "textbox$89070": "multi\nline\nstuff",
+          "richtexttemplate$89070": "<p>&nbsp;</p>\n\n<h2>Story</h2>\n\n<p>As a _________, I need to _________, so that __________________.</p>\n\n<p>&nbsp;</p>\n\n<p>&nbsp;</p>\n\n<h2>Narrative/Flow</h2>\n\n<p>&lt;flow diagram or narrative of the flow for the story&gt;</p>\n\n<p>&nbsp;</p>\n\n<p>&nbsp;</p>\n\n<h2>Validations</h2>\n\n<p>&lt;desribe any specific validations&gt;</p>\n\n<p>&nbsp;</p>\n\n<p>&nbsp;</p>\n\n<h2>Exceptions</h2>\n\n<p>&lt;note any exceptions for this process&gt;</p>\n\n<p>&nbsp;</p>\n\n<p>&nbsp;</p>\n\n<h2>Authorization/Authentication/Audit</h2>\n\n<p>&nbsp;</p>\n\n<p>&lt;note any special security needs, authentication needs or audit/log report, etc&gt;</p>\n\n<h2>UI</h2>\n\n<p>&lt;note any views/pages/screens impacted by story&gt;</p>\n\n<h2>Exclusions</h2>\n\n<p>&lt;note any particular exclusions that aren&#39;t part of the story&gt;</p>\n\n<h2>Dependencies</h2>\n\n<p>&lt;note any specific dependencies&gt;</p>\n\n<h2>Open Issues</h2>\n\n<p>&lt;any open issues&gt;</p>\n",
+          "assignedTo": 18361,
+          "picklist$89070": 156397,
+          "release": 48205,
+          "rollup$89070": "50%",
+          "calculated$89070": "3",
+          "item_of_type$89070": 2210692
+        },
+        "resources": {
+          "self": {
+            "allowed": [
+              "GET",
+              "PUT",
+              "DELETE"
+            ]
+          }
+        },
+        "location": {
+          "sortOrder": 0,
+          "globalSortOrder": 1002,
+          "sequence": "1.1",
+          "parent": {
+            "item": 2210689
+          }
+        },
+        "lock": {
+          "locked": false,
+          "lastLockedDate": "2016-11-09T23:17:30.000+0000"
+        },
+        "type": "items"
+      }
+    }
+  },
+  "GET test/rest/v1/itemtypes/89070": {
+    "statusCode": 200,
+    "response": {
+      "meta": {
+        "status": "OK",
+        "timestamp": "2016-11-28T23:25:48.971+0000"
+      },
+      "links": {
+        "data.fields.pickList": {
+          "type": "picklists",
+          "href": "https://jama-jschroeder.jamacloud.com/rest/latest/picklists/{data.fields.pickList}"
+        },
+        "data.fields.itemType": {
+          "type": "itemtypes",
+          "href": "https://jama-jschroeder.jamacloud.com/rest/latest/itemtypes/{data.fields.itemType}"
+        }
+      },
+      "data": {
+        "id": 89070,
+        "typeKey": "AFD",
+        "display": "AllFieldsDemo",
+        "displayPlural": "AllFieldsDemos",
+        "description": "",
+        "image": "https://jama-jschroeder.jamacloud.com/img/tree/config.png",
+        "widgets": [
+          {
+            "name": "ACTIVITIES",
+            "synchronize": false
+          },
+          {
+            "name": "SYNCHRONIZED_ITEMS",
+            "synchronize": false
+          },
+          {
+            "name": "RELATIONSHIPS",
+            "synchronize": false
+          },
+          {
+            "name": "HISTORY",
+            "synchronize": false
+          }
+        ],
+        "fields": [
+          {
+            "id": 542761,
+            "name": "documentKey",
+            "label": "Project ID",
+            "fieldType": "STRING",
+            "readOnly": true,
+            "required": true,
+            "triggerSuspect": false,
+            "synchronize": false
+          },
+          {
+            "id": 542762,
+            "name": "globalId",
+            "label": "Global ID",
+            "fieldType": "STRING",
+            "readOnly": true,
+            "required": true,
+            "triggerSuspect": false,
+            "synchronize": false
+          },
+          {
+            "id": 542763,
+            "name": "name",
+            "label": "Name",
+            "fieldType": "STRING",
+            "readOnly": false,
+            "required": true,
+            "triggerSuspect": true,
+            "synchronize": true
+          },
+          {
+            "id": 542764,
+            "name": "description",
+            "label": "Description",
+            "fieldType": "TEXT",
+            "readOnly": false,
+            "required": false,
+            "triggerSuspect": true,
+            "synchronize": true,
+            "textType": "RICHTEXT"
+          },
+          {
+            "id": 542767,
+            "name": "multiselect$89070",
+            "label": "MultiSelect",
+            "fieldType": "MULTI_LOOKUP",
+            "readOnly": false,
+            "required": false,
+            "triggerSuspect": false,
+            "synchronize": false,
+            "pickList": 89033
+          },
+          {
+            "id": 542768,
+            "name": "flag$89070",
+            "label": "Flag",
+            "fieldType": "BOOLEAN",
+            "readOnly": false,
+            "required": false,
+            "triggerSuspect": false,
+            "synchronize": false
+          },
+          {
+            "id": 542769,
+            "name": "integer$89070",
+            "label": "Integer",
+            "fieldType": "INTEGER",
+            "readOnly": false,
+            "required": false,
+            "triggerSuspect": false,
+            "synchronize": false
+          },
+          {
+            "id": 542770,
+            "name": "date$89070",
+            "label": "Date",
+            "fieldType": "DATE",
+            "readOnly": false,
+            "required": false,
+            "triggerSuspect": false,
+            "synchronize": false
+          },
+          {
+            "id": 542771,
+            "name": "url$89070",
+            "label": "URL",
+            "fieldType": "URL_STRING",
+            "readOnly": false,
+            "required": false,
+            "triggerSuspect": false,
+            "synchronize": false
+          },
+          {
+            "id": 542772,
+            "name": "richtext$89070",
+            "label": "RichText",
+            "fieldType": "TEXT",
+            "readOnly": false,
+            "required": false,
+            "triggerSuspect": false,
+            "synchronize": false,
+            "textType": "RICHTEXT"
+          },
+          {
+            "id": 542773,
+            "name": "textbox$89070",
+            "label": "TextBox",
+            "fieldType": "TEXT",
+            "readOnly": false,
+            "required": false,
+            "triggerSuspect": false,
+            "synchronize": false,
+            "textType": "TEXTAREA"
+          },
+          {
+            "id": 542774,
+            "name": "richtexttemplate$89070",
+            "label": "RichTextTemplate",
+            "fieldType": "TEXT",
+            "readOnly": false,
+            "required": false,
+            "triggerSuspect": false,
+            "synchronize": false,
+            "textType": "RICHTEXT"
+          },
+          {
+            "id": 542765,
+            "name": "assignedTo",
+            "label": "Assigned",
+            "fieldType": "USER",
+            "readOnly": false,
+            "required": false,
+            "triggerSuspect": true,
+            "synchronize": false
+          },
+          {
+            "id": 542775,
+            "name": "picklist$89070",
+            "label": "PickList",
+            "fieldType": "LOOKUP",
+            "readOnly": false,
+            "required": false,
+            "triggerSuspect": false,
+            "synchronize": false,
+            "pickList": 89033
+          },
+          {
+            "id": 542766,
+            "name": "release",
+            "label": "Release",
+            "fieldType": "RELEASE",
+            "readOnly": false,
+            "required": false,
+            "triggerSuspect": true,
+            "synchronize": false
+          },
+          {
+            "id": 542777,
+            "name": "rollup$89070",
+            "label": "Rollup",
+            "fieldType": "ROLLUP",
+            "readOnly": true,
+            "required": false,
+            "triggerSuspect": false,
+            "synchronize": false
+          },
+          {
+            "id": 542778,
+            "name": "calculated$89070",
+            "label": "Calculated",
+            "fieldType": "CALCULATED",
+            "readOnly": true,
+            "required": false,
+            "triggerSuspect": false,
+            "synchronize": false
+          },
+          {
+            "id": 542779,
+            "name": "item_of_type$89070",
+            "label": "Item of Type",
+            "fieldType": "DOCUMENT_TYPE_ITEM_LOOKUP",
+            "readOnly": false,
+            "required": false,
+            "triggerSuspect": false,
+            "synchronize": false,
+            "itemType": 89012
+          }
+        ],
+        "system": false,
+        "type": "itemtypes"
+      }
+    }
+  }
+}

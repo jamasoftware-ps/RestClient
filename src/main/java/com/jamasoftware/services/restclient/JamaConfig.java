@@ -37,7 +37,7 @@ public class JamaConfig {
             Properties properties = new Properties();
             input = new FileInputStream("jama.properties");
             properties.load(input);
-            baseUrl = properties.getProperty("baseUrl");
+            setBaseUrl(properties.getProperty("baseUrl"));
             username = properties.getProperty("username");
             password = properties.getProperty("password");
             String timeOutString = properties.getProperty("resourceTimeOut");
@@ -53,7 +53,19 @@ public class JamaConfig {
     }
 
     public void setBaseUrl(String baseUrl) {
-        this.baseUrl = baseUrl;
+        if(baseUrl.contains("/rest/")) {
+            if(baseUrl.endsWith("/")) {
+                this.baseUrl = baseUrl;
+                return;
+            }
+            this.baseUrl = baseUrl + "/";
+            return;
+        }
+        if(baseUrl.endsWith("/")) {
+            this.baseUrl = baseUrl + "rest/v1/";
+            return;
+        }
+        this.baseUrl = baseUrl + "/rest/v1/";
     }
 
     public String getUsername() {

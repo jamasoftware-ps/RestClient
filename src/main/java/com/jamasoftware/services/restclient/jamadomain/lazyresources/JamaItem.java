@@ -1,6 +1,7 @@
 package com.jamasoftware.services.restclient.jamadomain.lazyresources;
 
 import com.jamasoftware.services.restclient.JamaParent;
+import com.jamasoftware.services.restclient.exception.JsonException;
 import com.jamasoftware.services.restclient.exception.RestClientException;
 import com.jamasoftware.services.restclient.jamadomain.core.JamaDomainObject;
 import com.jamasoftware.services.restclient.jamadomain.JamaLocation;
@@ -151,6 +152,17 @@ public class JamaItem extends LazyResource implements JamaParent{
         return fieldValues;
     }
 
+    public JamaFieldValue getFieldValueByName(String fieldName) {
+        if(fieldName.equals("name")) {
+            return getName();
+        }
+        for(JamaFieldValue fieldValue : getFieldValues()) {
+            if(fieldValue.getName().equals(fieldName))
+                return fieldValue;
+        }
+        return null;
+    }
+
     public String getDocumentKey() {
         fetch();
         return documentKey;
@@ -252,7 +264,7 @@ public class JamaItem extends LazyResource implements JamaParent{
         return getName().toString();
     }
 
-    public byte[] getItemTypeImage() {
+    public byte[] getItemTypeImage() throws JsonException {
         return getItemType().getImage();
     }
 

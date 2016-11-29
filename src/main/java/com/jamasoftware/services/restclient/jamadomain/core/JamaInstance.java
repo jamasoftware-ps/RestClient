@@ -20,6 +20,7 @@ public class JamaInstance implements JamaDomainObject {
     private Integer resourceTimeOut;
     private JamaUser currentUser;
     private ItemTypeList itemTypeList;
+    private RelationshipTypeList relationshipTypeList;
 
     private Map<String, WeakReference<JamaDomainObject>> resourcePool = new HashMap<>();
 
@@ -190,5 +191,12 @@ public class JamaInstance implements JamaDomainObject {
     public StagingItem editItem(JamaItem jamaItem) throws RestClientException {
         jamaItem.fetch();
         return (new StagingDispenser()).createStagingItem(jamaItem);
+    }
+
+    public List<JamaRelationshipType> getRelationshipTypes() throws RestClientException {
+        if(relationshipTypeList == null) {
+            relationshipTypeList = new RelationshipTypeList(this);
+        }
+        return relationshipTypeList.getRelationshipTypes();
     }
 }
