@@ -1,7 +1,10 @@
 package com.jamasoftware.services.restclient.exception;
 
-/**
- * Created by ibilal on 11/21/16.
- */
-public class ItemCreationException extends RestClientException{
+public class ItemCreationException extends RestClientException {
+    public ItemCreationException() {
+    }
+
+    public ItemCreationException(String message) {
+        super(message);
+    }
 }

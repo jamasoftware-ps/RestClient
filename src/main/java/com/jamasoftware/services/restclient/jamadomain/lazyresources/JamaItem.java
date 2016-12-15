@@ -1,6 +1,7 @@
 package com.jamasoftware.services.restclient.jamadomain.lazyresources;
 
 import com.jamasoftware.services.restclient.JamaParent;
+import com.jamasoftware.services.restclient.exception.ItemEditException;
 import com.jamasoftware.services.restclient.exception.JsonException;
 import com.jamasoftware.services.restclient.exception.RestClientException;
 import com.jamasoftware.services.restclient.jamadomain.core.JamaDomainObject;
@@ -10,7 +11,6 @@ import com.jamasoftware.services.restclient.jamadomain.LockStatus;
 import com.jamasoftware.services.restclient.jamadomain.stagingresources.StagingItem;
 import com.jamasoftware.services.restclient.jamadomain.values.JamaFieldValue;
 import com.jamasoftware.services.restclient.jamadomain.values.TextFieldValue;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -58,10 +58,11 @@ public class JamaItem extends LazyResource implements JamaParent{
         return Collections.unmodifiableList(children.getChildren());
     }
 
-    @Override
-    public void addChild(JamaItem jamaItem) throws RestClientException {
-        throw new NotImplementedException();
-    }
+//    @Override
+//    public void addChild(JamaItem jamaItem) throws RestClientException {
+//        throw new ItemEditException("You are attempting to update an item's location. This can only be done using the " +
+//                "\'setParent\' method on an edited item.");
+//    }
 
     @Override
     public boolean isProject() {
@@ -70,7 +71,7 @@ public class JamaItem extends LazyResource implements JamaParent{
 
     @Override
     public void makeChildOf(JamaParent jamaParent) throws RestClientException {
-
+        this.location.setParent(jamaParent);
     }
 
     @Override

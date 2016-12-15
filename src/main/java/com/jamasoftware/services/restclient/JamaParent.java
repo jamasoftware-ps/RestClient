@@ -9,7 +9,7 @@ import java.util.List;
 // Decorator
 public interface JamaParent {
     List<JamaItem> getChildren() throws RestClientException;
-    void addChild(JamaItem jamaItem) throws RestClientException;
+//    void addChild(JamaItem jamaItem) throws RestClientException;
     boolean isProject();
     void makeChildOf(JamaParent jamaParent) throws RestClientException;
     Integer getId();

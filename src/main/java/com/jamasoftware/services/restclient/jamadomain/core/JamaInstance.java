@@ -78,6 +78,7 @@ public class JamaInstance implements JamaDomainObject {
         return objects;
     }
 
+
     public JamaProject getProject(int id) throws RestClientException{
         String key = JamaProject.class.getName() + id;
         JamaProject project = (JamaProject) getPoolOrNull(key);

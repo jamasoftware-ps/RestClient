@@ -165,6 +165,12 @@ public class StagingItem extends JamaItem implements StagingResource {
         return this;
     }
 
+//    public StagingItem addChildToItem(JamaItem jamaItem) throws RestClientException {
+//        testValidity();
+//        this.addChild(jamaItem);
+//        return this;
+//    }
+
     @Override
     public void associate(int id, JamaInstance jamaInstance) throws RestClientException {
         testValidity();

@@ -9,6 +9,7 @@ import com.jamasoftware.services.restclient.httpconnection.HttpClient;
 import com.jamasoftware.services.restclient.jamadomain.core.LazyResource;
 import com.jamasoftware.services.restclient.json.JsonHandler;
 
+import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,9 +33,14 @@ public class JamaClient {
         return json.deserialize(response.getResponse(), jamaInstance);
     }
 
+//    public JamaPage getPage(String url, JamaInstance jamaInstance) throws RestClientException {
+//        return getPage(url, jamaInstance);
+//    }
+
     public JamaPage getPage(String url, JamaInstance jamaInstance) throws RestClientException {
         return getPage(url, "", jamaInstance);
     }
+
 
     public JamaPage getPage(String url, String startAt, JamaInstance jamaInstance) throws RestClientException {
         Response response = httpClient.get(url + startAt, username, password);
@@ -54,6 +60,7 @@ public class JamaClient {
         }
         return results;
     }
+
 
     public void ping() throws RestClientException {
         httpClient.get(baseUrl, username, password);

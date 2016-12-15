@@ -1,15 +1,9 @@
 package com.jamasoftware.services.restclient;
 
 import com.jamasoftware.services.restclient.exception.RestClientException;
-import com.jamasoftware.services.restclient.httpconnection.HttpClient;
-import com.jamasoftware.services.restclient.httpconnection.TestHttpClient;
-import com.jamasoftware.services.restclient.jamadomain.lazyresources.JamaItem;
 import com.jamasoftware.services.restclient.jamadomain.core.JamaInstance;
+import com.jamasoftware.services.restclient.jamadomain.lazyresources.JamaItem;
 import com.jamasoftware.services.restclient.jamadomain.lazyresources.JamaProject;
-import com.jamasoftware.services.restclient.jamadomain.lazyresources.JamaRelationshipType;
-import com.jamasoftware.services.restclient.jamadomain.values.JamaFieldValue;
-
-import java.util.List;
 
 public class Main {
     public static void printAll(JamaParent jamaParent, int indent) throws RestClientException {
@@ -29,6 +23,7 @@ public class Main {
         }
     }
 
+    @SuppressWarnings("unchecked")
     public static void main(String[] ignore) {
 
 
@@ -36,10 +31,17 @@ public class Main {
         try {
             // TODO fail good (John) attempted to retireve item types for invalid item
             JamaInstance jamaInstance = new JamaInstance(new JamaConfig(true));
-            HttpClient client = new TestHttpClient();
 
+            JamaItem jamaItem = jamaInstance.getItem(2120041);
+            JamaItem newParentFolder = jamaInstance.getItem(1972340);
+            JamaParent jamaParent = jamaItem.getParent();
+            System.out.println("Jama item: " + jamaItem.toString() + " has parent: " + jamaParent.toString());
+            System.out.println("New jama parent is: " + newParentFolder.toString());
 
-//            JamaItem jamaItem = new JamaItem();
+            jamaItem = jamaItem.edit().setParent(newParentFolder).commit();
+            System.out.println("Added child to new parent");
+            System.out.println("NOW:: Jama item: " + jamaItem.toString() + " has parent: " + jamaItem.getParent().toString());
+
 //            jamaItem.associate(1972342, jamaInstance);
 //            System.out.println(jamaItem);
 //            JamaProject jamaProject = new JamaProject();
@@ -52,14 +54,19 @@ public class Main {
 //            JamaProject jamaProject = jamaInstance.getProject(20183);
 //            jamaInstance.getItemTypes();
 
-            JamaItem jamaItem = jamaInstance.getItem(2119354);
-            jamaItem.getFieldValues();
-            JamaFieldValue fieldValue = jamaItem.getFieldValueByName("description");
+//            JamaItem jamaItem = jamaInstance.getItem(2119354);
+//            jamaItem.getFieldValues();
+//            JamaFieldValue fieldValue = jamaItem.getFieldValueByName("description");
 //            System.out.println(fieldValue.toString());
 //            jamaInstance.createItem("name", JamaParent, JamaIteType)
-            List<JamaRelationshipType> relationshipTypes = jamaInstance.getRelationshipTypes();
+//            List<JamaRelationshipType> relationshipTypes = jamaInstance.getRelationshipTypes();
 
-            System.out.println(fieldValue.toString());
+//            JamaProject jamaProject = jamaInstance.getProject(20183);
+//            List<JamaItem> children = jamaProject.getChildren();
+//            for(JamaItem j : children) {
+//                System.out.println(j.toString());
+//            }
+
 //            jamaInstance.createRelationship(relationshipId, fromItem, toItem);
 //            jamaItem.edit().setFieldValue("Name", "Timbuktoo").setFieldValue("description", "Not your description;=").commit();
 //            jamaItem.edit()
@@ -139,8 +146,8 @@ public class Main {
 //            item.lock();
 //            System.out.println(item.isLocked());
 ////            System.out.println(item.lockedBy());
-//            List<JamaProject> projects = jamaInstance.getProjects();
-//            JamaProject aProject = projects.get(0);
+//            List<JamaProject> hostedProjects = jamaInstance.getProjects();
+//            JamaProject aProject = hostedProjects.get(0);
 //            List<JamaItem> items = aProject.getItems();
 //            for(JamaItem item : items){
 //                System.out.println(item);
@@ -172,9 +179,9 @@ public class Main {
 //            System.out.println(jamaItem.getName());
 //            jamaInstance.ping();
 //            JamaProject jamaProject = null;
-//            List<JamaProject> projects = jamaInstance.getProjects();
+//            List<JamaProject> hostedProjects = jamaInstance.getProjects();
 //            List<JamaItem> items = new ArrayList<>();
-//            for(JamaProject project : projects) {
+//            for(JamaProject project : hostedProjects) {
 //                if(project.getName().equals("zzzzz")) {
 //                    jamaProject = project;
 //                    items.addAll(project.getItems());

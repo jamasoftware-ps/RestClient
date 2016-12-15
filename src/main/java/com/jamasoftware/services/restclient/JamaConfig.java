@@ -27,6 +27,28 @@ public class JamaConfig {
         }
     }
 
+    public JamaConfig(boolean loadFromPropertiesFile, String filename) {
+        this();
+        if(!loadFromPropertiesFile) {
+            return;
+        }
+        InputStream input = null;
+        try {
+            Properties properties = new Properties();
+            input = new FileInputStream(filename);
+            properties.load(input);
+            setBaseUrl(properties.getProperty("baseUrl"));
+            username = properties.getProperty("username");
+            password = properties.getProperty("password");
+            String timeOutString = properties.getProperty("resourceTimeOut");
+            resourceTimeOut = Integer.valueOf(timeOutString);
+        } catch(Exception e) {
+            e.printStackTrace();
+            System.exit(1);
+        }
+    }
+
+
     public JamaConfig(boolean loadFromPropertiesFile) {
         this();
         if(!loadFromPropertiesFile) {

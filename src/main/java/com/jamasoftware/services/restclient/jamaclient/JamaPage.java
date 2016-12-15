@@ -32,6 +32,8 @@ public class JamaPage {
         return startIndex + resultCount <= totalResults;
     }
 
+
+
     public JamaPage getNext(JamaInstance jamaInstance) throws RestClientException {
         int nextPageStart = startIndex + maxResults;
         String delim = !url.contains("?") ? "?" : "&";

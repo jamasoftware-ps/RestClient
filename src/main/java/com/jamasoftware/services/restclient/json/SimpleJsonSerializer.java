@@ -2,12 +2,11 @@ package com.jamasoftware.services.restclient.json;
 
 import com.jamasoftware.services.restclient.JamaParent;
 import com.jamasoftware.services.restclient.exception.JsonException;
+import com.jamasoftware.services.restclient.exception.RestClientException;
 import com.jamasoftware.services.restclient.jamadomain.core.JamaDomainObject;
 import com.jamasoftware.services.restclient.jamadomain.core.LazyResource;
 import com.jamasoftware.services.restclient.jamadomain.TestCaseStep;
-import com.jamasoftware.services.restclient.jamadomain.lazyresources.JamaItem;
-import com.jamasoftware.services.restclient.jamadomain.lazyresources.JamaProject;
-import com.jamasoftware.services.restclient.jamadomain.lazyresources.PickListOption;
+import com.jamasoftware.services.restclient.jamadomain.lazyresources.*;
 import com.jamasoftware.services.restclient.jamadomain.stagingresources.StagingItem;
 import com.jamasoftware.services.restclient.jamadomain.values.*;
 import org.json.simple.JSONArray;
@@ -16,27 +15,28 @@ import org.json.simple.JSONObject;
 public class SimpleJsonSerializer implements JsonSerializer {
     private SimpleJsonUtil util = new SimpleJsonUtil();
 
-    public String serializeCreated(JamaDomainObject jamaDomainObject) throws JsonException {
+
+    public String serializeCreated(JamaDomainObject jamaDomainObject) throws JsonException, RestClientException {
         return serialize(jamaDomainObject, true);
     }
 
-    public String serializeEdited(JamaDomainObject jamaDomainObject) throws JsonException {
+    public String serializeEdited(JamaDomainObject jamaDomainObject) throws JsonException, RestClientException {
         return serialize(jamaDomainObject, false);
     }
 
-    private String serialize(JamaDomainObject object, boolean create) throws JsonException {
+    private String serialize(JamaDomainObject object, boolean create) throws JsonException, RestClientException {
         JSONObject jsonObject = null;
 
         if(object instanceof StagingItem) {
             jsonObject = serializeItem((StagingItem)object, create);
         }
-
         if(jsonObject == null) {
             throw new JsonException("Unable to serialize " + object.getClass() +
                     " to JSON for " + object);
         }
         return jsonObject.toJSONString();
     }
+
 
     private JSONObject serializeItem(StagingItem jamaItem, boolean create) throws JsonException {
         JSONObject payload = serializeItem(jamaItem);
@@ -80,6 +80,7 @@ public class SimpleJsonSerializer implements JsonSerializer {
 
         return itemJson;
     }
+
 
     private Object serializeValue(JamaFieldValue value) {
         if(value.readOnly()) return null;
@@ -125,6 +126,21 @@ public class SimpleJsonSerializer implements JsonSerializer {
         util.putIfNotNull(stepJson, "expectedResults", step.getExpectedResult());
         util.putIfNotNull(stepJson, "notes", step.getNotes());
         return stepJson;
+    }
+
+    public JSONObject serializeProject(JamaProject jamaProject) {
+        JSONObject project = new JSONObject();
+
+        util.putIfNotNull(project, "isFolder", jamaProject.isFolder());
+        util.putIfNotNull(project, "projectKey", jamaProject.getProjectKey());
+        util.putIfNotNull(project, "parent", 0);
+
+        JSONObject fields = new JSONObject();
+        util.putIfNotNull(fields, "name", jamaProject.getName());
+        util.putIfNotNull(fields, "description", jamaProject.getDescription());
+        util.putIfNotNull(fields, "legacyId", jamaProject.getId());
+        util.putIfNotNull(project, "fields", fields);
+        return project;
     }
 
     private Integer getIdOrNull(LazyResource object) {

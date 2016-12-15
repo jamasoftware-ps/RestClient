@@ -344,5 +344,2729 @@
         "type": "itemtypes"
       }
     }
+  },
+  "GET test/rest/v1/itemtypes/89011": {
+    "statusCode": 200,
+    "response": {
+      "meta": {
+        "status": "OK",
+        "timestamp": "2016-11-29T22:20:27.733+0000"
+      },
+      "links": {
+        "data.fields.pickList": {
+          "type": "picklists",
+          "href": "https://jama-jschroeder.jamacloud.com/rest/latest/picklists/{data.fields.pickList}"
+        }
+      },
+      "data": {
+        "id": 89011,
+        "typeKey": "TC",
+        "display": "Test Case",
+        "displayPlural": "Test Cases",
+        "description": "",
+        "image": "https://jama-jschroeder.jamacloud.com/img/tree/test_case.png",
+        "category": "TEST_CASE",
+        "widgets": [
+          {
+            "name": "RELATIONSHIPS",
+            "synchronize": false
+          },
+          {
+            "name": "SYNCHRONIZED_ITEMS",
+            "synchronize": false
+          },
+          {
+            "name": "HISTORY",
+            "synchronize": false
+          },
+          {
+            "name": "ATTACHMENTS",
+            "synchronize": false
+          },
+          {
+            "name": "TAGS",
+            "synchronize": false
+          },
+          {
+            "name": "ACTIVITIES",
+            "synchronize": false
+          }
+        ],
+        "fields": [
+          {
+            "id": 377667,
+            "name": "name",
+            "label": "Name",
+            "fieldType": "STRING",
+            "readOnly": false,
+            "required": true,
+            "triggerSuspect": true,
+            "synchronize": true
+          },
+          {
+            "id": 431250,
+            "name": "globalId",
+            "label": "Global ID",
+            "fieldType": "STRING",
+            "readOnly": true,
+            "required": true,
+            "triggerSuspect": false,
+            "synchronize": false
+          },
+          {
+            "id": 377668,
+            "name": "documentKey",
+            "label": "Unique ID",
+            "fieldType": "STRING",
+            "readOnly": true,
+            "required": false,
+            "triggerSuspect": true,
+            "synchronize": false,
+            "textType": "KEY"
+          },
+          {
+            "id": 377669,
+            "name": "description",
+            "label": "Description",
+            "fieldType": "TEXT",
+            "readOnly": false,
+            "required": false,
+            "triggerSuspect": true,
+            "synchronize": true,
+            "textType": "RICHTEXT"
+          },
+          {
+            "id": 377673,
+            "name": "testCaseStatus",
+            "label": "Test Case Status",
+            "fieldType": "TEST_CASE_STATUS",
+            "readOnly": true,
+            "required": false,
+            "triggerSuspect": true,
+            "synchronize": false
+          },
+          {
+            "id": 377672,
+            "name": "testCaseSteps",
+            "label": "Steps",
+            "fieldType": "STEPS",
+            "readOnly": false,
+            "required": false,
+            "triggerSuspect": true,
+            "synchronize": false,
+            "textType": "RICHTEXT"
+          },
+          {
+            "id": 377670,
+            "name": "assignedTo",
+            "label": "Assigned",
+            "fieldType": "USER",
+            "readOnly": false,
+            "required": false,
+            "triggerSuspect": true,
+            "synchronize": false
+          },
+          {
+            "id": 377671,
+            "name": "priority",
+            "label": "Priority",
+            "fieldType": "LOOKUP",
+            "readOnly": false,
+            "required": false,
+            "triggerSuspect": true,
+            "synchronize": false,
+            "pickList": 89035
+          },
+          {
+            "id": 542465,
+            "name": "custom_text$89011",
+            "label": "Custom Text",
+            "fieldType": "STRING",
+            "readOnly": false,
+            "required": false,
+            "triggerSuspect": false,
+            "synchronize": false
+          },
+          {
+            "id": 542466,
+            "name": "custom_number$89011",
+            "label": "Custom Number",
+            "fieldType": "INTEGER",
+            "readOnly": false,
+            "required": false,
+            "triggerSuspect": false,
+            "synchronize": false
+          }
+        ],
+        "system": false,
+        "type": "itemtypes"
+      }
+    }
+  },
+  "GET test/rest/v1/projects/20183": {
+    "statusCode": 200,
+    "response": {
+      "meta": {
+        "status": "OK",
+        "timestamp": "2016-12-02T18:44:02.960+0000"
+      },
+      "links": {
+        "data.createdBy": {
+          "type": "users",
+          "href": "https://jama-jschroeder.jamacloud.com/rest/latest/users/{data.createdBy}"
+        },
+        "data.fields.user1": {
+          "type": "users",
+          "href": "https://jama-jschroeder.jamacloud.com/rest/latest/users/{data.fields.user1}"
+        },
+        "data.modifiedBy": {
+          "type": "users",
+          "href": "https://jama-jschroeder.jamacloud.com/rest/latest/users/{data.modifiedBy}"
+        },
+        "data.fields.projectManager": {
+          "type": "users",
+          "href": "https://jama-jschroeder.jamacloud.com/rest/latest/users/{data.fields.projectManager}"
+        },
+        "data.fields.projectGroup": {
+          "type": "picklistoptions",
+          "href": "https://jama-jschroeder.jamacloud.com/rest/latest/picklistoptions/{data.fields.projectGroup}"
+        },
+        "data.fields.statusId": {
+          "type": "picklistoptions",
+          "href": "https://jama-jschroeder.jamacloud.com/rest/latest/picklistoptions/{data.fields.statusId}"
+        }
+      },
+      "data": {
+        "id": 20183,
+        "projectKey": "CPA",
+        "isFolder": false,
+        "createdDate": "2011-12-13T14:05:40.000+0000",
+        "modifiedDate": "2012-08-10T20:03:51.000+0000",
+        "createdBy": 16218,
+        "modifiedBy": 16218,
+        "fields": {
+          "projectManager": 16216,
+          "user1": 16218,
+          "projectKey": "CPA",
+          "statusId": 156421,
+          "text1": "",
+          "name": "CoveragePlus - Agile",
+          "description": "This project is constructed using artifacts that are most common when using an Agile project methodology.",
+          "date2": "2014-12-26",
+          "projectGroup": 156424,
+          "date1": "2012-08-06"
+        },
+        "type": "projects"
+      }
+    }
+  },
+  "GET test/rest/v1/projects/20183/itemtypes": {
+    "statusCode": 200,
+    "response": {
+      "meta": {
+        "status": "OK",
+        "timestamp": "2016-12-02T19:03:03.232+0000",
+        "pageInfo": {
+          "startIndex": 0,
+          "resultCount": 15,
+          "totalResults": 15
+        }
+      },
+      "links": {
+        "data.fields.pickList": {
+          "type": "picklists",
+          "href": "https://jama-jschroeder.jamacloud.com/rest/latest/picklists/{data.fields.pickList}"
+        }
+      },
+      "data": [
+        {
+          "id": 89028,
+          "typeKey": "CMP",
+          "display": "Component",
+          "displayPlural": "Components",
+          "description": "Component type",
+          "image": "https://jama-jschroeder.jamacloud.com/img/tree/component.png",
+          "category": "COMPONENT",
+          "widgets": [
+            {
+              "name": "ATTACHMENTS",
+              "synchronize": false
+            },
+            {
+              "name": "ACTIVITIES",
+              "synchronize": false
+            },
+            {
+              "name": "TAGS",
+              "synchronize": false
+            },
+            {
+              "name": "RELATIONSHIPS",
+              "synchronize": false
+            },
+            {
+              "name": "HISTORY",
+              "synchronize": false
+            },
+            {
+              "name": "SYNCHRONIZED_ITEMS",
+              "synchronize": false
+            }
+          ],
+          "fields": [
+            {
+              "id": 377707,
+              "name": "name",
+              "label": "Name",
+              "fieldType": "STRING",
+              "readOnly": false,
+              "required": true,
+              "triggerSuspect": true,
+              "synchronize": true
+            },
+            {
+              "id": 431267,
+              "name": "globalId",
+              "label": "Global ID",
+              "fieldType": "STRING",
+              "readOnly": true,
+              "required": true,
+              "triggerSuspect": false,
+              "synchronize": false
+            },
+            {
+              "id": 377706,
+              "name": "documentKey",
+              "label": "Unique ID",
+              "fieldType": "STRING",
+              "readOnly": true,
+              "required": false,
+              "triggerSuspect": false,
+              "synchronize": false,
+              "textType": "KEY"
+            },
+            {
+              "id": 377708,
+              "name": "description",
+              "label": "Description",
+              "fieldType": "TEXT",
+              "readOnly": false,
+              "required": false,
+              "triggerSuspect": true,
+              "synchronize": true,
+              "textType": "RICHTEXT"
+            }
+          ],
+          "system": true,
+          "type": "itemtypes"
+        },
+        {
+          "id": 89025,
+          "typeKey": "EP",
+          "display": "Epic",
+          "displayPlural": "Epics",
+          "description": "",
+          "image": "https://jama-jschroeder.jamacloud.com/img/tree/script.png",
+          "widgets": [
+            {
+              "name": "TAGS",
+              "synchronize": false
+            },
+            {
+              "name": "SYNCHRONIZED_ITEMS",
+              "synchronize": false
+            },
+            {
+              "name": "ATTACHMENTS",
+              "synchronize": false
+            },
+            {
+              "name": "ACTIVITIES",
+              "synchronize": false
+            },
+            {
+              "name": "HISTORY",
+              "synchronize": false
+            },
+            {
+              "name": "RELATIONSHIPS",
+              "synchronize": false
+            },
+            {
+              "name": "URLS",
+              "synchronize": false
+            }
+          ],
+          "fields": [
+            {
+              "id": 377699,
+              "name": "name",
+              "label": "Name",
+              "fieldType": "STRING",
+              "readOnly": false,
+              "required": true,
+              "triggerSuspect": true,
+              "synchronize": true
+            },
+            {
+              "id": 431264,
+              "name": "globalId",
+              "label": "Global ID",
+              "fieldType": "STRING",
+              "readOnly": true,
+              "required": true,
+              "triggerSuspect": false,
+              "synchronize": false
+            },
+            {
+              "id": 377700,
+              "name": "documentKey",
+              "label": "Unique ID",
+              "fieldType": "STRING",
+              "readOnly": true,
+              "required": false,
+              "triggerSuspect": true,
+              "synchronize": false
+            },
+            {
+              "id": 377701,
+              "name": "description",
+              "label": "Description",
+              "fieldType": "TEXT",
+              "readOnly": false,
+              "required": false,
+              "triggerSuspect": true,
+              "synchronize": true,
+              "textType": "RICHTEXT"
+            },
+            {
+              "id": 377702,
+              "name": "release",
+              "label": "Release",
+              "fieldType": "RELEASE",
+              "readOnly": false,
+              "required": false,
+              "triggerSuspect": true,
+              "synchronize": false
+            }
+          ],
+          "system": false,
+          "type": "itemtypes"
+        },
+        {
+          "id": 89029,
+          "typeKey": "SET",
+          "display": "Set",
+          "displayPlural": "Sets",
+          "description": "Set type",
+          "image": "https://jama-jschroeder.jamacloud.com/img/tree/set.png",
+          "category": "SET",
+          "widgets": [
+            {
+              "name": "ACTIVITIES",
+              "synchronize": false
+            },
+            {
+              "name": "SYNCHRONIZED_ITEMS",
+              "synchronize": false
+            },
+            {
+              "name": "ATTACHMENTS",
+              "synchronize": false
+            },
+            {
+              "name": "HISTORY",
+              "synchronize": false
+            }
+          ],
+          "fields": [
+            {
+              "id": 377710,
+              "name": "name",
+              "label": "Name",
+              "fieldType": "STRING",
+              "readOnly": false,
+              "required": true,
+              "triggerSuspect": true,
+              "synchronize": true
+            },
+            {
+              "id": 431268,
+              "name": "globalId",
+              "label": "Global ID",
+              "fieldType": "STRING",
+              "readOnly": true,
+              "required": true,
+              "triggerSuspect": false,
+              "synchronize": false
+            },
+            {
+              "id": 377709,
+              "name": "documentKey",
+              "label": "Unique ID",
+              "fieldType": "STRING",
+              "readOnly": true,
+              "required": false,
+              "triggerSuspect": false,
+              "synchronize": false,
+              "textType": "KEY"
+            },
+            {
+              "id": 377712,
+              "name": "setKey",
+              "label": "Set Key",
+              "fieldType": "STRING",
+              "readOnly": false,
+              "required": true,
+              "triggerSuspect": false,
+              "synchronize": false,
+              "textType": "KEY"
+            },
+            {
+              "id": 377711,
+              "name": "description",
+              "label": "Description",
+              "fieldType": "TEXT",
+              "readOnly": false,
+              "required": false,
+              "triggerSuspect": true,
+              "synchronize": true,
+              "textType": "RICHTEXT"
+            }
+          ],
+          "system": true,
+          "type": "itemtypes"
+        },
+        {
+          "id": 89014,
+          "typeKey": "STY",
+          "display": "User Story",
+          "displayPlural": "User Stories",
+          "description": "",
+          "image": "https://jama-jschroeder.jamacloud.com/img/tree/book.png",
+          "widgets": [
+            {
+              "name": "SYNCHRONIZED_ITEMS",
+              "synchronize": false
+            },
+            {
+              "name": "HISTORY",
+              "synchronize": false
+            },
+            {
+              "name": "ATTACHMENTS",
+              "synchronize": false
+            },
+            {
+              "name": "RELATIONSHIPS",
+              "synchronize": false
+            },
+            {
+              "name": "ACTIVITIES",
+              "synchronize": false
+            },
+            {
+              "name": "TAGS",
+              "synchronize": false
+            }
+          ],
+          "fields": [
+            {
+              "id": 377688,
+              "name": "name",
+              "label": "Name",
+              "fieldType": "STRING",
+              "readOnly": false,
+              "required": true,
+              "triggerSuspect": true,
+              "synchronize": true
+            },
+            {
+              "id": 431253,
+              "name": "globalId",
+              "label": "Global ID",
+              "fieldType": "STRING",
+              "readOnly": true,
+              "required": true,
+              "triggerSuspect": false,
+              "synchronize": false
+            },
+            {
+              "id": 377689,
+              "name": "documentKey",
+              "label": "Unique ID",
+              "fieldType": "STRING",
+              "readOnly": true,
+              "required": false,
+              "triggerSuspect": true,
+              "synchronize": false,
+              "textType": "KEY"
+            },
+            {
+              "id": 377690,
+              "name": "description",
+              "label": "Description",
+              "fieldType": "TEXT",
+              "readOnly": false,
+              "required": false,
+              "triggerSuspect": true,
+              "synchronize": true,
+              "textType": "RICHTEXT"
+            },
+            {
+              "id": 377692,
+              "name": "story_points$89014",
+              "label": "Story Points",
+              "fieldType": "INTEGER",
+              "readOnly": false,
+              "required": false,
+              "triggerSuspect": true,
+              "synchronize": false
+            },
+            {
+              "id": 377693,
+              "name": "story_priority$89014",
+              "label": "Story Priority",
+              "fieldType": "LOOKUP",
+              "readOnly": false,
+              "required": false,
+              "triggerSuspect": true,
+              "synchronize": false,
+              "pickList": 89035
+            },
+            {
+              "id": 377694,
+              "name": "stack_rank$89014",
+              "label": "Stack Rank",
+              "fieldType": "LOOKUP",
+              "readOnly": false,
+              "required": false,
+              "triggerSuspect": true,
+              "synchronize": false,
+              "pickList": 89050
+            },
+            {
+              "id": 377695,
+              "name": "risk$89014",
+              "label": "Risk",
+              "fieldType": "LOOKUP",
+              "readOnly": false,
+              "required": false,
+              "triggerSuspect": true,
+              "synchronize": false,
+              "pickList": 89049
+            },
+            {
+              "id": 377691,
+              "name": "release",
+              "label": "Release",
+              "fieldType": "RELEASE",
+              "readOnly": false,
+              "required": false,
+              "triggerSuspect": true,
+              "synchronize": false
+            },
+            {
+              "id": 542776,
+              "name": "test_rollup$89014",
+              "label": "Test Rollup",
+              "fieldType": "ROLLUP",
+              "readOnly": true,
+              "required": false,
+              "triggerSuspect": false,
+              "synchronize": false
+            }
+          ],
+          "system": false,
+          "type": "itemtypes"
+        },
+        {
+          "id": 89030,
+          "typeKey": "FLD",
+          "display": "Folder",
+          "displayPlural": "Folders",
+          "description": "Folder type",
+          "image": "https://jama-jschroeder.jamacloud.com/img/tree/section.png",
+          "category": "SECTION",
+          "widgets": [
+            {
+              "name": "HISTORY",
+              "synchronize": false
+            },
+            {
+              "name": "ACTIVITIES",
+              "synchronize": false
+            },
+            {
+              "name": "ATTACHMENTS",
+              "synchronize": false
+            },
+            {
+              "name": "SYNCHRONIZED_ITEMS",
+              "synchronize": false
+            }
+          ],
+          "fields": [
+            {
+              "id": 377714,
+              "name": "name",
+              "label": "Name",
+              "fieldType": "STRING",
+              "readOnly": false,
+              "required": true,
+              "triggerSuspect": true,
+              "synchronize": true
+            },
+            {
+              "id": 431269,
+              "name": "globalId",
+              "label": "Global ID",
+              "fieldType": "STRING",
+              "readOnly": true,
+              "required": true,
+              "triggerSuspect": false,
+              "synchronize": false
+            },
+            {
+              "id": 377713,
+              "name": "documentKey",
+              "label": "Unique ID",
+              "fieldType": "STRING",
+              "readOnly": true,
+              "required": false,
+              "triggerSuspect": false,
+              "synchronize": false,
+              "textType": "KEY"
+            },
+            {
+              "id": 377715,
+              "name": "description",
+              "label": "Description",
+              "fieldType": "TEXT",
+              "readOnly": false,
+              "required": false,
+              "triggerSuspect": true,
+              "synchronize": true,
+              "textType": "RICHTEXT"
+            }
+          ],
+          "system": true,
+          "type": "itemtypes"
+        },
+        {
+          "id": 89026,
+          "typeKey": "US",
+          "display": "Usage Scenario",
+          "displayPlural": "Usage Scenarios",
+          "description": "Additional details to aid user stories",
+          "image": "https://jama-jschroeder.jamacloud.com/img/tree/book2.png",
+          "widgets": [
+            {
+              "name": "RELATIONSHIPS",
+              "synchronize": false
+            },
+            {
+              "name": "URLS",
+              "synchronize": false
+            },
+            {
+              "name": "HISTORY",
+              "synchronize": false
+            },
+            {
+              "name": "ACTIVITIES",
+              "synchronize": false
+            },
+            {
+              "name": "ATTACHMENTS",
+              "synchronize": false
+            },
+            {
+              "name": "SYNCHRONIZED_ITEMS",
+              "synchronize": false
+            },
+            {
+              "name": "TAGS",
+              "synchronize": false
+            }
+          ],
+          "fields": [
+            {
+              "id": 377703,
+              "name": "name",
+              "label": "Name",
+              "fieldType": "STRING",
+              "readOnly": false,
+              "required": true,
+              "triggerSuspect": true,
+              "synchronize": true
+            },
+            {
+              "id": 431265,
+              "name": "globalId",
+              "label": "Global ID",
+              "fieldType": "STRING",
+              "readOnly": true,
+              "required": true,
+              "triggerSuspect": false,
+              "synchronize": false
+            },
+            {
+              "id": 377704,
+              "name": "documentKey",
+              "label": "Unique ID",
+              "fieldType": "STRING",
+              "readOnly": true,
+              "required": false,
+              "triggerSuspect": true,
+              "synchronize": false
+            },
+            {
+              "id": 377705,
+              "name": "description",
+              "label": "Description",
+              "fieldType": "TEXT",
+              "readOnly": false,
+              "required": false,
+              "triggerSuspect": true,
+              "synchronize": true,
+              "textType": "RICHTEXT"
+            }
+          ],
+          "system": false,
+          "type": "itemtypes"
+        },
+        {
+          "id": 89031,
+          "typeKey": "TXT",
+          "display": "Text",
+          "displayPlural": "Texts",
+          "description": "Text type",
+          "image": "https://jama-jschroeder.jamacloud.com/img/tree/text.png",
+          "category": "TEXT",
+          "widgets": [
+            {
+              "name": "TAGS",
+              "synchronize": false
+            },
+            {
+              "name": "HISTORY",
+              "synchronize": false
+            },
+            {
+              "name": "ACTIVITIES",
+              "synchronize": false
+            },
+            {
+              "name": "SYNCHRONIZED_ITEMS",
+              "synchronize": false
+            },
+            {
+              "name": "ATTACHMENTS",
+              "synchronize": false
+            }
+          ],
+          "fields": [
+            {
+              "id": 377717,
+              "name": "name",
+              "label": "Name",
+              "fieldType": "STRING",
+              "readOnly": false,
+              "required": true,
+              "triggerSuspect": true,
+              "synchronize": true
+            },
+            {
+              "id": 431270,
+              "name": "globalId",
+              "label": "Global ID",
+              "fieldType": "STRING",
+              "readOnly": true,
+              "required": true,
+              "triggerSuspect": false,
+              "synchronize": false
+            },
+            {
+              "id": 377716,
+              "name": "documentKey",
+              "label": "Unique ID",
+              "fieldType": "STRING",
+              "readOnly": true,
+              "required": false,
+              "triggerSuspect": false,
+              "synchronize": false,
+              "textType": "KEY"
+            },
+            {
+              "id": 377718,
+              "name": "description",
+              "label": "Description",
+              "fieldType": "TEXT",
+              "readOnly": false,
+              "required": false,
+              "triggerSuspect": true,
+              "synchronize": true,
+              "textType": "RICHTEXT"
+            },
+            {
+              "id": 542437,
+              "name": "id",
+              "label": "Id",
+              "fieldType": "INTEGER",
+              "readOnly": true,
+              "required": false,
+              "triggerSuspect": false,
+              "synchronize": false
+            }
+          ],
+          "system": false,
+          "type": "itemtypes"
+        },
+        {
+          "id": 89011,
+          "typeKey": "TC",
+          "display": "Test Case",
+          "displayPlural": "Test Cases",
+          "description": "",
+          "image": "https://jama-jschroeder.jamacloud.com/img/tree/test_case.png",
+          "category": "TEST_CASE",
+          "widgets": [
+            {
+              "name": "TAGS",
+              "synchronize": false
+            },
+            {
+              "name": "HISTORY",
+              "synchronize": false
+            },
+            {
+              "name": "RELATIONSHIPS",
+              "synchronize": false
+            },
+            {
+              "name": "ACTIVITIES",
+              "synchronize": false
+            },
+            {
+              "name": "ATTACHMENTS",
+              "synchronize": false
+            },
+            {
+              "name": "SYNCHRONIZED_ITEMS",
+              "synchronize": false
+            }
+          ],
+          "fields": [
+            {
+              "id": 377667,
+              "name": "name",
+              "label": "Name",
+              "fieldType": "STRING",
+              "readOnly": false,
+              "required": true,
+              "triggerSuspect": true,
+              "synchronize": true
+            },
+            {
+              "id": 431250,
+              "name": "globalId",
+              "label": "Global ID",
+              "fieldType": "STRING",
+              "readOnly": true,
+              "required": true,
+              "triggerSuspect": false,
+              "synchronize": false
+            },
+            {
+              "id": 377668,
+              "name": "documentKey",
+              "label": "Unique ID",
+              "fieldType": "STRING",
+              "readOnly": true,
+              "required": false,
+              "triggerSuspect": true,
+              "synchronize": false,
+              "textType": "KEY"
+            },
+            {
+              "id": 377669,
+              "name": "description",
+              "label": "Description",
+              "fieldType": "TEXT",
+              "readOnly": false,
+              "required": false,
+              "triggerSuspect": true,
+              "synchronize": true,
+              "textType": "RICHTEXT"
+            },
+            {
+              "id": 377673,
+              "name": "testCaseStatus",
+              "label": "Test Case Status",
+              "fieldType": "TEST_CASE_STATUS",
+              "readOnly": true,
+              "required": false,
+              "triggerSuspect": true,
+              "synchronize": false
+            },
+            {
+              "id": 377672,
+              "name": "testCaseSteps",
+              "label": "Steps",
+              "fieldType": "STEPS",
+              "readOnly": false,
+              "required": false,
+              "triggerSuspect": true,
+              "synchronize": false,
+              "textType": "RICHTEXT"
+            },
+            {
+              "id": 377670,
+              "name": "assignedTo",
+              "label": "Assigned",
+              "fieldType": "USER",
+              "readOnly": false,
+              "required": false,
+              "triggerSuspect": true,
+              "synchronize": false
+            },
+            {
+              "id": 377671,
+              "name": "priority",
+              "label": "Priority",
+              "fieldType": "LOOKUP",
+              "readOnly": false,
+              "required": false,
+              "triggerSuspect": true,
+              "synchronize": false,
+              "pickList": 89035
+            },
+            {
+              "id": 542465,
+              "name": "custom_text$89011",
+              "label": "Custom Text",
+              "fieldType": "STRING",
+              "readOnly": false,
+              "required": false,
+              "triggerSuspect": false,
+              "synchronize": false
+            },
+            {
+              "id": 542466,
+              "name": "custom_number$89011",
+              "label": "Custom Number",
+              "fieldType": "INTEGER",
+              "readOnly": false,
+              "required": false,
+              "triggerSuspect": false,
+              "synchronize": false
+            }
+          ],
+          "system": false,
+          "type": "itemtypes"
+        },
+        {
+          "id": 89012,
+          "typeKey": "BUG",
+          "display": "Defect",
+          "displayPlural": "Defects",
+          "image": "https://jama-jschroeder.jamacloud.com/img/tree/bug.png",
+          "widgets": [
+            {
+              "name": "RELATIONSHIPS",
+              "synchronize": false
+            },
+            {
+              "name": "ACTIVITIES",
+              "synchronize": false
+            },
+            {
+              "name": "ATTACHMENTS",
+              "synchronize": false
+            },
+            {
+              "name": "SYNCHRONIZED_ITEMS",
+              "synchronize": false
+            },
+            {
+              "name": "HISTORY",
+              "synchronize": false
+            }
+          ],
+          "fields": [
+            {
+              "id": 377674,
+              "name": "name",
+              "label": "Name",
+              "fieldType": "STRING",
+              "readOnly": false,
+              "required": true,
+              "triggerSuspect": true,
+              "synchronize": true
+            },
+            {
+              "id": 431251,
+              "name": "globalId",
+              "label": "Global ID",
+              "fieldType": "STRING",
+              "readOnly": true,
+              "required": true,
+              "triggerSuspect": false,
+              "synchronize": false
+            },
+            {
+              "id": 377675,
+              "name": "documentKey",
+              "label": "Unique ID",
+              "fieldType": "STRING",
+              "readOnly": true,
+              "required": false,
+              "triggerSuspect": true,
+              "synchronize": false,
+              "textType": "KEY"
+            },
+            {
+              "id": 377676,
+              "name": "description",
+              "label": "Description",
+              "fieldType": "TEXT",
+              "readOnly": false,
+              "required": false,
+              "triggerSuspect": true,
+              "synchronize": true,
+              "textType": "RICHTEXT"
+            },
+            {
+              "id": 377677,
+              "name": "release",
+              "label": "Release",
+              "fieldType": "RELEASE",
+              "readOnly": false,
+              "required": false,
+              "triggerSuspect": false,
+              "synchronize": false
+            },
+            {
+              "id": 377678,
+              "name": "status$89012",
+              "label": "Status",
+              "fieldType": "LOOKUP",
+              "readOnly": false,
+              "required": false,
+              "triggerSuspect": false,
+              "synchronize": false,
+              "pickList": 89036
+            },
+            {
+              "id": 377679,
+              "name": "priority",
+              "label": "Priority",
+              "fieldType": "LOOKUP",
+              "readOnly": false,
+              "required": false,
+              "triggerSuspect": false,
+              "synchronize": false,
+              "pickList": 89035
+            },
+            {
+              "id": 377680,
+              "name": "user1",
+              "label": "Found By",
+              "fieldType": "USER",
+              "readOnly": false,
+              "required": false,
+              "triggerSuspect": false,
+              "synchronize": false
+            },
+            {
+              "id": 377681,
+              "name": "assignedTo",
+              "label": "Assigned",
+              "fieldType": "USER",
+              "readOnly": false,
+              "required": false,
+              "triggerSuspect": false,
+              "synchronize": false
+            },
+            {
+              "id": 542467,
+              "name": "variance_thing$89012",
+              "label": "Variance Thing",
+              "fieldType": "STRING",
+              "readOnly": false,
+              "required": false,
+              "triggerSuspect": false,
+              "synchronize": false
+            }
+          ],
+          "system": false,
+          "type": "itemtypes"
+        },
+        {
+          "id": 89043,
+          "typeKey": "SCV",
+          "display": "Source Code Validation",
+          "displayPlural": "Source Code Validations",
+          "description": "",
+          "image": "https://jama-jschroeder.jamacloud.com/img/tree/application_view_list.png",
+          "widgets": [
+            {
+              "name": "RELATIONSHIPS",
+              "synchronize": false
+            }
+          ],
+          "fields": [
+            {
+              "id": 542468,
+              "name": "documentKey",
+              "label": "Project ID",
+              "fieldType": "STRING",
+              "readOnly": true,
+              "required": true,
+              "triggerSuspect": false,
+              "synchronize": false
+            },
+            {
+              "id": 542469,
+              "name": "globalId",
+              "label": "Global ID",
+              "fieldType": "STRING",
+              "readOnly": true,
+              "required": true,
+              "triggerSuspect": false,
+              "synchronize": false
+            },
+            {
+              "id": 542470,
+              "name": "name",
+              "label": "Name",
+              "fieldType": "STRING",
+              "readOnly": false,
+              "required": true,
+              "triggerSuspect": true,
+              "synchronize": true
+            },
+            {
+              "id": 542471,
+              "name": "description",
+              "label": "Description",
+              "fieldType": "TEXT",
+              "readOnly": false,
+              "required": false,
+              "triggerSuspect": true,
+              "synchronize": true,
+              "textType": "RICHTEXT"
+            }
+          ],
+          "system": false,
+          "type": "itemtypes"
+        },
+        {
+          "id": 89060,
+          "typeKey": "ZTEST",
+          "display": "ZTEST",
+          "displayPlural": "ZTEST",
+          "description": "",
+          "image": "https://jama-jschroeder.jamacloud.com/img/tree/website_blue.png",
+          "widgets": [
+            {
+              "name": "ATTACHMENTS",
+              "synchronize": false
+            },
+            {
+              "name": "RELATIONSHIPS",
+              "synchronize": false
+            }
+          ],
+          "fields": [
+            {
+              "id": 542637,
+              "name": "documentKey",
+              "label": "Project ID",
+              "fieldType": "STRING",
+              "readOnly": true,
+              "required": true,
+              "triggerSuspect": false,
+              "synchronize": false
+            },
+            {
+              "id": 542638,
+              "name": "globalId",
+              "label": "Global ID",
+              "fieldType": "STRING",
+              "readOnly": true,
+              "required": true,
+              "triggerSuspect": false,
+              "synchronize": false
+            },
+            {
+              "id": 542639,
+              "name": "name",
+              "label": "Name",
+              "fieldType": "STRING",
+              "readOnly": false,
+              "required": true,
+              "triggerSuspect": true,
+              "synchronize": true
+            },
+            {
+              "id": 542640,
+              "name": "description",
+              "label": "Description",
+              "fieldType": "TEXT",
+              "readOnly": false,
+              "required": false,
+              "triggerSuspect": true,
+              "synchronize": true,
+              "textType": "RICHTEXT"
+            },
+            {
+              "id": 542641,
+              "name": "assignedTo",
+              "label": "Assigned",
+              "fieldType": "USER",
+              "readOnly": false,
+              "required": false,
+              "triggerSuspect": true,
+              "synchronize": false
+            },
+            {
+              "id": 542642,
+              "name": "release",
+              "label": "Release",
+              "fieldType": "RELEASE",
+              "readOnly": false,
+              "required": false,
+              "triggerSuspect": true,
+              "synchronize": false
+            },
+            {
+              "id": 542643,
+              "name": "list_of_relationships$89060",
+              "label": "List of Relationships",
+              "fieldType": "TEXT",
+              "readOnly": false,
+              "required": false,
+              "triggerSuspect": false,
+              "synchronize": false,
+              "textType": "RICHTEXT"
+            }
+          ],
+          "system": false,
+          "type": "itemtypes"
+        },
+        {
+          "id": 89049,
+          "typeKey": "DE",
+          "display": "DEpic",
+          "displayPlural": "DEpics",
+          "description": "",
+          "image": "https://jama-jschroeder.jamacloud.com/img/tree/script.png",
+          "widgets": [
+            {
+              "name": "HISTORY",
+              "synchronize": false
+            },
+            {
+              "name": "RELATIONSHIPS",
+              "synchronize": false
+            },
+            {
+              "name": "ACTIVITIES",
+              "synchronize": false
+            },
+            {
+              "name": "SYNCHRONIZED_ITEMS",
+              "synchronize": false
+            }
+          ],
+          "fields": [
+            {
+              "id": 542512,
+              "name": "documentKey",
+              "label": "Project ID",
+              "fieldType": "STRING",
+              "readOnly": true,
+              "required": true,
+              "triggerSuspect": false,
+              "synchronize": false
+            },
+            {
+              "id": 542513,
+              "name": "globalId",
+              "label": "Global ID",
+              "fieldType": "STRING",
+              "readOnly": true,
+              "required": true,
+              "triggerSuspect": false,
+              "synchronize": false
+            },
+            {
+              "id": 542514,
+              "name": "name",
+              "label": "Name",
+              "fieldType": "STRING",
+              "readOnly": false,
+              "required": true,
+              "triggerSuspect": true,
+              "synchronize": true
+            },
+            {
+              "id": 542515,
+              "name": "description",
+              "label": "Description",
+              "fieldType": "TEXT",
+              "readOnly": false,
+              "required": false,
+              "triggerSuspect": true,
+              "synchronize": true,
+              "textType": "RICHTEXT"
+            },
+            {
+              "id": 542516,
+              "name": "assignedTo",
+              "label": "Assigned",
+              "fieldType": "USER",
+              "readOnly": false,
+              "required": false,
+              "triggerSuspect": true,
+              "synchronize": false
+            },
+            {
+              "id": 542517,
+              "name": "release",
+              "label": "Release",
+              "fieldType": "RELEASE",
+              "readOnly": false,
+              "required": false,
+              "triggerSuspect": true,
+              "synchronize": false
+            },
+            {
+              "id": 542521,
+              "name": "string1",
+              "label": "Object Number",
+              "fieldType": "STRING",
+              "readOnly": false,
+              "required": false,
+              "triggerSuspect": false,
+              "synchronize": false
+            }
+          ],
+          "system": false,
+          "type": "itemtypes"
+        },
+        {
+          "id": 89048,
+          "typeKey": "DUS",
+          "display": "DUserStory",
+          "displayPlural": "DUserStories",
+          "description": "",
+          "image": "https://jama-jschroeder.jamacloud.com/img/tree/book2.png",
+          "widgets": [
+            {
+              "name": "ACTIVITIES",
+              "synchronize": false
+            },
+            {
+              "name": "HISTORY",
+              "synchronize": false
+            },
+            {
+              "name": "SYNCHRONIZED_ITEMS",
+              "synchronize": false
+            },
+            {
+              "name": "RELATIONSHIPS",
+              "synchronize": false
+            }
+          ],
+          "fields": [
+            {
+              "id": 542506,
+              "name": "documentKey",
+              "label": "Project ID",
+              "fieldType": "STRING",
+              "readOnly": true,
+              "required": true,
+              "triggerSuspect": false,
+              "synchronize": false
+            },
+            {
+              "id": 542507,
+              "name": "globalId",
+              "label": "Global ID",
+              "fieldType": "STRING",
+              "readOnly": true,
+              "required": true,
+              "triggerSuspect": false,
+              "synchronize": false
+            },
+            {
+              "id": 542508,
+              "name": "name",
+              "label": "Name",
+              "fieldType": "STRING",
+              "readOnly": false,
+              "required": true,
+              "triggerSuspect": true,
+              "synchronize": true
+            },
+            {
+              "id": 542509,
+              "name": "description",
+              "label": "Description",
+              "fieldType": "TEXT",
+              "readOnly": false,
+              "required": false,
+              "triggerSuspect": true,
+              "synchronize": true,
+              "textType": "RICHTEXT"
+            },
+            {
+              "id": 542510,
+              "name": "assignedTo",
+              "label": "Assigned",
+              "fieldType": "USER",
+              "readOnly": false,
+              "required": false,
+              "triggerSuspect": true,
+              "synchronize": false
+            },
+            {
+              "id": 542511,
+              "name": "release",
+              "label": "Release",
+              "fieldType": "RELEASE",
+              "readOnly": false,
+              "required": false,
+              "triggerSuspect": true,
+              "synchronize": false
+            },
+            {
+              "id": 542520,
+              "name": "string1",
+              "label": "Object Number",
+              "fieldType": "STRING",
+              "readOnly": false,
+              "required": false,
+              "triggerSuspect": false,
+              "synchronize": false
+            },
+            {
+              "id": 542600,
+              "name": "text1",
+              "label": "Object Text",
+              "fieldType": "TEXT",
+              "readOnly": false,
+              "required": false,
+              "triggerSuspect": false,
+              "synchronize": false,
+              "textType": "RICHTEXT"
+            },
+            {
+              "id": 542601,
+              "name": "text2",
+              "label": "Object Short Text",
+              "fieldType": "TEXT",
+              "readOnly": false,
+              "required": false,
+              "triggerSuspect": false,
+              "synchronize": false,
+              "textType": "RICHTEXT"
+            },
+            {
+              "id": 542602,
+              "name": "text3",
+              "label": "Object Heading",
+              "fieldType": "TEXT",
+              "readOnly": false,
+              "required": false,
+              "triggerSuspect": false,
+              "synchronize": false,
+              "textType": "RICHTEXT"
+            }
+          ],
+          "system": false,
+          "type": "itemtypes"
+        },
+        {
+          "id": 89047,
+          "typeKey": "DTC",
+          "display": "DTestCase",
+          "displayPlural": "DTestCases",
+          "description": "",
+          "image": "https://jama-jschroeder.jamacloud.com/img/tree/test_case.png",
+          "widgets": [
+            {
+              "name": "HISTORY",
+              "synchronize": false
+            },
+            {
+              "name": "RELATIONSHIPS",
+              "synchronize": false
+            },
+            {
+              "name": "ACTIVITIES",
+              "synchronize": false
+            },
+            {
+              "name": "SYNCHRONIZED_ITEMS",
+              "synchronize": false
+            }
+          ],
+          "fields": [
+            {
+              "id": 542500,
+              "name": "documentKey",
+              "label": "Project ID",
+              "fieldType": "STRING",
+              "readOnly": true,
+              "required": true,
+              "triggerSuspect": false,
+              "synchronize": false
+            },
+            {
+              "id": 542501,
+              "name": "globalId",
+              "label": "Global ID",
+              "fieldType": "STRING",
+              "readOnly": true,
+              "required": true,
+              "triggerSuspect": false,
+              "synchronize": false
+            },
+            {
+              "id": 542502,
+              "name": "name",
+              "label": "Name",
+              "fieldType": "STRING",
+              "readOnly": false,
+              "required": true,
+              "triggerSuspect": true,
+              "synchronize": true
+            },
+            {
+              "id": 542503,
+              "name": "description",
+              "label": "Description",
+              "fieldType": "TEXT",
+              "readOnly": false,
+              "required": false,
+              "triggerSuspect": true,
+              "synchronize": true,
+              "textType": "RICHTEXT"
+            },
+            {
+              "id": 542504,
+              "name": "assignedTo",
+              "label": "Assigned",
+              "fieldType": "USER",
+              "readOnly": false,
+              "required": false,
+              "triggerSuspect": true,
+              "synchronize": false
+            },
+            {
+              "id": 542505,
+              "name": "release",
+              "label": "Release",
+              "fieldType": "RELEASE",
+              "readOnly": false,
+              "required": false,
+              "triggerSuspect": true,
+              "synchronize": false
+            },
+            {
+              "id": 542519,
+              "name": "string1",
+              "label": "Object Number",
+              "fieldType": "STRING",
+              "readOnly": false,
+              "required": false,
+              "triggerSuspect": false,
+              "synchronize": false
+            },
+            {
+              "id": 542525,
+              "name": "text1",
+              "label": "Object Text",
+              "fieldType": "TEXT",
+              "readOnly": false,
+              "required": false,
+              "triggerSuspect": false,
+              "synchronize": false,
+              "textType": "RICHTEXT"
+            },
+            {
+              "id": 542526,
+              "name": "text2",
+              "label": "Object Short Text",
+              "fieldType": "TEXT",
+              "readOnly": false,
+              "required": false,
+              "triggerSuspect": false,
+              "synchronize": false,
+              "textType": "RICHTEXT"
+            },
+            {
+              "id": 542527,
+              "name": "text3",
+              "label": "Object Heading",
+              "fieldType": "TEXT",
+              "readOnly": false,
+              "required": false,
+              "triggerSuspect": false,
+              "synchronize": false,
+              "textType": "RICHTEXT"
+            }
+          ],
+          "system": false,
+          "type": "itemtypes"
+        },
+        {
+          "id": 89046,
+          "typeKey": "DR",
+          "display": "DRequirement",
+          "displayPlural": "DRequirements",
+          "description": "",
+          "image": "https://jama-jschroeder.jamacloud.com/img/tree/website.png",
+          "widgets": [
+            {
+              "name": "SYNCHRONIZED_ITEMS",
+              "synchronize": false
+            },
+            {
+              "name": "RELATIONSHIPS",
+              "synchronize": false
+            },
+            {
+              "name": "TAGS",
+              "synchronize": false
+            },
+            {
+              "name": "ACTIVITIES",
+              "synchronize": false
+            }
+          ],
+          "fields": [
+            {
+              "id": 542494,
+              "name": "documentKey",
+              "label": "Project ID",
+              "fieldType": "STRING",
+              "readOnly": true,
+              "required": true,
+              "triggerSuspect": false,
+              "synchronize": false
+            },
+            {
+              "id": 542495,
+              "name": "globalId",
+              "label": "Global ID",
+              "fieldType": "STRING",
+              "readOnly": true,
+              "required": true,
+              "triggerSuspect": false,
+              "synchronize": false
+            },
+            {
+              "id": 542496,
+              "name": "name",
+              "label": "Name",
+              "fieldType": "STRING",
+              "readOnly": false,
+              "required": true,
+              "triggerSuspect": true,
+              "synchronize": true
+            },
+            {
+              "id": 542497,
+              "name": "description",
+              "label": "Description",
+              "fieldType": "TEXT",
+              "readOnly": false,
+              "required": false,
+              "triggerSuspect": true,
+              "synchronize": true,
+              "textType": "RICHTEXT"
+            },
+            {
+              "id": 542498,
+              "name": "assignedTo",
+              "label": "Assigned",
+              "fieldType": "USER",
+              "readOnly": false,
+              "required": false,
+              "triggerSuspect": true,
+              "synchronize": false
+            },
+            {
+              "id": 542499,
+              "name": "release",
+              "label": "Release",
+              "fieldType": "RELEASE",
+              "readOnly": false,
+              "required": false,
+              "triggerSuspect": true,
+              "synchronize": false
+            },
+            {
+              "id": 542518,
+              "name": "string1",
+              "label": "Object Number",
+              "fieldType": "STRING",
+              "readOnly": false,
+              "required": false,
+              "triggerSuspect": false,
+              "synchronize": false
+            },
+            {
+              "id": 542522,
+              "name": "text1",
+              "label": "Object Text",
+              "fieldType": "TEXT",
+              "readOnly": false,
+              "required": false,
+              "triggerSuspect": false,
+              "synchronize": false,
+              "textType": "RICHTEXT"
+            },
+            {
+              "id": 542523,
+              "name": "text2",
+              "label": "Object Short Text",
+              "fieldType": "TEXT",
+              "readOnly": false,
+              "required": false,
+              "triggerSuspect": false,
+              "synchronize": false,
+              "textType": "RICHTEXT"
+            },
+            {
+              "id": 542524,
+              "name": "text3",
+              "label": "Object Heading",
+              "fieldType": "TEXT",
+              "readOnly": false,
+              "required": false,
+              "triggerSuspect": false,
+              "synchronize": false,
+              "textType": "RICHTEXT"
+            }
+          ],
+          "system": false,
+          "type": "itemtypes"
+        }
+      ]
+    }
+  },
+  "GET test/rest/v1/items?project=20183&rootOnly=true": {
+    "statusCode": 200,
+    "response": {
+      "meta": {
+        "status": "OK",
+        "timestamp": "2016-12-02T19:05:11.213+0000",
+        "pageInfo": {
+          "startIndex": 0,
+          "resultCount": 20,
+          "totalResults": 1040
+        }
+      },
+      "links": {
+        "data.createdBy": {
+          "type": "users",
+          "href": "https://jama-jschroeder.jamacloud.com/rest/latest/users/{data.createdBy}"
+        },
+        "data.childItemType": {
+          "type": "itemtypes",
+          "href": "https://jama-jschroeder.jamacloud.com/rest/latest/itemtypes/{data.childItemType}"
+        },
+        "data.lock.lockedBy": {
+          "type": "users",
+          "href": "https://jama-jschroeder.jamacloud.com/rest/latest/users/{data.lock.lockedBy}"
+        },
+        "data.modifiedBy": {
+          "type": "users",
+          "href": "https://jama-jschroeder.jamacloud.com/rest/latest/users/{data.modifiedBy}"
+        },
+        "data.fields.release": {
+          "type": "releases",
+          "href": "https://jama-jschroeder.jamacloud.com/rest/latest/releases/{data.fields.release}"
+        },
+        "data.fields.risk$89014": {
+          "type": "picklistoptions",
+          "href": "https://jama-jschroeder.jamacloud.com/rest/latest/picklistoptions/{data.fields.risk$89014}"
+        },
+        "data.location.parent.item": {
+          "type": "items",
+          "href": "https://jama-jschroeder.jamacloud.com/rest/latest/items/{data.location.parent.item}"
+        },
+        "data.fields.stack_rank$89014": {
+          "type": "picklistoptions",
+          "href": "https://jama-jschroeder.jamacloud.com/rest/latest/picklistoptions/{data.fields.stack_rank$89014}"
+        },
+        "data.fields.story_priority$89014": {
+          "type": "picklistoptions",
+          "href": "https://jama-jschroeder.jamacloud.com/rest/latest/picklistoptions/{data.fields.story_priority$89014}"
+        },
+        "data.project": {
+          "type": "projects",
+          "href": "https://jama-jschroeder.jamacloud.com/rest/latest/projects/{data.project}"
+        },
+        "data.itemType": {
+          "type": "itemtypes",
+          "href": "https://jama-jschroeder.jamacloud.com/rest/latest/itemtypes/{data.itemType}"
+        },
+        "data.location.parent.project": {
+          "type": "projects",
+          "href": "https://jama-jschroeder.jamacloud.com/rest/latest/projects/{data.location.parent.project}"
+        }
+      },
+      "data": [
+        {
+          "id": 1972330,
+          "documentKey": "CPA-SET-1",
+          "globalId": "GID-SET-345",
+          "itemType": 89029,
+          "project": 20183,
+          "createdDate": "2012-07-13T14:26:50.000+0000",
+          "modifiedDate": "2016-09-28T19:18:53.000+0000",
+          "lastActivityDate": "2016-09-28T19:18:53.000+0000",
+          "createdBy": 16218,
+          "modifiedBy": 18362,
+          "fields": {
+            "name": "Epics Example API Test",
+            "globalId": "GID-SET-345",
+            "documentKey": "CPA-SET-1",
+            "setKey": "EP",
+            "description": ""
+          },
+          "resources": {
+            "self": {
+              "allowed": [
+                "GET",
+                "PUT",
+                "DELETE"
+              ]
+            }
+          },
+          "location": {
+            "sortOrder": 0,
+            "globalSortOrder": 2000,
+            "sequence": "1",
+            "parent": {
+              "project": 20183
+            }
+          },
+          "lock": {
+            "locked": false
+          },
+          "childItemType": 89025,
+          "type": "items"
+        },
+        {
+          "id": 1972323,
+          "documentKey": "CPA-EP-1",
+          "globalId": "GID-EP-105102",
+          "itemType": 89025,
+          "project": 20183,
+          "createdDate": "2012-07-13T14:41:25.000+0000",
+          "modifiedDate": "2016-08-15T23:07:24.000+0000",
+          "lastActivityDate": "2016-08-15T23:07:24.000+0000",
+          "createdBy": 16218,
+          "modifiedBy": 18362,
+          "fields": {
+            "name": "Manage patient profile",
+            "globalId": "GID-EP-105102",
+            "documentKey": "CPA-EP-1",
+            "description": "<p>The system needs to maintain a robust patient profile.</p>\n\n<p>&nbsp;</p>\n\n<p>&nbsp;</p>\n\n<p>Section 2 <u>Referenced Documents</u> list any documents referenced by the SRS.</p>\n\n<p>&nbsp;</p>\n\n<p>&nbsp;</p>\n\n<html><body><p>Section 2&#9;<u>Referenced Documents</u> list any documents &quot; referenced by the SRS.</p></body></html>",
+            "release": 44923
+          },
+          "resources": {
+            "self": {
+              "allowed": [
+                "GET",
+                "PUT",
+                "DELETE"
+              ]
+            }
+          },
+          "location": {
+            "sortOrder": 0,
+            "globalSortOrder": 2001,
+            "sequence": "1.1",
+            "parent": {
+              "item": 1972330
+            }
+          },
+          "lock": {
+            "locked": false,
+            "lastLockedDate": "2015-12-16T19:30:37.000+0000"
+          },
+          "type": "items"
+        },
+        {
+          "id": 1972332,
+          "documentKey": "CPA-TXT-1",
+          "globalId": "GID-TXT-347",
+          "itemType": 89031,
+          "project": 20183,
+          "createdDate": "2012-08-10T20:09:28.000+0000",
+          "modifiedDate": "2015-11-23T22:01:17.000+0000",
+          "lastActivityDate": "2016-02-18T18:08:56.000+0000",
+          "createdBy": 16218,
+          "modifiedBy": 18362,
+          "fields": {
+            "name": "EXAMPLE Contour Diagram",
+            "globalId": "GID-TXT-347",
+            "documentKey": "CPA-TXT-1",
+            "description": "Example of a diagram built using Contour&#39;s diagram building tool -<br />\n<img alt=\"see attached image: Diagram_25154_15639.png\" src=\"http://www.jamasoftware.com/media/img/demo/Diagram_25154_15639.png\" style=\"width: 561px; height: 421px;\" /><br />\n<br />\nTo build your own version click on the &quot;Add/Edit Diagram&quot; button that you will find in the rich-text editor as highlighted below -<br />\n<img alt=\"see attached image: DiagramIconinEditor.png\" src=\"http://www.jamasoftware.com/media/img/demo/DiagramIconinEditor.png\" style=\"width: 384px; height: 287px;\" />",
+            "id": 1972332
+          },
+          "resources": {
+            "self": {
+              "allowed": [
+                "GET",
+                "PUT",
+                "DELETE"
+              ]
+            }
+          },
+          "location": {
+            "sortOrder": 1,
+            "globalSortOrder": 2002,
+            "sequence": "1.2",
+            "parent": {
+              "item": 1972330
+            }
+          },
+          "lock": {
+            "locked": false,
+            "lastLockedDate": "2012-08-31T13:29:27.000+0000"
+          },
+          "type": "items"
+        },
+        {
+          "id": 1972331,
+          "documentKey": "CPA-EP-2",
+          "globalId": "GID-EP-346",
+          "itemType": 89025,
+          "project": 20183,
+          "createdDate": "2012-07-13T14:41:25.000+0000",
+          "modifiedDate": "2015-11-24T22:46:18.000+0000",
+          "lastActivityDate": "2016-04-25T15:54:38.000+0000",
+          "createdBy": 16218,
+          "modifiedBy": 18361,
+          "fields": {
+            "name": "Manage/Search Procedures",
+            "globalId": "GID-EP-346",
+            "documentKey": "CPA-EP-2",
+            "description": "All procedures and notes on a patient should be easily accessible/searchable",
+            "release": 44924
+          },
+          "resources": {
+            "self": {
+              "allowed": [
+                "GET",
+                "PUT",
+                "DELETE"
+              ]
+            }
+          },
+          "location": {
+            "sortOrder": 2,
+            "globalSortOrder": 2003,
+            "sequence": "1.3",
+            "parent": {
+              "item": 1972330
+            }
+          },
+          "lock": {
+            "locked": false,
+            "lastLockedDate": "2012-07-13T16:48:56.000+0000"
+          },
+          "type": "items"
+        },
+        {
+          "id": 1972326,
+          "documentKey": "CPA-EP-4",
+          "globalId": "GID-EP-341",
+          "itemType": 89025,
+          "project": 20183,
+          "createdDate": "2012-07-13T14:41:25.000+0000",
+          "modifiedDate": "2015-11-05T19:19:00.000+0000",
+          "lastActivityDate": "2016-04-25T15:54:38.000+0000",
+          "createdBy": 16218,
+          "modifiedBy": 18362,
+          "fields": {
+            "name": "Allow multiple methods of data entry",
+            "globalId": "GID-EP-341",
+            "documentKey": "CPA-EP-4",
+            "description": "<p><span style=\"font-size:13px\"><strong>Repository:&nbsp;</strong>REPONAME</span></p><p><span style=\"font-size:13px\"><strong>Revision:&nbsp;</strong>REVISION</span></p><p><span style=\"font-size:13px\"><strong>Date:&nbsp;</strong>DATE</span></p><p><span style=\"font-size:13px\"><strong>User:&nbsp;</strong>USER</span></p><p><span style=\"font-size:13px\"><strong>Message:&nbsp;</strong>MESSAGE</span></p><p><span style=\"font-size:13px\"><strong>Modifications:&nbsp;</strong></span></p><p><span style=\"font-size:13px\">A:&nbsp;<a href=\"http://jama-cs1/!/#TestRepo/view/head/MOD\" target=\"_blank\">MOD</a></span></p><p><span style=\"font-size:13px\">B:&nbsp;<a href=\"http://jama-cs1/!/#TestRepo/view/head/MOD\" target=\"_blank\">MOD</a></span></p><p><span style=\"font-size:13px\">----------------------------------------------------------------------------------------------------</span></p><p><span style=\"font-size:13px\"><strong>Repository:&nbsp;</strong>REPONAME</span></p><p><span style=\"font-size:13px\"><strong>Revision:&nbsp;</strong>REVISION</span></p><p><span style=\"font-size:13px\"><strong>Date:&nbsp;</strong>DATE</span></p><p><span style=\"font-size:13px\"><strong>User:&nbsp;</strong>USER</span></p><p><span style=\"font-size:13px\"><strong>Message:&nbsp;</strong>MESSAGE</span></p><p><span style=\"font-size:13px\"><strong>Modifications:&nbsp;</strong></span></p><p><span style=\"font-size:13px\">A:&nbsp;<a href=\"http://jama-cs1/!/#TestRepo/view/head/MOD\" target=\"_blank\">MOD</a></span></p><p><span style=\"font-size:13px\">B:&nbsp;<a href=\"http://jama-cs1/!/#TestRepo/view/head/MOD\" target=\"_blank\">MOD</a></span></p><p><span style=\"font-size:13px\">----------------------------------------------------------------------------------------------------</span></p><p><span style=\"font-size:13px\"><strong>Repository:&nbsp;</strong>REPONAME</span></p><p><span style=\"font-size:13px\"><strong>Revision:&nbsp;</strong>REVISION</span></p><p><span style=\"font-size:13px\"><strong>Date:&nbsp;</strong>DATE</span></p><p><span style=\"font-size:13px\"><strong>User:&nbsp;</strong>USER</span></p><p><span style=\"font-size:13px\"><strong>Message:&nbsp;</strong>MESSAGE</span></p><p><span style=\"font-size:13px\"><strong>Modifications:&nbsp;</strong></span></p><p><span style=\"font-size:13px\">A:&nbsp;<a href=\"http://jama-cs1/!/#TestRepo/view/head/MOD\" target=\"_blank\">MOD</a></span></p><p><span style=\"font-size:13px\">B:&nbsp;<a href=\"http://jama-cs1/!/#TestRepo/view/head/MOD\" target=\"_blank\">MOD</a></span></p><p><span style=\"font-size:13px\">----------------------------------------------------------------------------------------------------</span></p><p><span style=\"font-size:13px\"><strong>Repository:&nbsp;</strong>REPONAME</span></p><p><span style=\"font-size:13px\"><strong>Revision:&nbsp;</strong>REVISION</span></p><p><span style=\"font-size:13px\"><strong>Date:&nbsp;</strong>DATE</span></p><p><span style=\"font-size:13px\"><strong>User:&nbsp;</strong>USER</span></p><p><span style=\"font-size:13px\"><strong>Message:&nbsp;</strong>MESSAGE</span></p><p><span style=\"font-size:13px\"><strong>Modifications:&nbsp;</strong></span></p><p><span style=\"font-size:13px\">A:&nbsp;<a href=\"http://jama-cs1/!/#TestRepo/view/head/MOD\" target=\"_blank\">MOD</a></span></p><p><span style=\"font-size:13px\">B:&nbsp;<a href=\"http://jama-cs1/!/#TestRepo/view/head/MOD\" target=\"_blank\">MOD</a></span></p>Provide details about a patient or procedure from a number of predefined fields (or pick-lists) in addition to manually adding notes or other contextual information.",
+            "release": 44922
+          },
+          "resources": {
+            "self": {
+              "allowed": [
+                "GET",
+                "PUT",
+                "DELETE"
+              ]
+            }
+          },
+          "location": {
+            "sortOrder": 3,
+            "globalSortOrder": 2004,
+            "sequence": "1.4",
+            "parent": {
+              "item": 1972330
+            }
+          },
+          "lock": {
+            "locked": false,
+            "lastLockedDate": "2015-10-29T21:53:00.000+0000"
+          },
+          "type": "items"
+        },
+        {
+          "id": 1972327,
+          "documentKey": "CPA-EP-5",
+          "globalId": "GID-EP-342",
+          "itemType": 89025,
+          "project": 20183,
+          "createdDate": "2012-07-13T14:41:25.000+0000",
+          "modifiedDate": "2015-10-30T22:36:41.000+0000",
+          "lastActivityDate": "2016-04-25T15:54:38.000+0000",
+          "createdBy": 16218,
+          "modifiedBy": 18362,
+          "fields": {
+            "name": "Interface with Share-D dental record system",
+            "globalId": "GID-EP-342",
+            "documentKey": "CPA-EP-5",
+            "description": "Interface with the dental record sharing program, Share-D.",
+            "release": 44925
+          },
+          "resources": {
+            "self": {
+              "allowed": [
+                "GET",
+                "PUT",
+                "DELETE"
+              ]
+            }
+          },
+          "location": {
+            "sortOrder": 4,
+            "globalSortOrder": 2005,
+            "sequence": "1.5",
+            "parent": {
+              "item": 1972330
+            }
+          },
+          "lock": {
+            "locked": false
+          },
+          "type": "items"
+        },
+        {
+          "id": 1972328,
+          "documentKey": "CPA-EP-6",
+          "globalId": "GID-EP-343",
+          "itemType": 89025,
+          "project": 20183,
+          "createdDate": "2012-07-13T14:41:25.000+0000",
+          "modifiedDate": "2015-11-24T19:16:11.000+0000",
+          "lastActivityDate": "2016-04-25T15:54:38.000+0000",
+          "createdBy": 16218,
+          "modifiedBy": 18362,
+          "fields": {
+            "name": "Electronically send & receive billing information to approved Insurers",
+            "globalId": "GID-EP-343",
+            "documentKey": "CPA-EP-6",
+            "description": "Electronically submit bills to insurers enrolled in the dental billing clearinghouse.",
+            "release": 44925
+          },
+          "resources": {
+            "self": {
+              "allowed": [
+                "GET",
+                "PUT",
+                "DELETE"
+              ]
+            }
+          },
+          "location": {
+            "sortOrder": 5,
+            "globalSortOrder": 2006,
+            "sequence": "1.6",
+            "parent": {
+              "item": 1972330
+            }
+          },
+          "lock": {
+            "locked": false
+          },
+          "type": "items"
+        },
+        {
+          "id": 1972329,
+          "documentKey": "CPA-EP-7",
+          "globalId": "GID-EP-344",
+          "itemType": 89025,
+          "project": 20183,
+          "createdDate": "2012-07-13T14:41:25.000+0000",
+          "modifiedDate": "2015-12-03T18:19:02.000+0000",
+          "lastActivityDate": "2016-04-25T15:54:38.000+0000",
+          "createdBy": 16218,
+          "modifiedBy": 18361,
+          "fields": {
+            "name": "Role based access",
+            "globalId": "GID-EP-344",
+            "documentKey": "CPA-EP-7",
+            "description": "Each user will be assigned a role in the system. The role will determine access to functionality.",
+            "release": 44926
+          },
+          "resources": {
+            "self": {
+              "allowed": [
+                "GET",
+                "PUT",
+                "DELETE"
+              ]
+            }
+          },
+          "location": {
+            "sortOrder": 6,
+            "globalSortOrder": 2007,
+            "sequence": "1.7",
+            "parent": {
+              "item": 1972330
+            }
+          },
+          "lock": {
+            "locked": false
+          },
+          "type": "items"
+        },
+        {
+          "id": 1972325,
+          "documentKey": "CPA-EP-3",
+          "globalId": "GID-EP-340",
+          "itemType": 89025,
+          "project": 20183,
+          "createdDate": "2012-07-13T14:41:25.000+0000",
+          "modifiedDate": "2016-02-18T18:11:28.000+0000",
+          "lastActivityDate": "2016-04-25T15:54:38.000+0000",
+          "createdBy": 16218,
+          "modifiedBy": 18362,
+          "fields": {
+            "name": "Interface with X-Raymatic to save and display images CHANGE",
+            "globalId": "GID-EP-340",
+            "documentKey": "CPA-EP-3",
+            "description": "System needs to display images created by an X-Raymatic and not require scanning into system.",
+            "release": 44924
+          },
+          "resources": {
+            "self": {
+              "allowed": [
+                "GET",
+                "PUT",
+                "DELETE"
+              ]
+            }
+          },
+          "location": {
+            "sortOrder": 7,
+            "globalSortOrder": 2008,
+            "sequence": "1.8",
+            "parent": {
+              "item": 1972330
+            }
+          },
+          "lock": {
+            "locked": false,
+            "lastLockedDate": "2016-02-18T18:08:12.000+0000"
+          },
+          "type": "items"
+        },
+        {
+          "id": 1972359,
+          "documentKey": "CPA-SET-2",
+          "globalId": "GID-SET-374",
+          "itemType": 89029,
+          "project": 20183,
+          "createdDate": "2012-07-13T14:27:09.000+0000",
+          "modifiedDate": "2012-07-13T14:27:09.000+0000",
+          "createdBy": 16218,
+          "modifiedBy": 16218,
+          "fields": {
+            "name": "User Stories",
+            "globalId": "GID-SET-374",
+            "documentKey": "CPA-SET-2",
+            "setKey": "STY",
+            "description": ""
+          },
+          "resources": {
+            "self": {
+              "allowed": [
+                "GET",
+                "PUT",
+                "DELETE"
+              ]
+            }
+          },
+          "location": {
+            "sortOrder": 1,
+            "globalSortOrder": 3000,
+            "sequence": "2",
+            "parent": {
+              "project": 20183
+            }
+          },
+          "lock": {
+            "locked": false
+          },
+          "childItemType": 89014,
+          "type": "items"
+        },
+        {
+          "id": 1972336,
+          "documentKey": "CPA-FLD-1",
+          "globalId": "GID-FLD-351",
+          "itemType": 89030,
+          "project": 20183,
+          "createdDate": "2012-07-13T14:44:20.000+0000",
+          "modifiedDate": "2012-07-13T14:45:09.000+0000",
+          "createdBy": 16218,
+          "modifiedBy": 16218,
+          "fields": {
+            "name": "Patient Profile",
+            "globalId": "GID-FLD-351",
+            "documentKey": "CPA-FLD-1",
+            "description": ""
+          },
+          "resources": {
+            "self": {
+              "allowed": [
+                "GET",
+                "PUT",
+                "DELETE"
+              ]
+            }
+          },
+          "location": {
+            "sortOrder": 0,
+            "globalSortOrder": 3001,
+            "sequence": "2.1",
+            "parent": {
+              "item": 1972359
+            }
+          },
+          "lock": {
+            "locked": false
+          },
+          "childItemType": 89014,
+          "type": "items"
+        },
+        {
+          "id": 1972337,
+          "documentKey": "CPA-STY-2",
+          "globalId": "GID-STY-352",
+          "itemType": 89014,
+          "project": 20183,
+          "createdDate": "2012-07-13T14:44:20.000+0000",
+          "modifiedDate": "2016-02-17T19:32:11.000+0000",
+          "lastActivityDate": "2016-04-25T15:54:38.000+0000",
+          "createdBy": 16218,
+          "modifiedBy": 18362,
+          "fields": {
+            "name": "Patient Profile - Insurance",
+            "globalId": "GID-STY-352",
+            "documentKey": "CPA-STY-2",
+            "description": "<p>As a billing representative I want to be able to view a patients insurance enrollment information, insurance company information and insurance history so that we I can follow up with the correct insurers. &nbsp; &nbsp;<br />\n<br />\nBasic insurance company fields:</p>\n\n<table border=\"1\" cellpadding=\"1\" cellspacing=\"1\" style=\"height:87px; width:398px\">\n\t<tbody>\n\t\t<tr>\n\t\t\t<td>Name</td>\n\t\t\t<td>Text</td>\n\t\t</tr>\n\t\t<tr>\n\t\t\t<td>Address</td>\n\t\t\t<td>Alphanumeric</td>\n\t\t</tr>\n\t\t<tr>\n\t\t\t<td>Company City</td>\n\t\t\t<td>Text</td>\n\t\t</tr>\n\t\t<tr>\n\t\t\t<td>State</td>\n\t\t\t<td>Text</td>\n\t\t</tr>\n\t</tbody>\n</table>\n\n<p>&nbsp;</p>\n\n<p><strong>Imported test results:</strong></p>\n\n<p>Status:&nbsp;fail</p>\n\n<p><strong>Imported test results:</strong></p>\n\n<p>Status:&nbsp;fail</p>\n\n<p><strong>Imported test results:</strong></p>\n\n<p>Status:&nbsp;pass</p>\n\n<p><strong>Imported test results:</strong></p>\n\n<p>Status:&nbsp;fail</p>\n",
+            "story_points$89014": 45,
+            "story_priority$89014": 156405,
+            "stack_rank$89014": 156435,
+            "risk$89014": 156432,
+            "release": 44924,
+            "test_rollup$89014": "0%"
+          },
+          "resources": {
+            "self": {
+              "allowed": [
+                "GET",
+                "PUT",
+                "DELETE"
+              ]
+            }
+          },
+          "location": {
+            "sortOrder": 0,
+            "globalSortOrder": 3002,
+            "sequence": "2.1.1",
+            "parent": {
+              "item": 1972336
+            }
+          },
+          "lock": {
+            "locked": true,
+            "lastLockedDate": "2016-02-17T19:32:11.000+0000",
+            "lockedBy": 18362
+          },
+          "type": "items"
+        },
+        {
+          "id": 1972334,
+          "documentKey": "CPA-STY-3",
+          "globalId": "GID-STY-349",
+          "itemType": 89014,
+          "project": 20183,
+          "createdDate": "2012-07-13T14:44:20.000+0000",
+          "modifiedDate": "2016-03-05T20:57:46.000+0000",
+          "lastActivityDate": "2016-05-04T17:46:34.000+0000",
+          "createdBy": 16218,
+          "modifiedBy": 18361,
+          "fields": {
+            "name": "Patient Profile - Contact Info",
+            "globalId": "GID-STY-349",
+            "documentKey": "CPA-STY-3",
+            "description": "<p>As a receptionist I want to view a patients contact so that I can send them reminder and follow-up post cards.<br />\n<br />\nSee attachment tab for post card template.</p>\n\n<p>&nbsp;</p>\n\n<p><img alt=\"see attached image: postcardtemplate1.gif\" src=\"https://jama-jschroeder.jamacloud.com/attachment/41722/postcardtemplate1.gif\" /></p>\n\n<html><body><p><a href=\"https://jama-jschroeder.jamacloud.com/attachment/75763/avatar_70646682ee02_128.png\"><img alt=\"see attached image: avatblahblah.gif\" src=\"https://jama-jschroeder.jamacloud.com/attachment/75763/avatar_70646682ee02_128.png\" /></a></p></body></html>\n",
+            "story_points$89014": 11111,
+            "story_priority$89014": 156406,
+            "stack_rank$89014": 156436,
+            "risk$89014": 156431,
+            "release": 44924,
+            "test_rollup$89014": "0%"
+          },
+          "resources": {
+            "self": {
+              "allowed": [
+                "GET",
+                "PUT",
+                "DELETE"
+              ]
+            }
+          },
+          "location": {
+            "sortOrder": 1,
+            "globalSortOrder": 3003,
+            "sequence": "2.1.2",
+            "parent": {
+              "item": 1972336
+            }
+          },
+          "lock": {
+            "locked": false,
+            "lastLockedDate": "2016-03-05T20:57:46.000+0000"
+          },
+          "type": "items"
+        },
+        {
+          "id": 1972335,
+          "documentKey": "CPA-STY-4",
+          "globalId": "GID-STY-350",
+          "itemType": 89014,
+          "project": 20183,
+          "createdDate": "2012-07-13T14:44:20.000+0000",
+          "modifiedDate": "2016-05-10T19:14:29.000+0000",
+          "lastActivityDate": "2016-05-10T19:14:31.000+0000",
+          "createdBy": 16218,
+          "modifiedBy": 18362,
+          "fields": {
+            "name": "Patient Profile - Billing Status",
+            "globalId": "GID-STY-350",
+            "documentKey": "CPA-STY-4",
+            "description": "<p>As a billing representative I want to be able to view a patients billing status so that I can be sure a patient is billed correctly.</p>\n\n<p>&nbsp;</p>\n\n<p><a href=\"http://jama-cs1.jamasoftware.net:8000/\" target=\"_blank\">LINK</a></p>\n\n<p>&nbsp;</p>\n\n<p>The URL referenced here is a site that John created&nbsp;<br />\n<br />\nCurrent application screen capture:<br />\n<a href=\"https://bnabq.jamacloud.com/attachment/75758/blah.txt\">blah.txt<img alt=\"\" height=\"429\" src=\"https://jama-jschroeder.jamacloud.com/attachment/75760/approvalsfilteroptions.jpg\" width=\"600\" /></a></p>\n",
+            "story_points$89014": 34,
+            "story_priority$89014": 156405,
+            "stack_rank$89014": 156434,
+            "risk$89014": 156432,
+            "release": 44924,
+            "test_rollup$89014": "0%"
+          },
+          "resources": {
+            "self": {
+              "allowed": [
+                "GET",
+                "PUT",
+                "DELETE"
+              ]
+            }
+          },
+          "location": {
+            "sortOrder": 2,
+            "globalSortOrder": 3004,
+            "sequence": "2.1.3",
+            "parent": {
+              "item": 1972336
+            }
+          },
+          "lock": {
+            "locked": true,
+            "lastLockedDate": "2016-05-10T19:16:19.000+0000",
+            "lockedBy": 18362
+          },
+          "type": "items"
+        },
+        {
+          "id": 2165285,
+          "documentKey": "CPA-STY-1",
+          "globalId": "GID-STY-53901",
+          "itemType": 89014,
+          "project": 20183,
+          "createdDate": "2015-10-28T23:35:04.000+0000",
+          "modifiedDate": "2016-08-17T17:29:08.000+0000",
+          "lastActivityDate": "2016-08-17T17:29:08.000+0000",
+          "createdBy": 18361,
+          "fields": {
+            "name": "test",
+            "globalId": "GID-STY-53901",
+            "documentKey": "CPA-STY-1",
+            "description": "<br />\n<h2>\n\tStory</h2>\nAs a _________, I need to _________, so that __________________.<br />\n<h2>\n\tNarrative/Flow</h2>\n&lt;flow diagram or narrative of the flow for the story&gt;<br />\n<h2>\n\tValidations</h2>\n&lt;desribe any specific validations&gt;<br />\n<h2>\n\tExceptions</h2>\n&lt;note any exceptions for this process&gt;<br />\n<h2>\n\tAuthorization/Authentication/Audit</h2>\n<p>\n\t&lt;note any special security needs, authentication needs or audit/log report, etc&gt;</p>\n<h2>\n\tUI</h2>\n<p>\n\t&lt;note any views/pages/screens impacted by story&gt;</p>\n<h2>\n\tExclusions</h2>\n<p>\n\t&lt;note any particular exclusions that aren&#39;t part of the story&gt;</p>\n<h2>\n\tDependencies</h2>\n&lt;note any specific dependencies&gt;<br />\n<h2>\n\tOpen Issues</h2>\n&lt;any open issues&gt;",
+            "story_priority$89014": 156405,
+            "stack_rank$89014": 156433,
+            "risk$89014": 156429,
+            "release": 44922,
+            "test_rollup$89014": "0%"
+          },
+          "resources": {
+            "self": {
+              "allowed": [
+                "GET",
+                "PUT",
+                "DELETE"
+              ]
+            }
+          },
+          "location": {
+            "sortOrder": 3,
+            "globalSortOrder": 3014,
+            "sequence": "2.1.4",
+            "parent": {
+              "item": 1972336
+            }
+          },
+          "lock": {
+            "locked": false
+          },
+          "type": "items"
+        },
+        {
+          "id": 2171000,
+          "documentKey": "CPA-STY-3",
+          "globalId": "GID-STY-70201",
+          "itemType": 89014,
+          "project": 20183,
+          "createdDate": "2016-02-03T20:15:55.000+0000",
+          "modifiedDate": "2016-08-17T17:29:08.000+0000",
+          "lastActivityDate": "2016-08-17T17:29:08.000+0000",
+          "createdBy": 18361,
+          "fields": {
+            "name": "patient",
+            "globalId": "GID-STY-70201",
+            "documentKey": "CPA-STY-3",
+            "description": "<p>&nbsp;</p>\n\n<h2>Story</h2>\n\n<p>As a _________, I need to _________, so that __________________.</p>\n\n<p>&nbsp;</p>\n\n<p>&nbsp;</p>\n\n<h2>Narrative/Flow</h2>\n\n<p>&lt;flow diagram or narrative of the flow for the story&gt;</p>\n\n<p>&nbsp;</p>\n\n<p>&nbsp;</p>\n\n<h2>Validations</h2>\n\n<p>&lt;desribe any specific validations&gt;</p>\n\n<p>&nbsp;</p>\n\n<p>&nbsp;</p>\n\n<h2>Exceptions</h2>\n\n<p>&lt;note any exceptions for this process&gt;</p>\n\n<p>&nbsp;</p>\n\n<p>&nbsp;</p>\n\n<h2>Authorization/Authentication/Audit</h2>\n\n<p>&nbsp;</p>\n\n<p>&lt;note any special security needs, authentication needs or audit/log report, etc&gt;</p>\n\n<h2>UI</h2>\n\n<p>&lt;note any views/pages/screens impacted by story&gt;</p>\n\n<h2>Exclusions</h2>\n\n<p>&lt;note any particular exclusions that aren&#39;t part of the story&gt;</p>\n\n<h2>Dependencies</h2>\n\n<p>&lt;note any specific dependencies&gt;</p>\n\n<h2>Open Issues</h2>\n\n<p>&lt;any open issues&gt;</p>\n",
+            "story_priority$89014": 156405,
+            "stack_rank$89014": 156433,
+            "risk$89014": 156429,
+            "release": 44922,
+            "test_rollup$89014": "0%"
+          },
+          "resources": {
+            "self": {
+              "allowed": [
+                "GET",
+                "PUT",
+                "DELETE"
+              ]
+            }
+          },
+          "location": {
+            "sortOrder": 3,
+            "globalSortOrder": 3005,
+            "sequence": "2.1.4",
+            "parent": {
+              "item": 1972336
+            }
+          },
+          "lock": {
+            "locked": false
+          },
+          "type": "items"
+        },
+        {
+          "id": 1972340,
+          "documentKey": "CPA-FLD-2",
+          "globalId": "GID-FLD-355",
+          "itemType": 89030,
+          "project": 20183,
+          "createdDate": "2012-07-13T14:44:20.000+0000",
+          "modifiedDate": "2012-07-13T14:45:28.000+0000",
+          "createdBy": 16218,
+          "modifiedBy": 16218,
+          "fields": {
+            "name": "Procedure and Notes",
+            "globalId": "GID-FLD-355",
+            "documentKey": "CPA-FLD-2",
+            "description": ""
+          },
+          "resources": {
+            "self": {
+              "allowed": [
+                "GET",
+                "PUT",
+                "DELETE"
+              ]
+            }
+          },
+          "location": {
+            "sortOrder": 1,
+            "globalSortOrder": 3006,
+            "sequence": "2.2",
+            "parent": {
+              "item": 1972359
+            }
+          },
+          "lock": {
+            "locked": false
+          },
+          "childItemType": 89014,
+          "type": "items"
+        },
+        {
+          "id": 1972338,
+          "documentKey": "CPA-STY-6",
+          "globalId": "GID-STY-353",
+          "itemType": 89014,
+          "project": 20183,
+          "createdDate": "2012-07-13T14:44:20.000+0000",
+          "modifiedDate": "2015-11-24T22:46:18.000+0000",
+          "lastActivityDate": "2016-04-25T15:54:38.000+0000",
+          "createdBy": 16218,
+          "modifiedBy": 18361,
+          "fields": {
+            "name": "Procedure and Notes",
+            "globalId": "GID-STY-353",
+            "documentKey": "CPA-STY-6",
+            "description": "As a dental hygienist I want to look up a patients procedures and notes so that I can ensure the proper care.",
+            "story_points$89014": 76,
+            "story_priority$89014": 156406,
+            "stack_rank$89014": 156435,
+            "risk$89014": 156429,
+            "release": 44923,
+            "test_rollup$89014": "0%"
+          },
+          "resources": {
+            "self": {
+              "allowed": [
+                "GET",
+                "PUT",
+                "DELETE"
+              ]
+            }
+          },
+          "location": {
+            "sortOrder": 0,
+            "globalSortOrder": 3007,
+            "sequence": "2.2.1",
+            "parent": {
+              "item": 1972340
+            }
+          },
+          "lock": {
+            "locked": false
+          },
+          "type": "items"
+        },
+        {
+          "id": 1972339,
+          "documentKey": "CPA-STY-7",
+          "globalId": "GID-STY-354",
+          "itemType": 89014,
+          "project": 20183,
+          "createdDate": "2012-07-13T14:44:20.000+0000",
+          "modifiedDate": "2012-07-13T15:49:22.000+0000",
+          "lastActivityDate": "2016-04-25T15:54:38.000+0000",
+          "createdBy": 16218,
+          "modifiedBy": 16218,
+          "fields": {
+            "name": "Emergency Cases",
+            "globalId": "GID-STY-354",
+            "documentKey": "CPA-STY-7",
+            "description": "As a dentist I need the ability to view schedules and make emergency changes so that I can accommodate emergency appointments.",
+            "story_points$89014": 23,
+            "story_priority$89014": 156407,
+            "stack_rank$89014": 156434,
+            "risk$89014": 156431,
+            "release": 44923,
+            "test_rollup$89014": "0%"
+          },
+          "resources": {
+            "self": {
+              "allowed": [
+                "GET",
+                "PUT",
+                "DELETE"
+              ]
+            }
+          },
+          "location": {
+            "sortOrder": 0,
+            "globalSortOrder": 3008,
+            "sequence": "2.2.1.1",
+            "parent": {
+              "item": 1972338
+            }
+          },
+          "lock": {
+            "locked": false
+          },
+          "type": "items"
+        },
+        {
+          "id": 1972347,
+          "documentKey": "CPA-FLD-4",
+          "globalId": "GID-FLD-362",
+          "itemType": 89030,
+          "project": 20183,
+          "createdDate": "2012-07-13T14:44:20.000+0000",
+          "modifiedDate": "2016-01-08T03:22:23.000+0000",
+          "lastActivityDate": "2016-01-08T03:22:23.000+0000",
+          "createdBy": 16218,
+          "modifiedBy": 18361,
+          "fields": {
+            "name": "Data Entry Trello",
+            "globalId": "GID-FLD-362",
+            "documentKey": "CPA-FLD-4",
+            "description": ""
+          },
+          "resources": {
+            "self": {
+              "allowed": [
+                "GET",
+                "PUT",
+                "DELETE"
+              ]
+            }
+          },
+          "location": {
+            "sortOrder": 2,
+            "globalSortOrder": 3009,
+            "sequence": "2.3",
+            "parent": {
+              "item": 1972359
+            }
+          },
+          "lock": {
+            "locked": false,
+            "lastLockedDate": "2016-01-08T03:22:23.000+0000"
+          },
+          "childItemType": 89014,
+          "type": "items"
+        }
+      ]
+    }
   }
 }

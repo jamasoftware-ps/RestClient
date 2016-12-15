@@ -4,9 +4,6 @@ import com.jamasoftware.services.restclient.jamadomain.lazyresources.JamaUser;
 
 import java.util.Date;
 
-/**
- * Created by ibilal on 11/17/16.
- */
 public class LockStatus {
     private boolean isLocked;
     private Date lastLocked;
