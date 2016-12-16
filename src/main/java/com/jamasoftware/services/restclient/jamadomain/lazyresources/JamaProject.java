@@ -30,11 +30,11 @@ public class JamaProject extends LazyResource implements JamaParent {
         return Collections.unmodifiableList(children.getChildren());
     }
 
-    @Override
-    public void addChild(JamaItem jamaItem) {
-        throw new NotImplementedException();
-
-    }
+//    @Override
+//    public void addChild(JamaItem jamaItem) {
+//        throw new NotImplementedException();
+//
+//    }
 
     @Override
     public boolean isProject() {
