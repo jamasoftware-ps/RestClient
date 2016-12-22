@@ -17,6 +17,7 @@ public class JamaConfig {
     private JsonHandler json;
     private HttpClient httpClient;
     private Integer resourceTimeOut;    //value is seconds
+    private String openUrlBase;
 
     public JamaConfig() {
         json = new SimpleJsonHandler();
@@ -41,6 +42,7 @@ public class JamaConfig {
             username = properties.getProperty("username");
             password = properties.getProperty("password");
             String timeOutString = properties.getProperty("resourceTimeOut");
+            setOpenUrlBase(properties.getProperty("baseUrl"));
             resourceTimeOut = Integer.valueOf(timeOutString);
         } catch(Exception e) {
             e.printStackTrace();
@@ -62,6 +64,7 @@ public class JamaConfig {
             setBaseUrl(properties.getProperty("baseUrl"));
             username = properties.getProperty("username");
             password = properties.getProperty("password");
+            setOpenUrlBase(properties.getProperty("baseUrl"));
             String timeOutString = properties.getProperty("resourceTimeOut");
             resourceTimeOut = Integer.valueOf(timeOutString);
         } catch(Exception e) {
@@ -88,6 +91,33 @@ public class JamaConfig {
             return;
         }
         this.baseUrl = baseUrl + "/rest/v1/";
+    }
+
+    public void setOpenUrlBase(String baseOpenUrl) {
+        if(baseOpenUrl.contains("/perspective.req#/")) {
+            if (baseOpenUrl.contains("items/")) {
+                if (baseOpenUrl.endsWith("/")) {
+                    this.openUrlBase = baseOpenUrl;
+                    return;
+                }
+                this.openUrlBase = baseOpenUrl + "/";
+                return;
+            }
+            else {
+                if(baseOpenUrl.endsWith("/")){
+                    this.openUrlBase = baseOpenUrl + "items/";
+                }
+                else {
+                    this.openUrlBase = baseOpenUrl + "/items/";
+                }
+            }
+        } else {
+            if (baseOpenUrl.endsWith("/")) {
+                this.openUrlBase = baseOpenUrl + "perspective.req#/items/";
+                return;
+            }
+            this.openUrlBase = baseOpenUrl + "/perspective.req#/items/";
+        }
     }
 
     public String getUsername() {
@@ -128,5 +158,9 @@ public class JamaConfig {
 
     public void setResourceTimeOut(Integer resourceTimeOut) {
         this.resourceTimeOut = resourceTimeOut;
+    }
+
+    public String getOpenUrlBase() {
+        return this.openUrlBase;
     }
 }

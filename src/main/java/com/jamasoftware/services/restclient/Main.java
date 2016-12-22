@@ -36,11 +36,17 @@ public class Main {
             JamaItem newParentFolder = jamaInstance.getItem(1972340);
             JamaParent jamaParent = jamaItem.getParent();
             System.out.println("Jama item: " + jamaItem.toString() + " has parent: " + jamaParent.toString());
-            System.out.println("New jama parent is: " + newParentFolder.toString());
 
-            jamaItem = jamaItem.edit().setParent(newParentFolder).commit();
-            System.out.println("Added child to new parent");
-            System.out.println("NOW:: Jama item: " + jamaItem.toString() + " has parent: " + jamaItem.getParent().toString());
+            System.out.println("And this item's open url is : " + jamaInstance.getOpenUrl(jamaItem));
+
+
+
+
+//            System.out.println("New jama parent is: " + newParentFolder.toString());
+
+//            jamaItem = jamaItem.edit().setParent(newParentFolder).commit();
+//            System.out.println("Added child to new parent");
+//            System.out.println("NOW:: Jama item: " + jamaItem.toString() + " has parent: " + jamaItem.getParent().toString());
 
 //            jamaItem.associate(1972342, jamaInstance);
 //            System.out.println(jamaItem);

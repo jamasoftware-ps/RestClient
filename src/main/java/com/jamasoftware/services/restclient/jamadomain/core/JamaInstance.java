@@ -162,6 +162,14 @@ public class JamaInstance implements JamaDomainObject {
         return jamaClient.getItemTypeImage(url);
     }
 
+    public String getOpenUrl(JamaItem item) {
+        return this.jamaConfig.getOpenUrlBase() + item.getId() + "?project=" + item.getProject().getId();
+    }
+
+    public void setBaseOpenUrl(String baseOpenUrl) {
+        this.jamaConfig.setOpenUrlBase(baseOpenUrl);
+    }
+
     public void setResourceTimeOut(Integer resourceTimeOut) {
         this.resourceTimeOut = resourceTimeOut;
     }
