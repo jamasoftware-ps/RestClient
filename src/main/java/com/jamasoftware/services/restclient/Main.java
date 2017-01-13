@@ -32,15 +32,14 @@ public class Main {
             // TODO fail good (John) attempted to retireve item types for invalid item
             JamaInstance jamaInstance = new JamaInstance(new JamaConfig(true));
 
+
             JamaItem jamaItem = jamaInstance.getItem(2120041);
             JamaItem newParentFolder = jamaInstance.getItem(1972340);
             JamaParent jamaParent = jamaItem.getParent();
             System.out.println("Jama item: " + jamaItem.toString() + " has parent: " + jamaParent.toString());
 
             System.out.println("And this item's open url is : " + jamaInstance.getOpenUrl(jamaItem));
-
-
-
+            JamaProject jamaProject = jamaInstance.getProject(2120041);
 
 //            System.out.println("New jama parent is: " + newParentFolder.toString());
 
