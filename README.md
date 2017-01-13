@@ -41,19 +41,23 @@ Please note that this client is distributed as-is as an example and will likely 
 #####Projects: 
 - GET all projects 
 - GET project by ID
+
 #####Item Types
 - GET all Item Types in a Jama instance 
 - GET an Item Type by id
 - GET an Item Type by name
 - GET an Item Type's image
+
 #####Items
 - GET all items by project 
 - PUT/POST items by project
 - GET/PUT/DELETE item locks
 - Change an item's location 
 - GET all downstream/upstream related items
+
 #####Relationship Types
 - GET all relationship types in a project
+
 #####Relationships
 - GET all relationships in a Jama project 
 - GET a relationship's upstream/downstream items
