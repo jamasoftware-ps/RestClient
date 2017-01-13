@@ -29,8 +29,8 @@ Please note that this client is distributed as-is as an example and will likely 
 2. Fill out the CONFIG section of the jama.properties file.  The necessary fields are:
   - ```username```
   - ```password```
-  - ```base_url```
-  - ```resourceTimeOut```     - refresh time for items
+  - ```base_url```            - root URL of Jama Instance
+  - ```resourceTimeOut```     - refresh time for items in seconds
   
 3. Change the name of the `jama.properties.dist`  to  `jama.properties`
 
