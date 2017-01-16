@@ -31,10 +31,6 @@ Please note that this client is distributed as-is as an example and will likely 
   - ```password```
   - ```base_url```
   - ```resourceTimeOut```     - refresh time for items
-  
-3. Change the name of the `jama.properties.dist`  to  `jama.properties`
-
-
 
 ### REST Calls Supported in the Client
 

@@ -246,9 +246,13 @@ public class JamaItem extends LazyResource implements JamaParent{
     }
 
     public boolean acquireLock() throws RestClientException {
-        sendLockRequest(true);
-        forceFetch();
-        return getJamaInstance().getCurrentUser().equals(lockStatus.getLockedBy());
+        try {
+            sendLockRequest(true);
+            forceFetch();
+            return getJamaInstance().getCurrentUser().equals(lockStatus.getLockedBy());
+        } catch (RestClientException e) {
+            return false;
+        }
     }
 
     public void lock() throws RestClientException {
@@ -258,6 +262,23 @@ public class JamaItem extends LazyResource implements JamaParent{
 
     private void sendLockRequest(boolean lockState) throws RestClientException {
         getJamaInstance().putRawData("items/" + getId() + "/lock", "{\"locked\":" + lockState + "}" );
+    }
+
+    // returns status of releasing the lock, for non org admin users to verify whether or not their request was successful
+    public boolean releaseLock() throws RestClientException {
+        try {
+            sendLockRequest(false);
+            forceFetch();
+            return getJamaInstance().getCurrentUser().equals(lockStatus.getLockedBy());
+        } catch (RestClientException e) {
+            return false;
+        }
+    }
+
+    // if user knows they are an org admin user and can override the lock status of an item locked by another user
+    public void unlock() throws RestClientException {
+        sendLockRequest(false);
+        forceFetch();
     }
 
     @Override

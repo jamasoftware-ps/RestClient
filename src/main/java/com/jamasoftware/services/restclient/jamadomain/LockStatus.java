@@ -37,4 +37,6 @@ public class LockStatus {
     public String toString(){
         return isLocked ? "Locked" : "Not locked";
     }
+
+
 }

@@ -5,6 +5,8 @@ import com.jamasoftware.services.restclient.jamadomain.core.JamaInstance;
 import com.jamasoftware.services.restclient.jamadomain.lazyresources.JamaItem;
 import com.jamasoftware.services.restclient.jamadomain.lazyresources.JamaProject;
 
+import java.util.List;
+
 public class Main {
     public static void printAll(JamaParent jamaParent, int indent) throws RestClientException {
         String indentString = "";
@@ -32,18 +34,39 @@ public class Main {
             // TODO fail good (John) attempted to retireve item types for invalid item
             JamaInstance jamaInstance = new JamaInstance(new JamaConfig(true));
 
+            System.out.println("Current user is: " + jamaInstance.getCurrentUser());
+            JamaItem jamaItem = jamaInstance.getItem(1972323);
+            System.out.println("Jama item is " + jamaItem.isLocked() + " lock status");
+            System.out.println("Jama item is locked by : " + jamaItem.lockedBy().getUsername());
+            System.out.println("Jama item is " + jamaItem.isLockedByCurrentUser() + " locked by current user");
+            System.out.println("Now unlocking item");
 
-            JamaItem jamaItem = jamaInstance.getItem(2120041);
-            JamaItem newParentFolder = jamaInstance.getItem(1972340);
-            JamaParent jamaParent = jamaItem.getParent();
-            System.out.println("Jama item: " + jamaItem.toString() + " has parent: " + jamaParent.toString());
+//            for org admin users with override capabilities:
+//            jamaItem.unlock();
+//            jamaItem.lock();     //optional to acquire lock on the item
 
-            System.out.println("And this item's open url is : " + jamaInstance.getOpenUrl(jamaItem));
-            JamaProject jamaProject = jamaInstance.getProject(2120041);
+//            for non org admin users, they will need to verify unlocking/acquiring lock before proceeding:
+//            System.out.println(jamaItem.releaseLock());     //will return false if item could not be unlocked, true otherwise
+//            System.out.println(jamaItem.acquireLock());     //will return true if item was locked, false otherwise
 
-//            System.out.println("New jama parent is: " + newParentFolder.toString());
 
-//            jamaItem = jamaItem.edit().setParent(newParentFolder).commit();
+            System.out.println("Status to release lock : " + jamaItem.releaseLock());
+            System.out.println("I have gotten the lock with status : " + jamaItem.acquireLock());
+            System.out.println("Jama item is " + jamaItem.isLocked() + " lock status");
+            System.out.println("Jama item is " + jamaItem.isLockedByCurrentUser() + " locked by current user");
+
+
+//            JamaItem newParentFolder = jamaInstance.getItem(1972340);
+//            JamaParent jamaParent = jamaItem.getParent();
+//            System.out.println("Jama item: " + jamaItem.toString() + " has parent: " + jamaParent.toString());
+//
+//            System.out.println("And this item's open url is : " + jamaInstance.getOpenUrl(jamaItem));
+//            JamaProject jamaProject = jamaInstance.getProject(2120041);
+//
+////            System.out.println("New jama parent is: " + newParentFolder.toString());
+
+
+//            System.out.println(jamaItem.getName());
 //            System.out.println("Added child to new parent");
 //            System.out.println("NOW:: Jama item: " + jamaItem.toString() + " has parent: " + jamaItem.getParent().toString());
 
@@ -85,6 +108,8 @@ public class Main {
 //            JamaItem component = jamaInstance
 //                    .createItem("John Component", jamaProject, jamaInstance.getItemType("Component"))
 //                    .commit();
+//
+//            jamaInstance.createItem();
 //
 //            JamaItem set = jamaInstance
 //                    .createItem("John Set", component, jamaInstance.getItemType("Set"))
