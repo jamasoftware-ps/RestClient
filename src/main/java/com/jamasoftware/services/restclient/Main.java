@@ -5,6 +5,8 @@ import com.jamasoftware.services.restclient.jamadomain.core.JamaInstance;
 import com.jamasoftware.services.restclient.jamadomain.lazyresources.JamaItem;
 import com.jamasoftware.services.restclient.jamadomain.lazyresources.JamaProject;
 
+import java.io.ByteArrayOutputStream;
+import java.io.OutputStreamWriter;
 import java.util.List;
 
 public class Main {
@@ -34,8 +36,13 @@ public class Main {
             // TODO fail good (John) attempted to retireve item types for invalid item
             JamaInstance jamaInstance = new JamaInstance(new JamaConfig(true));
 
-            System.out.println("Current user is: " + jamaInstance.getCurrentUser());
-            JamaItem jamaItem = jamaInstance.getItem(1972323);
+            JamaItem jamaItem = jamaInstance.getItem(1972338);
+//            JamaItem updated = jamaInstance.getItem(1972338);
+//            String description = jamaItem.getFieldValueByName("description").getValue().toString();
+//            updated = updated.edit().setFieldValue("description", description).commit();
+//            System.out.println(updated.getFieldValueByName("description"));
+//            System.out.println("done");
+
             System.out.println("Jama item is " + jamaItem.isLocked() + " lock status");
             System.out.println("Jama item is locked by : " + jamaItem.lockedBy().getUsername());
             System.out.println("Jama item is " + jamaItem.isLockedByCurrentUser() + " locked by current user");
@@ -46,9 +53,8 @@ public class Main {
 //            jamaItem.lock();     //optional to acquire lock on the item
 
 //            for non org admin users, they will need to verify unlocking/acquiring lock before proceeding:
-//            System.out.println(jamaItem.releaseLock());     //will return false if item could not be unlocked, true otherwise
-//            System.out.println(jamaItem.acquireLock());     //will return true if item was locked, false otherwise
-
+            System.out.println(jamaItem.releaseLock());     //will return false if item could not be unlocked, true otherwise
+            System.out.println(jamaItem.acquireLock());     //will return true if item was locked, false otherwise
 
             System.out.println("Status to release lock : " + jamaItem.releaseLock());
             System.out.println("I have gotten the lock with status : " + jamaItem.acquireLock());

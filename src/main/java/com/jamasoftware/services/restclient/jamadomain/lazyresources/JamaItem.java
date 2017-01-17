@@ -269,7 +269,11 @@ public class JamaItem extends LazyResource implements JamaParent{
         try {
             sendLockRequest(false);
             forceFetch();
-            return getJamaInstance().getCurrentUser().equals(lockStatus.getLockedBy());
+            if(lockStatus.getLockedBy() == null) {
+                return true;
+            } else {
+                return false;
+            }
         } catch (RestClientException e) {
             return false;
         }
