@@ -17,6 +17,8 @@ public abstract class JamaField implements SerializableJamaDomainObject {
 
     public abstract JamaFieldValue getValue();
 
+    public abstract String getType();
+
 
     public JamaInstance getJamaInstance() {
         return jamaInstance;

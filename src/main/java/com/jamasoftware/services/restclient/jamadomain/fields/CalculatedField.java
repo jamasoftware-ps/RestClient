@@ -9,4 +9,9 @@ public class CalculatedField extends JamaField {
         populateFieldValue(calculatedFieldValue);
         return calculatedFieldValue;
     }
+
+    @Override
+    public String getType() {
+        return "Calculated Field";
+    }
 }

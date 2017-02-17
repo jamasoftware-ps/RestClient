@@ -22,6 +22,11 @@ public class PickListField extends JamaField {
         return pickListFieldValue;
     }
 
+    @Override
+    public String getType() {
+        return "PickList Field";
+    }
+
     public PickList getPickList() {
         return pickList;
     }

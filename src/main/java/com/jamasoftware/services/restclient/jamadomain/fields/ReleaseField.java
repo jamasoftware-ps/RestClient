@@ -9,4 +9,9 @@ public class ReleaseField extends JamaField {
         populateFieldValue(releaseFieldValue);
         return releaseFieldValue;
     }
+
+    @Override
+    public String getType() {
+        return "Release Field";
+    }
 }

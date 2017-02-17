@@ -9,4 +9,9 @@ public class DateField extends JamaField {
         populateFieldValue(dateFieldValue);
         return dateFieldValue;
     }
+
+    @Override
+    public String getType() {
+        return "Date Field";
+    }
 }

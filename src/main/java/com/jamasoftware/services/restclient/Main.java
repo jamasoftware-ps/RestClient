@@ -2,12 +2,23 @@ package com.jamasoftware.services.restclient;
 
 import com.jamasoftware.services.restclient.exception.RestClientException;
 import com.jamasoftware.services.restclient.jamadomain.core.JamaInstance;
+import com.jamasoftware.services.restclient.jamadomain.fields.IntegerField;
+import com.jamasoftware.services.restclient.jamadomain.fields.JamaField;
+import com.jamasoftware.services.restclient.jamadomain.fields.PickListField;
+import com.jamasoftware.services.restclient.jamadomain.fields.TextField;
 import com.jamasoftware.services.restclient.jamadomain.lazyresources.JamaItem;
+import com.jamasoftware.services.restclient.jamadomain.lazyresources.JamaItemType;
 import com.jamasoftware.services.restclient.jamadomain.lazyresources.JamaProject;
+import com.jamasoftware.services.restclient.jamadomain.values.JamaFieldValue;
 
 import java.io.ByteArrayOutputStream;
 import java.io.OutputStreamWriter;
+import java.io.PrintStream;
+import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 import java.util.List;
+
+import static org.junit.Assert.assertTrue;
 
 public class Main {
     public static void printAll(JamaParent jamaParent, int indent) throws RestClientException {
@@ -28,7 +39,7 @@ public class Main {
     }
 
     @SuppressWarnings("unchecked")
-    public static void main(String[] ignore) {
+    public static void main(String[] ignore) throws UnsupportedEncodingException, RestClientException {
 
 
 
@@ -36,30 +47,53 @@ public class Main {
             // TODO fail good (John) attempted to retireve item types for invalid item
             JamaInstance jamaInstance = new JamaInstance(new JamaConfig(true));
 
-            JamaItem jamaItem = jamaInstance.getItem(1972338);
-//            JamaItem updated = jamaInstance.getItem(1972338);
+
+
+//            System.out.println(new String(fieldValue.getValue().toString().getBytes("UTF-8")));
+//            assertTrue(unicodeString.equals(fieldValue.getValue().toString()));
+//            PrintStream out = new PrintStream(System.out, true, "UTF-8");
+//
+//            out.println("Unicoded: " + fieldValue.getValue().toString());
+//
+//            out.println("description: " + jamaItem.getFieldValueByName("description"));
+            System.out.println("done");
+
+
+
+//            itemA.edit().setFieldValue("description", unicodeString).commit();
+//            JamaFieldValue fieldValue = itemA.getFieldValueByName("description");
+//            System.out.println(fieldValue.getValue());
+//            assertTrue(unicodeString.equals(fieldValue.getValue().toString()));
+
+            JamaItemType itemType = jamaInstance.getItemType(89009);
+            ArrayList<JamaField> fields = (ArrayList<JamaField>) itemType.getFields();
+            for(JamaField field : fields) {
+                if(field.getType().equals("Text Field")) {
+                    System.out.println("Text Field: " + ((TextField)field).toString());
+                }
+            }
 //            String description = jamaItem.getFieldValueByName("description").getValue().toString();
 //            updated = updated.edit().setFieldValue("description", description).commit();
 //            System.out.println(updated.getFieldValueByName("description"));
 //            System.out.println("done");
 
-            System.out.println("Jama item is " + jamaItem.isLocked() + " lock status");
-            System.out.println("Jama item is locked by : " + jamaItem.lockedBy().getUsername());
-            System.out.println("Jama item is " + jamaItem.isLockedByCurrentUser() + " locked by current user");
-            System.out.println("Now unlocking item");
-
-//            for org admin users with override capabilities:
-//            jamaItem.unlock();
-//            jamaItem.lock();     //optional to acquire lock on the item
-
-//            for non org admin users, they will need to verify unlocking/acquiring lock before proceeding:
-            System.out.println(jamaItem.releaseLock());     //will return false if item could not be unlocked, true otherwise
-            System.out.println(jamaItem.acquireLock());     //will return true if item was locked, false otherwise
-
-            System.out.println("Status to release lock : " + jamaItem.releaseLock());
-            System.out.println("I have gotten the lock with status : " + jamaItem.acquireLock());
-            System.out.println("Jama item is " + jamaItem.isLocked() + " lock status");
-            System.out.println("Jama item is " + jamaItem.isLockedByCurrentUser() + " locked by current user");
+//            System.out.println("Jama item is " + jamaItem.isLocked() + " lock status");
+//            System.out.println("Jama item is locked by : " + jamaItem.lockedBy().getUsername());
+//            System.out.println("Jama item is " + jamaItem.isLockedByCurrentUser() + " locked by current user");
+//            System.out.println("Now unlocking item");
+//
+////            for org admin users with override capabilities:
+////            jamaItem.unlock();
+////            jamaItem.lock();     //optional to acquire lock on the item
+//
+////            for non org admin users, they will need to verify unlocking/acquiring lock before proceeding:
+//            System.out.println(jamaItem.releaseLock());     //will return false if item could not be unlocked, true otherwise
+//            System.out.println(jamaItem.acquireLock());     //will return true if item was locked, false otherwise
+//
+//            System.out.println("Status to release lock : " + jamaItem.releaseLock());
+//            System.out.println("I have gotten the lock with status : " + jamaItem.acquireLock());
+//            System.out.println("Jama item is " + jamaItem.isLocked() + " lock status");
+//            System.out.println("Jama item is " + jamaItem.isLockedByCurrentUser() + " locked by current user");
 
 
 //            JamaItem newParentFolder = jamaInstance.getItem(1972340);

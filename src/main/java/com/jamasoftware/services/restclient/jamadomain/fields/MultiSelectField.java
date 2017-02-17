@@ -20,4 +20,9 @@ public class MultiSelectField extends JamaField {
         populateFieldValue(multiSelectFieldValue);
         return multiSelectFieldValue;
     }
+
+    @Override
+    public String getType() {
+        return "MultiSelect Field";
+    }
 }

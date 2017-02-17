@@ -9,4 +9,9 @@ public class RichTextField extends JamaField {
         populateFieldValue(richTextFieldValue);
         return richTextFieldValue;
     }
+
+    @Override
+    public String getType() {
+        return "RichText Field";
+    }
 }

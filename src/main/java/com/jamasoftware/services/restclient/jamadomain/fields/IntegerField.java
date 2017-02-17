@@ -9,4 +9,9 @@ public class IntegerField extends JamaField {
         populateFieldValue(integerFieldValue);
         return integerFieldValue;
     }
+
+    @Override
+    public String getType() {
+        return "Integer Field";
+    }
 }

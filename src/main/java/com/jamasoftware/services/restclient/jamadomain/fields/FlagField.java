@@ -9,4 +9,9 @@ public class FlagField extends JamaField {
         populateFieldValue(flagFieldValue);
         return flagFieldValue;
     }
+
+    @Override
+    public String getType() {
+        return "Flag Field";
+    }
 }

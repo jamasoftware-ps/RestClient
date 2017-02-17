@@ -9,4 +9,10 @@ public class RollupField extends JamaField {
         populateFieldValue(rollupFieldValue);
         return rollupFieldValue;
     }
+
+    @Override
+    public String getType() {
+        return "Rollup Field";
+    }
+
 }

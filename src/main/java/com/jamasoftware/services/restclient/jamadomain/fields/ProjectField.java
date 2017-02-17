@@ -8,4 +8,9 @@ public class ProjectField extends JamaField {
         populateFieldValue(projectFieldValue);
         return projectFieldValue;
     }
+
+    @Override
+    public String getType() {
+        return "Project Field";
+    }
 }

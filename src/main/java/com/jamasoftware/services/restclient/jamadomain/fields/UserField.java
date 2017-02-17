@@ -9,4 +9,9 @@ public class UserField extends JamaField {
         populateFieldValue(userFieldValue);
         return userFieldValue;
     }
+
+    @Override
+    public String getType() {
+        return "User Field";
+    }
 }

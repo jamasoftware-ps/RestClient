@@ -9,4 +9,9 @@ public class TestCaseStepsField extends JamaField {
         populateFieldValue(testCaseStepsFieldValue);
         return testCaseStepsFieldValue;
     }
+
+    @Override
+    public String getType() {
+        return "TestCaseSteps Field";
+    }
 }

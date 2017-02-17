@@ -9,4 +9,9 @@ public class TextBoxField extends JamaField {
         populateFieldValue(textBoxFieldValue);
         return textBoxFieldValue;
     }
+
+    @Override
+    public String getType() {
+        return "TextBox Field";
+    }
 }

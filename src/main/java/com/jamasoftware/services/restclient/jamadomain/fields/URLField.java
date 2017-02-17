@@ -9,4 +9,9 @@ public class URLField extends JamaField {
         populateFieldValue(urlFieldValue);
         return urlFieldValue;
     }
+
+    @Override
+    public String getType() {
+        return "URL Field";
+    }
 }

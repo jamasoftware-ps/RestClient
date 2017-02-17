@@ -9,4 +9,9 @@ public class TimeField extends JamaField {
         populateFieldValue(timeFieldValue);
         return timeFieldValue;
     }
+
+    @Override
+    public String getType() {
+        return "Time Field";
+    }
 }
