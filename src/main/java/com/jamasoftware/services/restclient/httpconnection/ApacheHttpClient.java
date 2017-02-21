@@ -85,7 +85,8 @@ public class ApacheHttpClient implements HttpClient {
 
     private String getEntityContentOrNull(HttpEntity responseEntity) {
         try {
-            return (new BufferedReader(new InputStreamReader(responseEntity.getContent()))).readLine();
+            return (new BufferedReader(new InputStreamReader(responseEntity.getContent(), "UTF-8"))).readLine();
+//            return (new BufferedReader(new InputStreamReader(responseEntity.getContent()))).readLine();
         } catch(IOException | NullPointerException e) {
             return null;
         }
