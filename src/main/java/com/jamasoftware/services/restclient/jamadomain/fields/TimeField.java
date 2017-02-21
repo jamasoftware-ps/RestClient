@@ -10,8 +10,12 @@ public class TimeField extends JamaField {
         return timeFieldValue;
     }
 
-    @Override
-    public String getType() {
-        return "Time Field";
+    public TimeField(String type) {
+        super(type);
     }
+
+    public TimeField() {
+        super();
+    }
+
 }

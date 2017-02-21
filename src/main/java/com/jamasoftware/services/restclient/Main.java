@@ -2,23 +2,12 @@ package com.jamasoftware.services.restclient;
 
 import com.jamasoftware.services.restclient.exception.RestClientException;
 import com.jamasoftware.services.restclient.jamadomain.core.JamaInstance;
-import com.jamasoftware.services.restclient.jamadomain.fields.IntegerField;
-import com.jamasoftware.services.restclient.jamadomain.fields.JamaField;
-import com.jamasoftware.services.restclient.jamadomain.fields.PickListField;
-import com.jamasoftware.services.restclient.jamadomain.fields.TextField;
+import com.jamasoftware.services.restclient.jamadomain.fields.*;
 import com.jamasoftware.services.restclient.jamadomain.lazyresources.JamaItem;
 import com.jamasoftware.services.restclient.jamadomain.lazyresources.JamaItemType;
 import com.jamasoftware.services.restclient.jamadomain.lazyresources.JamaProject;
-import com.jamasoftware.services.restclient.jamadomain.values.JamaFieldValue;
-
-import java.io.ByteArrayOutputStream;
-import java.io.OutputStreamWriter;
-import java.io.PrintStream;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
-import java.util.List;
-
-import static org.junit.Assert.assertTrue;
 
 public class Main {
     public static void printAll(JamaParent jamaParent, int indent) throws RestClientException {
@@ -68,8 +57,8 @@ public class Main {
             JamaItemType itemType = jamaInstance.getItemType(89009);
             ArrayList<JamaField> fields = (ArrayList<JamaField>) itemType.getFields();
             for(JamaField field : fields) {
-                if(field.getType().equals("Text Field")) {
-                    System.out.println("Text Field: " + ((TextField)field).toString());
+                if(field.type.equals("DATE")) {
+                    System.out.println(field.getValue().getName());
                 }
             }
 //            String description = jamaItem.getFieldValueByName("description").getValue().toString();

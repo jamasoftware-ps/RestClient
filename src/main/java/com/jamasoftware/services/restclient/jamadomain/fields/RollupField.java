@@ -10,9 +10,13 @@ public class RollupField extends JamaField {
         return rollupFieldValue;
     }
 
-    @Override
-    public String getType() {
-        return "Rollup Field";
+    public RollupField(String type) {
+        super(type);
     }
+
+    public RollupField() {
+        super();
+    }
+
 
 }

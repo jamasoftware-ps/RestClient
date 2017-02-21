@@ -473,68 +473,68 @@ public class SimpleJsonDeserializer {
         JamaField field = null;
         switch (type) {
             case "DATE":
-                field = new DateField();
+                field = new DateField(type);
                 break;
             case "BOOLEAN":
-                field = new FlagField();
+                field = new FlagField(type);
                 break;
             case "INTEGER":
-                field = new IntegerField();
+                field = new IntegerField(type);
                 break;
             case "MULTI_LOOKUP":
-                MultiSelectField multiSelectField = new MultiSelectField();
+                MultiSelectField multiSelectField = new MultiSelectField(type);
                 int multiListId = util.requireInt(fieldJson, "pickList");
                 multiSelectField.setPickList((PickList)checkPool(PickList.class, multiListId, jamaInstance));
                 field = multiSelectField;
                 break;
             case "LOOKUP":
-                PickListField pickListField = new PickListField();
+                PickListField pickListField = new PickListField(type);
                 int pickListId = util.requireInt(fieldJson, "pickList");
                 pickListField.setPickList((PickList)checkPool(PickList.class, pickListId, jamaInstance));
                 field = pickListField;
                 break;
             case "RELEASE":
-                field = new ReleaseField();
+                field = new ReleaseField(type);
                 break;
             case "URL_STRING":
-                field = new URLField();
+                field = new URLField(type);
                 break;
             case "USER":
-                field = new UserField();
+                field = new UserField(type);
                 break;
             case "TEXT":
                 String textType = (String) fieldJson.get("textType");
                 if (textType.equals("RICHTEXT")) {
-                    field = new RichTextField();
+                    field = new RichTextField(textType);
                 } else if (textType.equals("TEXTAREA")) {
-                    field = new TextBoxField();
+                    field = new TextBoxField(textType);
                 }
                 break;
             case "STRING":
-                field = new TextField();
+                field = new TextField(type);
                 break;
             //todo: I'm betting that these are the same
             case "TEST_RUN_STATUS":
             case "TEST_CASE_STATUS":
-                field = new TestCaseStatusField();
+                field = new TestCaseStatusField(type);
                 break;
             case "STEPS":
-                field = new TestCaseStepsField();
+                field = new TestCaseStepsField(type);
                 break;
             case "PROJECT":
-                field = new ProjectField();
+                field = new ProjectField(type);
                 break;
             case "TIME":
-                field = new TimeField();
+                field = new TimeField(type);
                 break;
             case "DOCUMENT_TYPE_ITEM_LOOKUP":
             case "DOCUMENT_TYPE_CATEGORY_ITEM_LOOKUP":
                 return null;
             case "ROLLUP":
-                field = new RollupField();
+                field = new RollupField(type);
                 break;
             case "CALCULATED":
-                field = new CalculatedField();
+                field = new CalculatedField(type);
                 break;
         }
         if(field == null) {

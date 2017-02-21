@@ -10,8 +10,12 @@ public class TextField extends JamaField {
         return textFieldValue;
     }
 
-    @Override
-    public String getType() {
-        return "Text Field";
+    public TextField(String type) {
+        super(type);
     }
+
+    public TextField() {
+        super();
+    }
+
 }

@@ -10,8 +10,12 @@ public class RichTextField extends JamaField {
         return richTextFieldValue;
     }
 
-    @Override
-    public String getType() {
-        return "RichText Field";
+    public RichTextField(String type) {
+        super(type);
     }
+
+    public RichTextField() {
+        super();
+    }
+
 }

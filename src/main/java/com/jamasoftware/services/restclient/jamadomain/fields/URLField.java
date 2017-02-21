@@ -10,8 +10,12 @@ public class URLField extends JamaField {
         return urlFieldValue;
     }
 
-    @Override
-    public String getType() {
-        return "URL Field";
+    public URLField(String type) {
+        super(type);
     }
+
+    public URLField() {
+        super();
+    }
+
 }

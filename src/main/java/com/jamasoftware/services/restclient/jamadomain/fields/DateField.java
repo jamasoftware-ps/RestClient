@@ -10,8 +10,12 @@ public class DateField extends JamaField {
         return dateFieldValue;
     }
 
-    @Override
-    public String getType() {
-        return "Date Field";
+    public DateField(String type) {
+        super(type);
     }
+
+    public DateField() {
+        super();
+    }
+
 }

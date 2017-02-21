@@ -4,6 +4,8 @@ import com.jamasoftware.services.restclient.jamadomain.core.JamaInstance;
 import com.jamasoftware.services.restclient.jamadomain.SerializableJamaDomainObject;
 import com.jamasoftware.services.restclient.jamadomain.values.JamaFieldValue;
 
+import java.lang.reflect.Field;
+
 public abstract class JamaField implements SerializableJamaDomainObject {
     private JamaInstance jamaInstance;
 
@@ -14,10 +16,11 @@ public abstract class JamaField implements SerializableJamaDomainObject {
     private boolean required;
     private boolean triggerSuspect;
     private boolean synchronize;
+    public final String type;
 
     public abstract JamaFieldValue getValue();
 
-    public abstract String getType();
+//    public abstract String getType();
 
 
     public JamaInstance getJamaInstance() {
@@ -98,4 +101,10 @@ public abstract class JamaField implements SerializableJamaDomainObject {
     public String toString() {
         return getName();
     }
+
+    public JamaField(String type) {
+        this.type = type;
+    }
+
+    public JamaField() {this.type = null;}
 }

@@ -10,8 +10,12 @@ public class CalculatedField extends JamaField {
         return calculatedFieldValue;
     }
 
-    @Override
-    public String getType() {
-        return "Calculated Field";
+    public CalculatedField(String type) {
+        super(type);
     }
+
+    public CalculatedField() {
+        super();
+    }
+
 }

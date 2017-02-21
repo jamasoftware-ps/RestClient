@@ -10,8 +10,11 @@ public class TestCaseStatusField extends JamaField {
         return testCaseStatusFieldValue;
     }
 
-    @Override
-    public String getType() {
-        return "TestCaseStatus Field";
+    public TestCaseStatusField(String type) {
+        super(type);
+    }
+
+    public TestCaseStatusField() {
+        super();
     }
 }

@@ -21,8 +21,12 @@ public class MultiSelectField extends JamaField {
         return multiSelectFieldValue;
     }
 
-    @Override
-    public String getType() {
-        return "MultiSelect Field";
+    public MultiSelectField(String type) {
+        super(type);
     }
+
+    public MultiSelectField() {
+        super();
+    }
+
 }

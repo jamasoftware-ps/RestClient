@@ -10,8 +10,12 @@ public class FlagField extends JamaField {
         return flagFieldValue;
     }
 
-    @Override
-    public String getType() {
-        return "Flag Field";
+    public FlagField(String type) {
+        super(type);
     }
+
+    public FlagField() {
+        super();
+    }
+
 }

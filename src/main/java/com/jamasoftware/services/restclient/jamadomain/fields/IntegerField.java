@@ -10,8 +10,12 @@ public class IntegerField extends JamaField {
         return integerFieldValue;
     }
 
-    @Override
-    public String getType() {
-        return "Integer Field";
+    public IntegerField(String type) {
+        super(type);
     }
+
+    public IntegerField() {
+        super();
+    }
+
 }

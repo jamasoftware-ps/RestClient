@@ -10,8 +10,12 @@ public class ReleaseField extends JamaField {
         return releaseFieldValue;
     }
 
-    @Override
-    public String getType() {
-        return "Release Field";
+    public ReleaseField(String type) {
+        super(type);
     }
+
+    public ReleaseField() {
+        super();
+    }
+
 }

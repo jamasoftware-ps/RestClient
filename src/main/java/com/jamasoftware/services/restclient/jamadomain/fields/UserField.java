@@ -10,8 +10,12 @@ public class UserField extends JamaField {
         return userFieldValue;
     }
 
-    @Override
-    public String getType() {
-        return "User Field";
+    public UserField(String type) {
+        super(type);
     }
+
+    public UserField() {
+        super();
+    }
+
 }
