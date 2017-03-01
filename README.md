@@ -9,22 +9,14 @@ The client will be continuously updated in hopes of creating a more robust clien
 
 Please note that this client is distributed as-is as an example and will likely require modification to work for your specific use-case.
 
-### How it works
-1. All objects retrieved from Jama are associated via their id's to a `JamaInstance` object. This prevents the client from holding onto multiple versions of a given object. 
-2. Once an object is retrieved from Jama, it has a lifetime equal to the `resourceTimeOut` value in the `jama.properties` file. This ensures users are always referencing the object's latest version as it exists in Jama.
-3. When a user attempts to access any field within a `JamaDomainObject`, the client will determine whether or not to fetch the object from Jama. If the time since its last fetch exceeds that of `resourceTimeOut`, then the item will be fetched.
-4. The `resourceTimeOut` should be between 6 and 15 seconds. Less than 6 seconds can trigger too many fetches, whereas more than 15 seconds can lead to outdated data in the client. Users should attempt different values for their `resourceTimeOut` depending on their use case. 
-
-
 
 ## Requirements
 - Module SDK `Java 1.8` or higher.
 - Language level `7 - Diamonds, ARM, multi-catch etc.`
 
 
-
 ## Setup
-1. As always, set up a test environment and project to test the script.
+1. As always, set up a test environment and test project.
 
 2. Fill out the CONFIG section of the jama.properties file.  The necessary fields are:
   - ```username```
@@ -71,5 +63,5 @@ Please note that this client is distributed as-is as an example and will likely 
 
 
 ## Version
-Version 1.0 released on 1/XX/2017
+Version 1.0 released on March 1, 2017
 
