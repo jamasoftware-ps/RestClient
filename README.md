@@ -59,7 +59,96 @@ Please note that this client is distributed as-is as an example and will likely 
 
 
 ## Usage Examples
+#### GET all Item Types in a Jama Instance 
+```
+try {
+
+    JamaInstance jamaInstance = new JamaInstance(new JamaConfig(true));
+    List<JamaItemType> jamaItemTypes = jamaInstance.getItemTypes();
+    System.out.println("Listing all Jama Instance Item Type names and IDs:");
+    for (JamaItemType jamaItemType : jamaItemTypes) {
+        System.out.println(jamaItemType.getDisplayPlural() + " with API ID " + jamaItemType.getId());
+    }
+} catch(RestClientException e) {
+    e.printStackTrace();
+}
+```
+#### GET all Fields of a Jama Item Type
+```
+try {
+
+    JamaInstance jamaInstance = new JamaInstance(new JamaConfig(true));
+    JamaItem jamaItem = jamaInstance.getItem(1972331);
+    JamaItemType itemType = jamaItem.getItemType();
+    List<JamaField> jamaFields = itemType.getFields();
+    for(JamaField jamaField : jamaFields) {
+        System.out.println("Field label: " +  jamaField.getLabel());
+    }
+} catch (RestClientException e) {
+    e.printStackTrace();
+}
+```
 #### GET all Projects in a Jama Instance
+```
+try {
+    JamaInstance jamaInstance = new JamaInstance(new JamaConfig(true));
+    ArrayList<JamaProject> projects = (ArrayList<JamaProject>) jamaInstance.getProjects();
+    System.out.println("Listing all Project names and IDs:");
+    for (JamaProject project : projects) {
+        System.out.println(project.getName() + " with API ID " + project.getId());
+    }
+} catch(RestClientException e) {
+        e.printStackTrace();
+}
+```
+#### GET all Relationships in a Jama Project
+```
+try {
+
+    JamaInstance jamaInstance = new JamaInstance(new JamaConfig(true));
+    JamaProject project = jamaInstance.getProject(20183);
+    List<JamaRelationship>  jamaRelationships = project.getRelationships();
+    System.out.println("Listing all Relationships in Project");
+    for (JamaRelationship jamaRelationship : jamaRelationships) {
+        System.out.println(
+                "Relationship ID: " + jamaRelationship.getId() 
+                + " Upstream Item ID: " + jamaRelationship.getFromItem().getId() 
+                + "Downstream ItemID: " + jamaRelationship.getToItem().getId());
+    }
+} catch(RestClientException e) {
+    e.printStackTrace();
+}
+```
+#### GET all Items in a Jama Project
+```
+try {
+
+    JamaInstance jamaInstance = new JamaInstance(new JamaConfig(true));
+    JamaProject project = jamaInstance.getProject(20183);
+    List<JamaItem> jamaItems = project.getItems();
+    System.out.println("Listing all Project Item names and IDs:");
+    for (JamaItem jamaItem : jamaItems) {
+        System.out.println(jamaItem.getName() + " with API ID " + jamaItem.getId());
+    }
+} catch(RestClientException e) {
+    e.printStackTrace();
+}
+```
+#### Update a Jama Item's Description
+```
+try {
+
+    JamaInstance jamaInstance = new JamaInstance(new JamaConfig(true));
+    JamaItem jamaItem = jamaInstance.getItem(2120043);
+    JamaItem newParent = jamaInstance.getItem(2120044);
+    System.out.println("Original parent ID: " + jamaItem.getParent().getId());
+    jamaItem.edit().setParent(newParent).commit();
+    System.out.println("Updated parent ID: " + jamaItem.getParent().getId());
+} catch (RestClientException e) {
+    e.printStackTrace();
+}
+```
+#### Change a Jama Item's Location in a Project's Hierarchy Tree
 ```
 try {
         JamaInstance jamaInstance = new JamaInstance(new JamaConfig(true));
@@ -72,12 +161,32 @@ try {
             e.printStackTrace();
     }
 ```
-       
-#### GET all Items in a Jama Project
-#### GET all Item Types in a Jama Project
-#### GET all Relationships in a Jama Project
 #### GET all Downstream Related Items from a Jama Item
-#### Update a Jama Item's Description
-#### Change a Jama Item's Location in a Project's Hierarchy Tree
+```
+try {
+
+    JamaInstance jamaInstance = new JamaInstance(new JamaConfig(true));
+    JamaItem jamaItem = jamaInstance.getItem(2120042);
+    List<JamaItem> downstreamRelatedItems = jamaItem.getDownstreamItems();
+    System.out.println("Listing all Downstream Related Items from Item: ");
+    for (JamaItem downstreamRelatedItem : downstreamRelatedItems) {
+        System.out.println("Item : " + downstreamRelatedItem.getName() + " with ID: " + downstreamRelatedItem.getId());
+    }
+} catch(RestClientException e) {
+    e.printStackTrace();
+}
+```
 #### Lock/Unlock a Jama Item
-#### GET all Fields of a Jama Item Type
+```
+try {
+
+    JamaInstance jamaInstance = new JamaInstance(new JamaConfig(true));
+    JamaItem jamaItem = jamaInstance.getItem(2120042);
+    jamaItem.lock();
+    System.out.println(jamaItem.isLocked());
+    jamaItem.unlock();
+    System.out.println(jamaItem.isLocked());
+} catch(RestClientException e) {
+    e.printStackTrace();
+}
+```
