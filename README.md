@@ -59,9 +59,25 @@ Please note that this client is distributed as-is as an example and will likely 
 
 
 ## Usage Examples
-
-
-
-## Version
-Version 1.0 released on March 1, 2017
-
+#### GET all Projects in a Jama Instance
+```
+try {
+        JamaInstance jamaInstance = new JamaInstance(new JamaConfig(true));
+        ArrayList<JamaProject> projects = (ArrayList<JamaProject>) jamaInstance.getProjects();
+        System.out.println("Listing all project names and IDs:");
+        for (JamaProject project : projects) {
+            System.out.println(project.getName() + " with API ID " + project.getId());
+        }
+    } catch(RestClientException e) {
+            e.printStackTrace();
+    }
+```
+       
+#### GET all Items in a Jama Project
+#### GET all Item Types in a Jama Project
+#### GET all Relationships in a Jama Project
+#### GET all Downstream Related Items from a Jama Item
+#### Update a Jama Item's Description
+#### Change a Jama Item's Location in a Project's Hierarchy Tree
+#### Lock/Unlock a Jama Item
+#### GET all Fields of a Jama Item Type
