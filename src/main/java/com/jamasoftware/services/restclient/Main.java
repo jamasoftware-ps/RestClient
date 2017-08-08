@@ -2,12 +2,15 @@ package com.jamasoftware.services.restclient;
 
 import com.jamasoftware.services.restclient.exception.RestClientException;
 import com.jamasoftware.services.restclient.jamadomain.core.JamaInstance;
-import com.jamasoftware.services.restclient.jamadomain.fields.*;
 import com.jamasoftware.services.restclient.jamadomain.lazyresources.JamaItem;
-import com.jamasoftware.services.restclient.jamadomain.lazyresources.JamaItemType;
 import com.jamasoftware.services.restclient.jamadomain.lazyresources.JamaProject;
+import com.jamasoftware.services.restclient.jamadomain.lazyresources.JamaRelationship;
+import com.jamasoftware.services.restclient.jamadomain.values.JamaFieldValue;
+
 import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
+import java.util.List;
+
+import static org.junit.Assert.assertTrue;
 
 public class Main {
     public static void printAll(JamaParent jamaParent, int indent) throws RestClientException {
@@ -33,8 +36,47 @@ public class Main {
 
 
         try {
-            // TODO fail good (John) attempted to retireve item types for invalid item
+            // TODO fail good attempted to retireve item types for invalid item
+
+//            JamaConfig jamaConfig = new JamaConfig(false);
+//            jamaConfig.setApiKey("apiKey");
+//            jamaConfig.setBaseUrl("https://{baseURL}.jamacloud.com");
+//            jamaConfig.setUsername("api_user");
+//            jamaConfig.setPassword("password");
+//            jamaConfig.setResourceTimeOut(6);
             JamaInstance jamaInstance = new JamaInstance(new JamaConfig(true));
+            JamaItem item = jamaInstance.getItem(2254351);
+            JamaFieldValue desc = item.getFieldValueByName("description");
+            String newDesc = "WHEN the broadcast request is intended to deliver to the secure inbox for an online banking customer,\r\n     IF the recipient has a secure inbox,\r\n          THEN the notification will be sent to the secure inbox\r\n           ELSE a secure inbox will be created and the notification sent to the  secure inbox.\r\n     END IF\r\n\r\nWHEN the broadcast request is intended to deliver to external destinations, obtain and use email addresses in the following order of preference:\r\n   * Email address received in the data file\r\n   * Email address stored in the ANG database\r\n   * Email address from system of record (using ECN or XAID)\r\n\r\n     IF no email address can be obtained\r\n     THEN no email notification will be sent\r\n     ENDIF";
+            String updated = newDesc.replace("\r\n", "<br>").replaceAll(" ", "&nbsp;");
+            item.edit()
+                    .setFieldValue("description", updated)
+                    .commit();
+            JamaItem updatedItem = jamaInstance.getItem(2254351);
+            System.out.println(updatedItem.toString());
+            System.out.println("here");
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -45,7 +87,6 @@ public class Main {
 //            out.println("Unicoded: " + fieldValue.getValue().toString());
 //
 //            out.println("description: " + jamaItem.getFieldValueByName("description"));
-            System.out.println("done");
 
 
 
@@ -54,13 +95,13 @@ public class Main {
 //            System.out.println(fieldValue.getValue());
 //            assertTrue(unicodeString.equals(fieldValue.getValue().toString()));
 
-            JamaItemType itemType = jamaInstance.getItemType(89009);
-            ArrayList<JamaField> fields = (ArrayList<JamaField>) itemType.getFields();
-            for(JamaField field : fields) {
-                if(field.type.equals("DATE")) {
-                    System.out.println(field.getValue().getName());
-                }
-            }
+//            JamaItemType itemType = jamaInstance.getItemType(89009);
+//            ArrayList<JamaField> fields = (ArrayList<JamaField>) itemType.getFields();
+//            for(JamaField field : fields) {
+//                if(field.type.equals("DATE")) {
+//                    System.out.println(field.getValue().getName());
+//                }
+//            }
 //            String description = jamaItem.getFieldValueByName("description").getValue().toString();
 //            updated = updated.edit().setFieldValue("description", description).commit();
 //            System.out.println(updated.getFieldValueByName("description"));
