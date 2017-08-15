@@ -1,5 +1,4 @@
 baseUrl=your jama url
 username=username
 password=password
-apiKey=apiKey
 resourceTimeOut=30
