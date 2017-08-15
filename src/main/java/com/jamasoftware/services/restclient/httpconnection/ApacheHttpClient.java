@@ -112,7 +112,7 @@ public class ApacheHttpClient implements HttpClient {
 //        System.out.println("GET: " + url);
         HttpGet getRequest = new HttpGet(url);
         if(apiKey != null)
-            getRequest.setHeader("APIKEY", apiKey);
+            getRequest.setHeader("api-key", apiKey);
         UsernamePasswordCredentials credentials = new UsernamePasswordCredentials(username, password);
         Response response = execute(getRequest, credentials);
         if (response.getStatusCode() >= 400) {
@@ -132,7 +132,7 @@ public class ApacheHttpClient implements HttpClient {
         UsernamePasswordCredentials credentials = new UsernamePasswordCredentials(username, password);
         HttpDelete deleteRequest = new HttpDelete(url);
         if(apiKey != null)
-            deleteRequest.setHeader("APIKEY", apiKey);
+            deleteRequest.setHeader("api-key", apiKey);
         Response response = execute(deleteRequest, credentials);
         if (response.getStatusCode() >= 400) {
             throw new JamaApiException(response.getStatusCode(), response.getResponse() + "\nURL: " + url);
@@ -144,7 +144,7 @@ public class ApacheHttpClient implements HttpClient {
         UsernamePasswordCredentials credentials = new UsernamePasswordCredentials(username, password);
         HttpPost postRequest = new HttpPost(url);
         if(apiKey != null)
-            postRequest.setHeader("APIKEY", apiKey);
+            postRequest.setHeader("api-key", apiKey);
         StringEntity body = new StringEntity(payload, "UTF-8");
         body.setContentType("application/json");
         postRequest.setEntity(body);
@@ -160,7 +160,7 @@ public class ApacheHttpClient implements HttpClient {
         UsernamePasswordCredentials credentials = new UsernamePasswordCredentials(username, password);
         HttpPut putRequest = new HttpPut(url);
         if(apiKey != null)
-            putRequest.setHeader("APIKEY", apiKey);
+            putRequest.setHeader("api-key", apiKey);
         StringEntity body = new StringEntity(payload, "UTF-8");
         body.setContentType("application/json");
         putRequest.setEntity(body);
@@ -176,7 +176,7 @@ public class ApacheHttpClient implements HttpClient {
         UsernamePasswordCredentials credentials = new UsernamePasswordCredentials(username, password);
         HttpPut putRequest = new HttpPut(url);
         if(apiKey != null)
-            putRequest.setHeader("APIKEY", apiKey);
+            putRequest.setHeader("api-key", apiKey);
         MultipartEntityBuilder multipartEntityBuilder = MultipartEntityBuilder.create();
         multipartEntityBuilder.addBinaryBody("file", file);
         multipartEntityBuilder.setContentType(ContentType.MULTIPART_FORM_DATA);
@@ -194,7 +194,7 @@ public class ApacheHttpClient implements HttpClient {
         HttpEntity responseEntity = null;
         HttpGet request = new HttpGet(url);
         if(apiKey != null)
-            request.setHeader("APIKEY", apiKey);
+            request.setHeader("api-key", apiKey);
         try {
             request.addHeader(getAuthenticationHeader(credentials, request));
             HttpResponse rawResponse = client.execute(request);

@@ -38,44 +38,23 @@ public class Main {
         try {
             // TODO fail good attempted to retireve item types for invalid item
 
-//            JamaConfig jamaConfig = new JamaConfig(false);
-//            jamaConfig.setApiKey("apiKey");
-//            jamaConfig.setBaseUrl("https://{baseURL}.jamacloud.com");
+            JamaConfig jamaConfig = new JamaConfig(false);
+//            jamaConfig.setApiKey("SUPER_SECRET_KEY");
+//            jamaConfig.setBaseUrl("https://{baseURL}.com");
 //            jamaConfig.setUsername("api_user");
 //            jamaConfig.setPassword("password");
 //            jamaConfig.setResourceTimeOut(6);
+//            JamaInstance jamaInstance = new JamaInstance(jamaConfig);
+//
             JamaInstance jamaInstance = new JamaInstance(new JamaConfig(true));
-            JamaItem item = jamaInstance.getItem(2254351);
+            JamaItem item = jamaInstance.getItem(569);
             JamaFieldValue desc = item.getFieldValueByName("description");
-            String newDesc = "WHEN the broadcast request is intended to deliver to the secure inbox for an online banking customer,\r\n     IF the recipient has a secure inbox,\r\n          THEN the notification will be sent to the secure inbox\r\n           ELSE a secure inbox will be created and the notification sent to the  secure inbox.\r\n     END IF\r\n\r\nWHEN the broadcast request is intended to deliver to external destinations, obtain and use email addresses in the following order of preference:\r\n   * Email address received in the data file\r\n   * Email address stored in the ANG database\r\n   * Email address from system of record (using ECN or XAID)\r\n\r\n     IF no email address can be obtained\r\n     THEN no email notification will be sent\r\n     ENDIF";
-            String updated = newDesc.replace("\r\n", "<br>").replaceAll(" ", "&nbsp;");
+            String newDesc = "New Description";
             item.edit()
-                    .setFieldValue("description", updated)
+                    .setFieldValue("description", newDesc)
                     .commit();
-            JamaItem updatedItem = jamaInstance.getItem(2254351);
+            JamaItem updatedItem = jamaInstance.getItem(569);
             System.out.println(updatedItem.toString());
-            System.out.println("here");
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

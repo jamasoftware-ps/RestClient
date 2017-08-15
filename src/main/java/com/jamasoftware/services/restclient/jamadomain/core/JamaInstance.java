@@ -32,7 +32,9 @@ public class JamaInstance implements JamaDomainObject {
                 jamaConfig.getJson(),
                 jamaConfig.getBaseUrl(),
                 jamaConfig.getUsername(),
-                jamaConfig.getPassword());
+                jamaConfig.getPassword(),
+                jamaConfig.getOpenUrlBase(),
+                jamaConfig.getApiKey());
     }
 
     private JamaDomainObject getPoolOrNull(String key) {
