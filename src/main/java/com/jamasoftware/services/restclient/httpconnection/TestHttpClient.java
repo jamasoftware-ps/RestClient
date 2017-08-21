@@ -25,7 +25,7 @@ public class TestHttpClient implements HttpClient {
     }
 
     @Override
-    public Response get(String url, String username, String password) throws RestClientException {
+    public Response get(String url, String username, String password, String apiKey) throws RestClientException {
         String key = "GET " + url;
         JSONObject responseObject = (JSONObject)responses.get(key);
         String response = ((JSONObject)responseObject.get("response")).toJSONString();
@@ -36,12 +36,12 @@ public class TestHttpClient implements HttpClient {
     }
 
     @Override
-    public Response delete(String url, String username, String password) throws RestClientException {
+    public Response delete(String url, String username, String password, String apiKey) throws RestClientException {
         return null;
     }
 
     @Override
-    public Response post(String url, String username, String password, String payload) throws RestClientException {
+    public Response post(String url, String username, String password, String apiKey, String payload) throws RestClientException {
         String key = "POST " + url;
         JSONObject payloadObject = (JSONObject)payloads.get(key);
 
@@ -62,17 +62,17 @@ public class TestHttpClient implements HttpClient {
     }
 
     @Override
-    public Response put(String url, String username, String password, String payload) throws RestClientException {
+    public Response put(String url, String username, String password, String apiKey, String payload) throws RestClientException {
         return null;
     }
 
     @Override
-    public Response putFile(String url, String username, String password, File file) throws RestClientException {
+    public Response putFile(String url, String username, String password, String apiKey, File file) throws RestClientException {
         return null;
     }
 
     @Override
-    public FileResponse getFile(String url, String username, String password) throws RestClientException {
+    public FileResponse getFile(String url, String username, String password, String apiKey) throws RestClientException {
         return null;
     }
 }

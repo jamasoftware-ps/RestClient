@@ -2,12 +2,15 @@ package com.jamasoftware.services.restclient;
 
 import com.jamasoftware.services.restclient.exception.RestClientException;
 import com.jamasoftware.services.restclient.jamadomain.core.JamaInstance;
-import com.jamasoftware.services.restclient.jamadomain.fields.*;
 import com.jamasoftware.services.restclient.jamadomain.lazyresources.JamaItem;
-import com.jamasoftware.services.restclient.jamadomain.lazyresources.JamaItemType;
 import com.jamasoftware.services.restclient.jamadomain.lazyresources.JamaProject;
+import com.jamasoftware.services.restclient.jamadomain.lazyresources.JamaRelationship;
+import com.jamasoftware.services.restclient.jamadomain.values.JamaFieldValue;
+
 import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
+import java.util.List;
+
+import static org.junit.Assert.assertTrue;
 
 public class Main {
     public static void printAll(JamaParent jamaParent, int indent) throws RestClientException {
@@ -33,8 +36,26 @@ public class Main {
 
 
         try {
-            // TODO fail good (John) attempted to retireve item types for invalid item
+            // TODO fail good attempted to retireve item types for invalid item
+
+            JamaConfig jamaConfig = new JamaConfig(false);
+//            jamaConfig.setApiKey("SUPER_SECRET_KEY");
+//            jamaConfig.setBaseUrl("https://{baseURL}.com");
+//            jamaConfig.setUsername("api_user");
+//            jamaConfig.setPassword("password");
+//            jamaConfig.setResourceTimeOut(6);
+//            JamaInstance jamaInstance = new JamaInstance(jamaConfig);
+//
             JamaInstance jamaInstance = new JamaInstance(new JamaConfig(true));
+            JamaItem item = jamaInstance.getItem(569);
+            JamaFieldValue desc = item.getFieldValueByName("description");
+            String newDesc = "New Description";
+            item.edit()
+                    .setFieldValue("description", newDesc)
+                    .commit();
+            JamaItem updatedItem = jamaInstance.getItem(569);
+            System.out.println(updatedItem.toString());
+
 
 
 
@@ -45,7 +66,6 @@ public class Main {
 //            out.println("Unicoded: " + fieldValue.getValue().toString());
 //
 //            out.println("description: " + jamaItem.getFieldValueByName("description"));
-            System.out.println("done");
 
 
 
@@ -54,13 +74,13 @@ public class Main {
 //            System.out.println(fieldValue.getValue());
 //            assertTrue(unicodeString.equals(fieldValue.getValue().toString()));
 
-            JamaItemType itemType = jamaInstance.getItemType(89009);
-            ArrayList<JamaField> fields = (ArrayList<JamaField>) itemType.getFields();
-            for(JamaField field : fields) {
-                if(field.type.equals("DATE")) {
-                    System.out.println(field.getValue().getName());
-                }
-            }
+//            JamaItemType itemType = jamaInstance.getItemType(89009);
+//            ArrayList<JamaField> fields = (ArrayList<JamaField>) itemType.getFields();
+//            for(JamaField field : fields) {
+//                if(field.type.equals("DATE")) {
+//                    System.out.println(field.getValue().getName());
+//                }
+//            }
 //            String description = jamaItem.getFieldValueByName("description").getValue().toString();
 //            updated = updated.edit().setFieldValue("description", description).commit();
 //            System.out.println(updated.getFieldValueByName("description"));
