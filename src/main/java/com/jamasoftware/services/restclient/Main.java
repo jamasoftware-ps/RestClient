@@ -6,6 +6,8 @@ import com.jamasoftware.services.restclient.jamadomain.fields.*;
 import com.jamasoftware.services.restclient.jamadomain.lazyresources.JamaItem;
 import com.jamasoftware.services.restclient.jamadomain.lazyresources.JamaItemType;
 import com.jamasoftware.services.restclient.jamadomain.lazyresources.JamaProject;
+import com.jamasoftware.services.restclient.jamadomain.values.JamaFieldValue;
+
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 
@@ -34,8 +36,25 @@ public class Main {
 
         try {
             // TODO fail good (John) attempted to retireve item types for invalid item
-            JamaInstance jamaInstance = new JamaInstance(new JamaConfig(true));
+//            JamaInstance jamaInstance = new JamaInstance(new JamaConfig(true));
 
+            JamaConfig jamaConfig = new JamaConfig(false);
+//            jamaConfig.setApiKey("SUPER_SECRET_KEY");
+//            jamaConfig.setBaseUrl("https://{baseURL}.com");
+//            jamaConfig.setUsername("api_user");
+//            jamaConfig.setPassword("password");
+//            jamaConfig.setResourceTimeOut(6);
+//            JamaInstance jamaInstance = new JamaInstance(jamaConfig);
+//
+            JamaInstance jamaInstance = new JamaInstance(new JamaConfig(true));
+            JamaItem item = jamaInstance.getItem(569);
+            JamaFieldValue desc = item.getFieldValueByName("description");
+            String newDesc = "New Description";
+            item.edit()
+                    .setFieldValue("description", newDesc)
+                    .commit();
+            JamaItem updatedItem = jamaInstance.getItem(569);
+            System.out.println(updatedItem.toString());
 
 
 //            System.out.println(new String(fieldValue.getValue().toString().getBytes("UTF-8")));
