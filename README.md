@@ -194,7 +194,7 @@ try {
 }
 ```
 
-#### Create a new Jama Relationship
+#### POST a new Jama Relationship
 ```$xslt
 try {
 
@@ -208,7 +208,7 @@ try {
 }
 ```
 
-#### Update an existing Jama Relationship
+#### PUT (update) an existing Jama Relationship
 ```$xslt
 try {
 
