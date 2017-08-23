@@ -47,7 +47,7 @@ public class SimpleJsonDeserializer {
     }
 
     private JamaDomainObject typeCheckResource(JSONObject resourceJson, JamaInstance jamaInstance) throws RestClientException {
-        System.out.println(resourceJson.toJSONString());
+//        System.out.println(resourceJson.toJSONString());
         String type = util.requestString(resourceJson, "type");
         if(type == null) {
             if(resourceJson.get("suspect") != null) {
