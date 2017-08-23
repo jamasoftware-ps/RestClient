@@ -30,7 +30,10 @@ public class StagingItem extends JamaItem implements StagingResource {
 
     protected StagingItem(JamaItem item) throws RestClientException{
         super(item);
-        super.associate(item.getId(), item.getJamaInstance());
+        if(item.getId() != null)
+            super.associate(item.getId(), item.getJamaInstance());
+        else
+            super.associate(item.getJamaInstance());
         originatingItem = item;
     }
 
