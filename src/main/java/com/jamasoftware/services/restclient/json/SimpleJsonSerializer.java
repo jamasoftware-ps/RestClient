@@ -8,6 +8,7 @@ import com.jamasoftware.services.restclient.jamadomain.core.LazyResource;
 import com.jamasoftware.services.restclient.jamadomain.TestCaseStep;
 import com.jamasoftware.services.restclient.jamadomain.lazyresources.*;
 import com.jamasoftware.services.restclient.jamadomain.stagingresources.StagingItem;
+import com.jamasoftware.services.restclient.jamadomain.stagingresources.StagingRelationship;
 import com.jamasoftware.services.restclient.jamadomain.values.*;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -30,6 +31,9 @@ public class SimpleJsonSerializer implements JsonSerializer {
         if(object instanceof StagingItem) {
             jsonObject = serializeItem((StagingItem)object, create);
         }
+        if(object instanceof StagingRelationship) {
+            jsonObject = serializeRelationship((StagingRelationship) object);
+        }
         if(jsonObject == null) {
             throw new JsonException("Unable to serialize " + object.getClass() +
                     " to JSON for " + object);
@@ -49,6 +53,7 @@ public class SimpleJsonSerializer implements JsonSerializer {
         }
         return payload;
     }
+
 
     @SuppressWarnings("unchecked")
     private JSONObject serializeItem(StagingItem jamaItem) {
@@ -79,6 +84,15 @@ public class SimpleJsonSerializer implements JsonSerializer {
         }
 
         return itemJson;
+    }
+
+    @SuppressWarnings("unchecked")
+    private JSONObject serializeRelationship(StagingRelationship stagingRelationship) {
+        JSONObject relationshipJson = new JSONObject();
+        relationshipJson.put("fromItem", stagingRelationship.getFromItem().getId());
+        relationshipJson.put("toItem", stagingRelationship.getToItem().getId());
+        relationshipJson.put("relationshipType", stagingRelationship.getRelationshipType().getId());
+        return relationshipJson;
     }
 
 

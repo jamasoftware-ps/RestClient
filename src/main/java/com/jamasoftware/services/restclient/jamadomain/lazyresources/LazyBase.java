@@ -49,6 +49,11 @@ public abstract class LazyBase {
         this.jamaInstance = jamaInstance;
     }
 
+    public void associate(JamaInstance jamaInstance) throws RestClientException {
+        this.id = null;
+        this.jamaInstance = jamaInstance;
+    }
+
     protected void checkFetched() {
         if(jamaInstance == null || lastFetch == null) {
             return;

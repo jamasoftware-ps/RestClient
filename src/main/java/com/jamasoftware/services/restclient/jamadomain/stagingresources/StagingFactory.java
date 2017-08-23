@@ -6,6 +6,7 @@ import com.jamasoftware.services.restclient.jamadomain.core.JamaInstance;
 import com.jamasoftware.services.restclient.jamadomain.lazyresources.JamaItem;
 import com.jamasoftware.services.restclient.jamadomain.lazyresources.JamaItemType;
 import com.jamasoftware.services.restclient.jamadomain.lazyresources.JamaProject;
+import com.jamasoftware.services.restclient.jamadomain.lazyresources.JamaRelationship;
 
 public class StagingFactory {
 
@@ -17,5 +18,11 @@ public class StagingFactory {
 
     protected StagingItem createStagingItem(JamaInstance jamaInstance, String name, JamaParent parent, JamaItemType itemType) throws RestClientException {
         return new StagingItem(jamaInstance, name, parent, itemType);
+    }
+
+    protected StagingRelationship createStagingRelationship() { return new StagingRelationship(); }
+
+    protected StagingRelationship createStagingRelationship(JamaRelationship jamaRelationship) throws RestClientException {
+        return new StagingRelationship(jamaRelationship);
     }
 }

@@ -6,6 +6,8 @@ import com.jamasoftware.services.restclient.jamadomain.lazyresources.*;
 import com.jamasoftware.services.restclient.exception.RestClientException;
 import com.jamasoftware.services.restclient.jamaclient.JamaClient;
 import com.jamasoftware.services.restclient.jamadomain.stagingresources.StagingItem;
+import com.jamasoftware.services.restclient.jamadomain.stagingresources.StagingRelationship;
+import com.jamasoftware.services.restclient.jamadomain.stagingresources.StagingResource;
 import com.jamasoftware.services.restclient.util.CompareUtil;
 
 import java.lang.ref.WeakReference;
@@ -203,6 +205,12 @@ public class JamaInstance implements JamaDomainObject {
         jamaItem.fetch();
         return (new StagingDispenser()).createStagingItem(jamaItem);
     }
+
+    public StagingRelationship editRelationship(JamaRelationship jamaRelationship) throws RestClientException {
+        jamaRelationship.fetch();
+        return (new StagingDispenser()).createStagingRelationship(jamaRelationship);
+    }
+
 
     public List<JamaRelationshipType> getRelationshipTypes() throws RestClientException {
         if(relationshipTypeList == null) {
