@@ -82,7 +82,8 @@ public class ApacheHttpClient implements HttpClient {
 
     private String getEntityContentOrNull(HttpEntity responseEntity) {
         try {
-            return (new BufferedReader(new InputStreamReader(responseEntity.getContent()))).readLine();
+//            return (new BufferedReader(new InputStreamReader(responseEntity.getContent()))).readLine();
+            return (new BufferedReader(new InputStreamReader(responseEntity.getContent(), "UTF-8"))).readLine();
         } catch(IOException | NullPointerException e) {
             return null;
         }
@@ -116,13 +117,6 @@ public class ApacheHttpClient implements HttpClient {
         UsernamePasswordCredentials credentials = new UsernamePasswordCredentials(username, password);
         Response response = execute(getRequest, credentials);
         if (response.getStatusCode() >= 400) {
-            try {
-                FileWriter fileWriter = new FileWriter("filesToMigrate/failedTestCases.json", true);
-                fileWriter.write(response.getStatusCode() + "\n" + response.getResponse() + "\nURL: " + url);
-                fileWriter.flush();
-            } catch (IOException e) {
-                throw new JamaApiException(response.getStatusCode(), response.getResponse() + "\nURL: " + url);
-            }
             throw new JamaApiException(response.getStatusCode(), response.getResponse() + "\nURL: " + url);
         }
         return response;
