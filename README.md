@@ -56,6 +56,8 @@ Please note that this client is distributed as-is as an example and will likely 
 - GET a relationship's upstream/downstream items
 - GET all upstream/downstream relationships of an item
 - GET upstream/downstream item of a relationship
+- PUT a relationship with updated fromItem, toItem, and/or relationshipType
+- POST a newly created relationship
 
 
 
@@ -187,6 +189,36 @@ try {
     System.out.println(jamaItem.isLocked());
     jamaItem.unlock();
     System.out.println(jamaItem.isLocked());
+} catch(RestClientException e) {
+    e.printStackTrace();
+}
+```
+
+#### POST a new Jama Relationship
+```$xslt
+try {
+
+    JamaRelationship create = new JamaRelationship();
+    create.associate(jamaInstance);
+    JamaRelationship newlycreated = create.edit().setFromItem(fromItem).setToItem(toItem).setRelationshipType(relationshipType).commit();
+    System.out.println(newlycreated.toString());
+    System.out.println("done");
+} catch(RestClientException e) {
+    e.printStackTrace();
+}
+```
+
+#### PUT (update) an existing Jama Relationship
+```$xslt
+try {
+
+    JamaItem fromItem = jamaInstance.getItem(2209261);
+    JamaItem toItem = jamaInstance.getItem(2254438);
+
+    JamaRelationshipType relationshipType = jamaInstance.getRelationshipTypes().get(0);
+    JamaRelationship relationship = fromItem.getDownstreamRelationships().get(0);
+    JamaRelationship updatedRelationship = relationship.edit().setFromItem(fromItem).setToItem(toItem).setRelationshipType(relationshipType).commit();
+    System.out.println(updatedRelationship);
 } catch(RestClientException e) {
     e.printStackTrace();
 }
