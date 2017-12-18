@@ -86,7 +86,16 @@ public class JamaClient {
 //        System.out.println(json.serialize(payload));
         putRaw(baseUrl + resource, json.serializeEdited(payload));
     }
-    public Response postRaw(String url, String payload) throws RestClientException {
+    
+	public void delete(String resource) throws RestClientException {
+		deleteRaw(baseUrl + resource);
+	}
+    
+    private void deleteRaw(String url) throws RestClientException {
+		httpClient.delete(url, username, password, apiKey);
+	}
+
+	public Response postRaw(String url, String payload) throws RestClientException {
         return httpClient.post(url, username, password, apiKey, payload);
 //        System.out.println(response.getResponse());
     }

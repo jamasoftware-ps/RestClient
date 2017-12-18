@@ -181,6 +181,10 @@ public class JamaInstance implements JamaDomainObject {
     public StagingItem createItem(String name, JamaParent parent, JamaItemType itemType) throws RestClientException{
         return (new StagingDispenser()).createStagingItem(this, name, parent, itemType);
     }
+    
+    public void deleteItem(LazyResource resource) throws RestClientException {
+    	jamaClient.delete(resource.getResourceUrl());
+    }
 
     protected void put(LazyResource lazyResource) throws RestClientException {
         jamaClient.put(lazyResource.getEditUrl(), lazyResource);
