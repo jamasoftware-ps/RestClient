@@ -32,6 +32,11 @@ public class StagingRelationship extends JamaRelationship implements StagingReso
         return "relationships/";
     }
 
+    @Override
+    protected String getDeleteUrl() throws RestClientException {
+        return "relationships/" + getId();
+    }
+
     private void testValidity() throws RestClientException {
         if(invalid) {
             throw new RestClientException("Staging relationship may not be accessed after commit is called.");
@@ -93,6 +98,14 @@ public class StagingRelationship extends JamaRelationship implements StagingReso
         put();
         invalidate(originatingRelationship);
         return originatingRelationship;
+    }
+
+    public void delete() throws RestClientException {
+        testValidity();
+        invalid = true; // never to be unset...
+        if (getId() != null) {
+            deleteResource();
+        }
     }
 
     @Override

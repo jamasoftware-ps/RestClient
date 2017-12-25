@@ -25,6 +25,10 @@ public abstract class LazyResource extends LazyBase implements JamaDomainObject 
         jamaInstance.put(this);
     }
 
+    protected void deleteResource() throws RestClientException {
+        jamaInstance.delete(this);
+    }
+
     protected LazyResource post(Class clazz, JamaInstance jamaInstance) throws RestClientException {
         return jamaInstance.post(this, clazz);
     }
@@ -40,4 +44,8 @@ public abstract class LazyResource extends LazyBase implements JamaDomainObject 
     protected String getCreateUrl() throws RestClientException {
         throw new RestClientException("Unable to create a new " + this.getClass());
     }
+
+    protected String getDeleteUrl() throws RestClientException {
+        throw new RestClientException("Unable to delete " + this.getClass());
+    };
 }

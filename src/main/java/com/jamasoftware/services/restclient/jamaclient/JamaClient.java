@@ -86,6 +86,10 @@ public class JamaClient {
         httpClient.delete(url, username, password, apiKey);
     }
 
+    public void delete(String resource) throws RestClientException {
+        deleteRaw(baseUrl + resource);
+    }
+
     public void put(String resource, LazyResource payload) throws RestClientException {
 //        System.out.println(json.serialize(payload));
         putRaw(baseUrl + resource, json.serializeEdited(payload));

@@ -198,6 +198,10 @@ public class JamaInstance implements JamaDomainObject {
         jamaClient.put(lazyResource.getEditUrl(), lazyResource);
     }
 
+    protected void delete(LazyResource lazyResource) throws RestClientException {
+        jamaClient.delete(lazyResource.getDeleteUrl());
+    }
+
     protected LazyResource post(LazyResource lazyResource, Class clazz) throws RestClientException {
         Integer resourceId = jamaClient.post(lazyResource.getCreateUrl(), lazyResource);
         if(resourceId == null) {
