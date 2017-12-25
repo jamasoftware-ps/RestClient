@@ -47,14 +47,20 @@ public class Main {
 //            JamaInstance jamaInstance = new JamaInstance(jamaConfig);
 
 
-            // Update Relationship
-            JamaItem fromItem = jamaInstance.getItem(2209261);
-            JamaItem toItem = jamaInstance.getItem(2254438);
 
-            JamaRelationshipType relationshipType = jamaInstance.getRelationshipTypes().get(0);
-            JamaRelationship newRelationship = fromItem.getDownstreamRelationships().get(0);
-            JamaRelationship updatedRelationship = newRelationship.edit().setFromItem(fromItem).setToItem(toItem).setRelationshipType(relationshipType).commit();
-            System.out.println(updatedRelationship);
+            JamaItem toDelete = jamaInstance.getItem(2281092);
+            jamaInstance.deleteItem(2281092);
+            jamaInstance.deleteRelationship(293909);
+
+
+
+            // Update Relationship
+//            JamaItem fromItem = jamaInstance.getItem(2209261);
+//            JamaItem toItem = jamaInstance.getItem(2254438);
+//            JamaRelationshipType relationshipType = jamaInstance.getRelationshipTypes().get(0);
+//            JamaRelationship newRelationship = fromItem.getDownstreamRelationships().get(0);
+//            JamaRelationship updatedRelationship = newRelationship.edit().setFromItem(fromItem).setToItem(toItem).setRelationshipType(relationshipType).commit();
+//            System.out.println(updatedRelationship);
 
 
 
@@ -62,12 +68,12 @@ public class Main {
 
 
             // Create New Relationship
-            JamaRelationship create = new JamaRelationship();
-            create.associate(jamaInstance);
-            JamaRelationship newlycreated = create.edit().setFromItem(fromItem).setToItem(toItem).setRelationshipType(relationshipType).commit();
-            System.out.println(newlycreated.toString());
+//            JamaRelationship create = new JamaRelationship();
+//            create.associate(jamaInstance);
+//            JamaRelationship newlycreated = create.edit().setFromItem(fromItem).setToItem(toItem).setRelationshipType(relationshipType).commit();
+//            System.out.println(newlycreated.toString());
             System.out.println("done");
-
+//
 
 
 
@@ -87,13 +93,13 @@ public class Main {
 //            System.out.println(fieldValue.getValue());
 //            assertTrue(unicodeString.equals(fieldValue.getValue().toString()));
 
-            JamaItemType itemType = jamaInstance.getItemType(89009);
-            ArrayList<JamaField> fields = (ArrayList<JamaField>) itemType.getFields();
-            for(JamaField field : fields) {
-                if(field.type.equals("DATE")) {
-                    System.out.println(field.getValue().getName());
-                }
-            }
+//            JamaItemType itemType = jamaInstance.getItemType(89009);
+//            ArrayList<JamaField> fields = (ArrayList<JamaField>) itemType.getFields();
+//            for(JamaField field : fields) {
+//                if(field.type.equals("DATE")) {
+//                    System.out.println(field.getValue().getName());
+//                }
+//            }
 //            String description = jamaItem.getFieldValueByName("description").getValue().toString();
 //            updated = updated.edit().setFieldValue("description", description).commit();
 //            System.out.println(updated.getFieldValueByName("description"));

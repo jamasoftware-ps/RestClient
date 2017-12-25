@@ -139,6 +139,18 @@ public class JamaInstance implements JamaDomainObject {
         return item;
     }
 
+    public void deleteItem(int id) throws RestClientException {
+        deleteRawData("items/" + id);
+    }
+
+    public void deleteRelationship(int id) throws RestClientException {
+        deleteRawData("relationships/" + id);
+    }
+
+    void deleteRawData(String resource) throws RestClientException {
+        jamaClient.deleteRaw(jamaConfig.getBaseUrl() + resource);
+    }
+
     public void ping() throws RestClientException {
         jamaClient.ping();
     }
