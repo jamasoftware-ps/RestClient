@@ -47,9 +47,11 @@ Please note that this client is distributed as-is as an example and will likely 
 - GET/PUT/DELETE item locks
 - Change an item's location 
 - GET all downstream/upstream related items
+- DELETE an item using its ID
 
 #####Relationship Types
 - GET all relationship types in a project
+- DELETE a relationship using its ID
 
 #####Relationships
 - GET all relationships in a Jama project 
