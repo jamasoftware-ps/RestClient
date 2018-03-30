@@ -47,15 +47,23 @@ public class Main {
 //            JamaInstance jamaInstance = new JamaInstance(jamaConfig);
 
 
-            JamaItem fromItem = jamaInstance.getItem(2281073);
+//            JamaItem fromItem = jamaInstance.getItem(2281073);
 
-            JamaItem toDelete = jamaInstance.getItem(2281076);
-            toDelete.edit().delete();  // OR
-            jamaInstance.deleteItem(2281075);
+//            JamaItem toDelete = jamaInstance.getItem(2281076);
+//            toDelete.edit().delete();  // OR
+//            jamaInstance.deleteItem(2281075);
+//
+//            JamaRelationship newRelationship = fromItem.getDownstreamRelationships().get(0);
+//            newRelationship.edit().delete(); // OR
+//            jamaInstance.deleteRelationship(newRelationship.getId());
 
-            JamaRelationship newRelationship = fromItem.getDownstreamRelationships().get(0);
-            newRelationship.edit().delete(); // OR
-            jamaInstance.deleteRelationship(newRelationship.getId());
+
+
+            JamaRelationship relationship = jamaInstance.getRelationship(294902);
+            JamaItem fromItem = relationship.getFromItem();
+            JamaItem toItem = relationship.getToItem();
+            JamaRelationshipType relationshipType = relationship.getRelationshipType();
+            System.out.println("relationsghip:" + relationship.toString() );
 
 
 

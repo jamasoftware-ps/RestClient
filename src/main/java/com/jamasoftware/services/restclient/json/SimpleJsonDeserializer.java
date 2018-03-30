@@ -354,6 +354,9 @@ public class SimpleJsonDeserializer {
     private List<TestCaseStep> getStepList(JSONObject fields, String fieldName) {
         List<TestCaseStep> stepList = new ArrayList<>();
         JSONArray steps = (JSONArray)fields.get(fieldName);
+        if(steps == null) {
+            return stepList;
+        }
         for(Object s : steps) {
             TestCaseStep step = new TestCaseStep();
             JSONObject jsonStep = (JSONObject) s;

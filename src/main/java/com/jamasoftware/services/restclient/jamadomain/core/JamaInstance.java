@@ -134,9 +134,29 @@ public class JamaInstance implements JamaDomainObject {
     }
 
     public JamaItem getItem(int id) throws RestClientException {
-        JamaItem item = new JamaItem();
-        item.associate(id, this);
+        String key = JamaItem.class.getName() + id;
+        JamaItem item = (JamaItem) getPoolOrNull(key);
+        if(item != null) {
+            item.fetch();
+        } else {
+            item = new JamaItem();
+            item.associate(id, this);
+            resourcePool.put(key, new WeakReference<>((JamaDomainObject)item));
+        }
         return item;
+    }
+
+    public JamaRelationship getRelationship(int id) throws RestClientException {
+        String key = JamaRelationship.class.getName() + id;
+        JamaRelationship relationship = (JamaRelationship) getPoolOrNull(key);
+        if(relationship != null) {
+            relationship.fetch();
+        } else {
+            relationship = new JamaRelationship();
+            relationship.associate(id, this);
+            resourcePool.put(key, new WeakReference<>((JamaDomainObject)relationship));
+        }
+        return relationship;
     }
 
     public void deleteItem(int id) throws RestClientException {
