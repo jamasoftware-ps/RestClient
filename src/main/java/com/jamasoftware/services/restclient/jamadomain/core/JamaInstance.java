@@ -6,6 +6,8 @@ import com.jamasoftware.services.restclient.jamadomain.lazyresources.*;
 import com.jamasoftware.services.restclient.exception.RestClientException;
 import com.jamasoftware.services.restclient.jamaclient.JamaClient;
 import com.jamasoftware.services.restclient.jamadomain.stagingresources.StagingItem;
+import com.jamasoftware.services.restclient.jamadomain.stagingresources.StagingRelationship;
+import com.jamasoftware.services.restclient.jamadomain.stagingresources.StagingResource;
 import com.jamasoftware.services.restclient.util.CompareUtil;
 
 import java.lang.ref.WeakReference;
@@ -32,7 +34,9 @@ public class JamaInstance implements JamaDomainObject {
                 jamaConfig.getJson(),
                 jamaConfig.getBaseUrl(),
                 jamaConfig.getUsername(),
-                jamaConfig.getPassword());
+                jamaConfig.getPassword(),
+                jamaConfig.getOpenUrlBase(),
+                jamaConfig.getApiKey());
     }
 
     private JamaDomainObject getPoolOrNull(String key) {
@@ -135,10 +139,16 @@ public class JamaInstance implements JamaDomainObject {
         return item;
     }
 
-    public JamaRelationship getRelationship(int id) throws RestClientException {
-        JamaRelationship jamaRelationship = new JamaRelationship();
-        jamaRelationship.associate(id, this);
-        return jamaRelationship;
+    public void deleteItem(int id) throws RestClientException {
+        deleteRawData("items/" + id);
+    }
+
+    public void deleteRelationship(int id) throws RestClientException {
+        deleteRawData("relationships/" + id);
+    }
+
+    void deleteRawData(String resource) throws RestClientException {
+        jamaClient.deleteRaw(jamaConfig.getBaseUrl() + resource);
     }
 
     public void ping() throws RestClientException {
@@ -188,6 +198,10 @@ public class JamaInstance implements JamaDomainObject {
         jamaClient.put(lazyResource.getEditUrl(), lazyResource);
     }
 
+    protected void delete(LazyResource lazyResource) throws RestClientException {
+        jamaClient.delete(lazyResource.getDeleteUrl());
+    }
+
     protected LazyResource post(LazyResource lazyResource, Class clazz) throws RestClientException {
         Integer resourceId = jamaClient.post(lazyResource.getCreateUrl(), lazyResource);
         if(resourceId == null) {
@@ -207,6 +221,12 @@ public class JamaInstance implements JamaDomainObject {
         jamaItem.fetch();
         return (new StagingDispenser()).createStagingItem(jamaItem);
     }
+
+    public StagingRelationship editRelationship(JamaRelationship jamaRelationship) throws RestClientException {
+        jamaRelationship.fetch();
+        return (new StagingDispenser()).createStagingRelationship(jamaRelationship);
+    }
+
 
     public List<JamaRelationshipType> getRelationshipTypes() throws RestClientException {
         if(relationshipTypeList == null) {

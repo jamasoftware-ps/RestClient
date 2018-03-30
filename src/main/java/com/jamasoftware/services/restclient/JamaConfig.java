@@ -18,6 +18,7 @@ public class JamaConfig {
     private HttpClient httpClient;
     private Integer resourceTimeOut;    //value is seconds
     private String openUrlBase;
+    private String apiKey = null;
 
     public JamaConfig() {
         json = new SimpleJsonHandler();
@@ -43,6 +44,7 @@ public class JamaConfig {
             password = properties.getProperty("password");
             String timeOutString = properties.getProperty("resourceTimeOut");
             setOpenUrlBase(properties.getProperty("baseUrl"));
+            apiKey = properties.getProperty("apiKey");
             resourceTimeOut = Integer.valueOf(timeOutString);
         } catch(Exception e) {
             e.printStackTrace();
@@ -65,6 +67,7 @@ public class JamaConfig {
             username = properties.getProperty("username");
             password = properties.getProperty("password");
             setOpenUrlBase(properties.getProperty("baseUrl"));
+            apiKey = properties.getProperty("apiKey");
             String timeOutString = properties.getProperty("resourceTimeOut");
             resourceTimeOut = Integer.valueOf(timeOutString);
         } catch(Exception e) {
@@ -162,5 +165,13 @@ public class JamaConfig {
 
     public String getOpenUrlBase() {
         return this.openUrlBase;
+    }
+
+    public void setApiKey(String apiKey) {
+        this.apiKey = apiKey;
+    }
+
+    public String getApiKey() {
+        return this.apiKey;
     }
 }

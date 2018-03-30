@@ -30,7 +30,10 @@ public class StagingItem extends JamaItem implements StagingResource {
 
     protected StagingItem(JamaItem item) throws RestClientException{
         super(item);
-        super.associate(item.getId(), item.getJamaInstance());
+        if(item.getId() != null)
+            super.associate(item.getId(), item.getJamaInstance());
+        else
+            super.associate(item.getJamaInstance());
         originatingItem = item;
     }
 
@@ -144,6 +147,14 @@ public class StagingItem extends JamaItem implements StagingResource {
         }
     }
 
+    public void delete() throws RestClientException {
+        testValidity();
+        invalid = true; // never to be unset...
+        if (getId() != null) {
+            deleteResource();
+        }
+    }
+
     private JamaItem postCommit() throws RestClientException {
         return (JamaItem)post(JamaItem.class);
     }
@@ -156,6 +167,11 @@ public class StagingItem extends JamaItem implements StagingResource {
 
     @Override
     protected String getEditUrl() throws RestClientException {
+        return "items/" + getId();
+    }
+
+    @Override
+    protected String getDeleteUrl() throws RestClientException {
         return "items/" + getId();
     }
 

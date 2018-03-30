@@ -3,10 +3,8 @@ package com.jamasoftware.services.restclient;
 import com.jamasoftware.services.restclient.exception.RestClientException;
 import com.jamasoftware.services.restclient.jamadomain.core.JamaInstance;
 import com.jamasoftware.services.restclient.jamadomain.fields.*;
-import com.jamasoftware.services.restclient.jamadomain.lazyresources.JamaItem;
-import com.jamasoftware.services.restclient.jamadomain.lazyresources.JamaItemType;
-import com.jamasoftware.services.restclient.jamadomain.lazyresources.JamaProject;
-import com.jamasoftware.services.restclient.jamadomain.lazyresources.JamaRelationship;
+import com.jamasoftware.services.restclient.jamadomain.lazyresources.*;
+import com.jamasoftware.services.restclient.jamadomain.values.JamaFieldValue;
 
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
@@ -31,43 +29,80 @@ public class Main {
 
     @SuppressWarnings("unchecked")
     public static void main(String[] ignore) throws UnsupportedEncodingException, RestClientException {
+
+
+
         try {
             // TODO fail good (John) attempted to retireve item types for invalid item
-            // create a config object, and pass it into jama instance
-            JamaConfig jamaConfig = new JamaConfig();
-            jamaConfig.setBaseUrl("https://rickson-test.jamacloud.com");
-            jamaConfig.setUsername("tester");
-            jamaConfig.setPassword("password");
-            JamaInstance jamaInstance = new JamaInstance(jamaConfig);
+            JamaInstance jamaInstance = new JamaInstance(new JamaConfig(true));
 
 
-            // Else pass in new jamaconfig with true value and it will read in properties file
-            JamaInstance jamaInstance2 = new JamaInstance(new JamaConfig(true));
+            // API Header for JamaConfig object
+//            JamaConfig jamaConfig = new JamaConfig(false);
+//            jamaConfig.setApiKey("SUPER_SECRET_KEY");
+//            jamaConfig.setBaseUrl("https://{baseURL}.com");
+//            jamaConfig.setUsername("api_user");
+//            jamaConfig.setPassword("password");
+//            jamaConfig.setResourceTimeOut(6);
+//            JamaInstance jamaInstance = new JamaInstance(jamaConfig);
 
+
+            JamaItem fromItem = jamaInstance.getItem(2281073);
+
+            JamaItem toDelete = jamaInstance.getItem(2281076);
+            toDelete.edit().delete();  // OR
+            jamaInstance.deleteItem(2281075);
+
+            JamaRelationship newRelationship = fromItem.getDownstreamRelationships().get(0);
+            newRelationship.edit().delete(); // OR
+            jamaInstance.deleteRelationship(newRelationship.getId());
+
+
+
+            // Update Relationship
+//            JamaRelationshipType relationshipType = jamaInstance.getRelationshipTypes().get(0);
+//            JamaRelationship newRelationship = fromItem.getDownstreamRelationships().get(0);
+//            JamaRelationship updatedRelationship = newRelationship.edit().setFromItem(fromItem).setToItem(toItem).setRelationshipType(relationshipType).commit();
+//            System.out.println(updatedRelationship);
+
+
+
+
+
+
+            // Create New Relationship
+//            JamaRelationship create = new JamaRelationship();
+//            create.associate(jamaInstance);
+//            JamaRelationship newlycreated = create.edit().setFromItem(fromItem).setToItem(toItem).setRelationshipType(relationshipType).commit();
+//            System.out.println(newlycreated.toString());
             System.out.println("done");
-
-            JamaItem jamaItem = jamaInstance.getItem(2186387);
-            jamaItem.edit().setName("new Name").commit();
-
-
-//            JamaRelationship jamaRelationship = jamaInstance.getRelationship(294902);
-//            jamaRelationship.edit().setFromItem(2275422).commit();
+//
 
 
 
 
-//            itemA.edit().setFieldValue("description", unicodeString).commit();
+
+
+
+
+
+
+
+
+
+
+            //            itemA.edit().setFieldValue("description", unicodeString).commit();
 //            JamaFieldValue fieldValue = itemA.getFieldValueByName("description");
 //            System.out.println(fieldValue.getValue());
 //            assertTrue(unicodeString.equals(fieldValue.getValue().toString()));
 
-            JamaItemType itemType = jamaInstance.getItemType(89009);
-            ArrayList<JamaField> fields = (ArrayList<JamaField>) itemType.getFields();
-            for(JamaField field : fields) {
-                if(field.type.equals("DATE")) {
-                    System.out.println(field.getValue().getName());
-                }
-            }
+//            JamaItemType itemType = jamaInstance.getItemType(89009);
+//            ArrayList<JamaField> fields = (ArrayList<JamaField>) itemType.getFields();
+//            for(JamaField field : fields) {
+//                if(field.type.equals("DATE")) {
+//                    System.out.println(field.getValue().getName());
+//                }
+//            }
 //            String description = jamaItem.getFieldValueByName("description").getValue().toString();
 //            updated = updated.edit().setFieldValue("description", description).commit();
 //            System.out.println(updated.getFieldValueByName("description"));

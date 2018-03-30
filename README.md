@@ -23,6 +23,7 @@ Please note that this client is distributed as-is as an example and will likely 
   - ```password```
   - ```base_url```
   - ```resourceTimeOut```     - refresh time for items
+  - ```apiKey```              - (optional) apiKey will be injected into requests' headers
   
 3. Change the name of the `jama.properties.dist`  to  `jama.properties`
 
@@ -30,31 +31,35 @@ Please note that this client is distributed as-is as an example and will likely 
 
 ### REST Calls Supported in the Client
 
-#####Projects: 
+##### Projects: 
 - GET all projects 
 - GET project by ID
 
-#####Item Types
+##### Item Types
 - GET all Item Types in a Jama instance 
 - GET an Item Type by id
 - GET an Item Type by name
 - GET an Item Type's image
 
-#####Items
+##### Items
 - GET all items by project 
 - PUT/POST items by project
 - GET/PUT/DELETE item locks
 - Change an item's location 
 - GET all downstream/upstream related items
+- DELETE an item using its ID
 
-#####Relationship Types
+##### Relationship Types
 - GET all relationship types in a project
 
-#####Relationships
+##### Relationships
 - GET all relationships in a Jama project 
 - GET a relationship's upstream/downstream items
 - GET all upstream/downstream relationships of an item
 - GET upstream/downstream item of a relationship
+- DELETE a relationship using its ID
+- PUT a relationship with updated fromItem, toItem, and/or relationshipType
+- POST a newly created relationship
 
 
 
@@ -186,6 +191,36 @@ try {
     System.out.println(jamaItem.isLocked());
     jamaItem.unlock();
     System.out.println(jamaItem.isLocked());
+} catch(RestClientException e) {
+    e.printStackTrace();
+}
+```
+
+#### POST a new Jama Relationship
+```$xslt
+try {
+
+    JamaRelationship create = new JamaRelationship();
+    create.associate(jamaInstance);
+    JamaRelationship newlycreated = create.edit().setFromItem(fromItem).setToItem(toItem).setRelationshipType(relationshipType).commit();
+    System.out.println(newlycreated.toString());
+    System.out.println("done");
+} catch(RestClientException e) {
+    e.printStackTrace();
+}
+```
+
+#### PUT (update) an existing Jama Relationship
+```$xslt
+try {
+
+    JamaItem fromItem = jamaInstance.getItem(2209261);
+    JamaItem toItem = jamaInstance.getItem(2254438);
+
+    JamaRelationshipType relationshipType = jamaInstance.getRelationshipTypes().get(0);
+    JamaRelationship relationship = fromItem.getDownstreamRelationships().get(0);
+    JamaRelationship updatedRelationship = relationship.edit().setFromItem(fromItem).setToItem(toItem).setRelationshipType(relationshipType).commit();
+    System.out.println(updatedRelationship);
 } catch(RestClientException e) {
     e.printStackTrace();
 }
