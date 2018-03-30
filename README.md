@@ -31,17 +31,17 @@ Please note that this client is distributed as-is as an example and will likely 
 
 ### REST Calls Supported in the Client
 
-#####Projects: 
+##### Projects: 
 - GET all projects 
 - GET project by ID
 
-#####Item Types
+##### Item Types
 - GET all Item Types in a Jama instance 
 - GET an Item Type by id
 - GET an Item Type by name
 - GET an Item Type's image
 
-#####Items
+##### Items
 - GET all items by project 
 - PUT/POST items by project
 - GET/PUT/DELETE item locks
@@ -49,15 +49,15 @@ Please note that this client is distributed as-is as an example and will likely 
 - GET all downstream/upstream related items
 - DELETE an item using its ID
 
-#####Relationship Types
+##### Relationship Types
 - GET all relationship types in a project
-- DELETE a relationship using its ID
 
-#####Relationships
+##### Relationships
 - GET all relationships in a Jama project 
 - GET a relationship's upstream/downstream items
 - GET all upstream/downstream relationships of an item
 - GET upstream/downstream item of a relationship
+- DELETE a relationship using its ID
 - PUT a relationship with updated fromItem, toItem, and/or relationshipType
 - POST a newly created relationship
 
