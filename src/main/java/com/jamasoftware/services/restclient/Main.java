@@ -6,6 +6,8 @@ import com.jamasoftware.services.restclient.jamadomain.fields.*;
 import com.jamasoftware.services.restclient.jamadomain.lazyresources.JamaItem;
 import com.jamasoftware.services.restclient.jamadomain.lazyresources.JamaItemType;
 import com.jamasoftware.services.restclient.jamadomain.lazyresources.JamaProject;
+import com.jamasoftware.services.restclient.jamadomain.lazyresources.JamaRelationship;
+
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 
@@ -29,23 +31,28 @@ public class Main {
 
     @SuppressWarnings("unchecked")
     public static void main(String[] ignore) throws UnsupportedEncodingException, RestClientException {
-
-
-
         try {
             // TODO fail good (John) attempted to retireve item types for invalid item
-            JamaInstance jamaInstance = new JamaInstance(new JamaConfig(true));
+            // create a config object, and pass it into jama instance
+            JamaConfig jamaConfig = new JamaConfig();
+            jamaConfig.setBaseUrl("https://rickson-test.jamacloud.com");
+            jamaConfig.setUsername("tester");
+            jamaConfig.setPassword("password");
+            JamaInstance jamaInstance = new JamaInstance(jamaConfig);
 
 
+            // Else pass in new jamaconfig with true value and it will read in properties file
+            JamaInstance jamaInstance2 = new JamaInstance(new JamaConfig(true));
 
-//            System.out.println(new String(fieldValue.getValue().toString().getBytes("UTF-8")));
-//            assertTrue(unicodeString.equals(fieldValue.getValue().toString()));
-//            PrintStream out = new PrintStream(System.out, true, "UTF-8");
-//
-//            out.println("Unicoded: " + fieldValue.getValue().toString());
-//
-//            out.println("description: " + jamaItem.getFieldValueByName("description"));
             System.out.println("done");
+
+            JamaItem jamaItem = jamaInstance.getItem(2186387);
+            jamaItem.edit().setName("new Name").commit();
+
+
+//            JamaRelationship jamaRelationship = jamaInstance.getRelationship(294902);
+//            jamaRelationship.edit().setFromItem(2275422).commit();
+
 
 
 

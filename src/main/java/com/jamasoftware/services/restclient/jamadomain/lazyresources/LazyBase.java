@@ -6,6 +6,9 @@ import com.jamasoftware.services.restclient.jamadomain.core.JamaDomainObject;
 import com.jamasoftware.services.restclient.jamadomain.core.JamaInstance;
 import com.jamasoftware.services.restclient.jamadomain.stagingresources.StagingResource;
 
+
+
+// every supported endpoint in Jama (items; projects; relationships; testPlans;) should have a lazyResource associated with it
 public abstract class LazyBase {
     protected JamaInstance jamaInstance;
     protected boolean shouldFetch = true;
@@ -49,6 +52,7 @@ public abstract class LazyBase {
         this.jamaInstance = jamaInstance;
     }
 
+    // this function just sets the shouldFetch variable to let us know if the item has timed out and needs to be fetched from the server
     protected void checkFetched() {
         if(jamaInstance == null || lastFetch == null) {
             return;

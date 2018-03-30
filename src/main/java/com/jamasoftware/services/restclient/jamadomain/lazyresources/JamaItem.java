@@ -294,6 +294,8 @@ public class JamaItem extends LazyResource implements JamaParent{
         return getItemType().getImage();
     }
 
+
+    // returns a stagting item after removing the item from the jama instance pool of Ids
     public StagingItem edit() throws RestClientException{
         return jamaInstance.editItem(this);
     }

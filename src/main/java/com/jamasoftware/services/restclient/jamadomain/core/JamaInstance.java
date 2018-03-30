@@ -135,6 +135,12 @@ public class JamaInstance implements JamaDomainObject {
         return item;
     }
 
+    public JamaRelationship getRelationship(int id) throws RestClientException {
+        JamaRelationship jamaRelationship = new JamaRelationship();
+        jamaRelationship.associate(id, this);
+        return jamaRelationship;
+    }
+
     public void ping() throws RestClientException {
         jamaClient.ping();
     }
