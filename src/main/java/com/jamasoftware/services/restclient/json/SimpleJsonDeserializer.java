@@ -533,6 +533,7 @@ public class SimpleJsonDeserializer {
             case "TIME":
                 field = new TimeField(type);
                 break;
+            case "DOCUMENT_TYPE":
             case "DOCUMENT_TYPE_ITEM_LOOKUP":
             case "DOCUMENT_TYPE_CATEGORY_ITEM_LOOKUP":
                 return null;
