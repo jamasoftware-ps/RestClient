@@ -36,7 +36,11 @@ public class ChildrenList extends LazyCollection {
 
     public List<JamaItem> getChildren() {
         fetch();
-        return Collections.unmodifiableList(children);
+        /*
+         * Problems have been reported that children is null at this stage. The reasons are not fully clear, an
+         * exception should have been thrown in that case. Anyway, fix is to return an empty list instead.
+         */
+        return Collections.unmodifiableList(children != null ? children : Collections.emptyList());
     }
 
     public JamaParent getParent() {
