@@ -519,7 +519,7 @@ public class SimpleJsonDeserializer {
             case "STRING":
                 field = new TextField(type);
                 break;
-            case "TEST_RUN_RESULTS":
+            case "TEST_RUN_RESULTS": // fixes #27
             //todo: I'm betting that these are the same
             case "TEST_RUN_STATUS":
             case "TEST_CASE_STATUS":

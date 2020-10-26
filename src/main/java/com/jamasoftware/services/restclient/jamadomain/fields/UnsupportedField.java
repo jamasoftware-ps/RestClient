@@ -3,7 +3,7 @@ package com.jamasoftware.services.restclient.jamadomain.fields;
 import com.jamasoftware.services.restclient.jamadomain.values.UserFieldValue;
 
 /**
- * Jama Connect is a dynamic Cloud service, new Field types are potentially introduced. To copy with unknown and thus
+ * Jama Connect is a dynamic Cloud service, new Field types are potentially introduced. To cope with unknown and thus
  * unsupported field types, we introduce this {@link JamaField}.
  *
  * @author Jan mauersberger
