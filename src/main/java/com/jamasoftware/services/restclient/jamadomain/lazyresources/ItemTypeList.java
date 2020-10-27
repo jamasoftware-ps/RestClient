@@ -33,6 +33,10 @@ public class ItemTypeList extends LazyCollection {
 
     public List<JamaItemType> getItemTypes() {
         fetch();
-        return Collections.unmodifiableList(itemTypeList);
+        /*
+         * Problems have been reported that itemTypeList is null at this stage. The reasons are not fully clear, an
+         * exception should have been thrown in that case. Anyway, fix is to return an empty list instead.
+         */
+        return Collections.unmodifiableList(itemTypeList != null ? itemTypeList : Collections.emptyList());
     }
 }

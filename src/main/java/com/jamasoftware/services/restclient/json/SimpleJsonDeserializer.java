@@ -519,6 +519,7 @@ public class SimpleJsonDeserializer {
             case "STRING":
                 field = new TextField(type);
                 break;
+            case "TEST_RUN_RESULTS": // fixes #27
             //todo: I'm betting that these are the same
             case "TEST_RUN_STATUS":
             case "TEST_CASE_STATUS":
@@ -544,9 +545,16 @@ public class SimpleJsonDeserializer {
                 field = new CalculatedField(type);
                 break;
         }
-        if(field == null) {
-            throw new JsonException("JamaField type not recognized: " + type);
-        }
+		if (field == null) {
+			//            throw new JsonException("JamaField type not recognized: " + type);
+			/*
+			 * Throwing an exception at this stage will let any attempt to connect to Jama and the Jama type system
+			 * fail, even if this specific type is not used later or was not available when this library was packaged
+			 * and deployed. As a consequence, we introduce a generic placeholder that let this type sync pass, but will
+			 * fail later in time when this field type is really used.
+			 */
+			field = new UnsupportedField(type);
+		}
         field.setId(util.requireInt(fieldJson, "id"));
         field.setName(util.requireString(fieldJson, "name"));
         field.setLabel(util.requireString(fieldJson, "label"));
